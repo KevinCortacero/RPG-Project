@@ -2,8 +2,6 @@ package interface_Graphique_Créateur;
 
 import java.awt.Color;
 import java.awt.Toolkit;
-
-import javax.swing.BorderFactory;
 import javax.swing.JPanel;
 
 @SuppressWarnings("serial")
