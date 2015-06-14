@@ -8,6 +8,8 @@ import javax.swing.JLabel;
 import javax.swing.JPanel;
 import javax.swing.JTree;
 
+import jeu.Héros;
+
 @SuppressWarnings("serial")
 public class PanelGestionCréateur extends JPanel{
 
@@ -22,7 +24,8 @@ public class PanelGestionCréateur extends JPanel{
 		this.titre.setFont(new Font("Arial", 18,18));
 		this.add(this.titre);
 		
-		// List<Héros> héros = new ArrayList<Héros>()
-		this.add(new JTree());
+		Object[] héros = new Héros[10];
+		héros[0]  = new Héros(0,0,0);
+		this.add(new JTree(héros));
 	}
 }
