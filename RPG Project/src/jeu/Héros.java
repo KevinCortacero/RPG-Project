@@ -7,18 +7,18 @@ public class Héros {
 	private int vie;
 	private int x;
 	private int o;
-	private List<Robot> listeRobots;
+	private List<Carte> listeRobots;
 	
 	
 	public Héros(int vie, int x, int o){
 		this.vie = vie;
 		this.x = x;
 		this.o = o;
-		this.listeRobots = new ArrayList<Robot>();
-		this.listeRobots.add(new Robot(1));
-		this.listeRobots.add(new Robot(2));
-		this.listeRobots.add(new Robot(3));
-		this.listeRobots.add(new Robot(4));
+		this.listeRobots = new ArrayList<Carte>();
+		this.listeRobots.add(new Carte(1));
+		this.listeRobots.add(new Carte(2));
+		this.listeRobots.add(new Carte(3));
+		this.listeRobots.add(new Carte(4));
 	}
 	
 	public int getVie(){
@@ -29,7 +29,7 @@ public class Héros {
 		return "Héros" + this.vie;
 	}
 	
-	public List<Robot> getListeRobot(){
+	public List<Carte> getListeRobot(){
 		return this.listeRobots;
 	}
 }

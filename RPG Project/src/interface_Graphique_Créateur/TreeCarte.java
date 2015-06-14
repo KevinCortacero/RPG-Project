@@ -5,7 +5,7 @@ import java.util.List;
 import javax.swing.JTree;
 import javax.swing.tree.DefaultMutableTreeNode;
 import jeu.Héros;
-import jeu.Robot;
+import jeu.Carte;
 
 @SuppressWarnings("serial")
 public class TreeCarte extends JTree{
@@ -20,7 +20,7 @@ public class TreeCarte extends JTree{
 		for (Héros carte : cartes){
 			DefaultMutableTreeNode typeCarte = new DefaultMutableTreeNode(carte.toString());
 			
-			for (Robot robot : carte.getListeRobot()){
+			for (Carte robot : carte.getListeRobot()){
 				DefaultMutableTreeNode numéroCarte = new DefaultMutableTreeNode(robot.toString());
 				typeCarte.add(numéroCarte);
 			}

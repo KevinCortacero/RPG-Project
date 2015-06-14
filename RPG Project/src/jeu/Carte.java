@@ -1,10 +1,10 @@
 package jeu;
 
-public class Robot {
+public class Carte {
 
 	private int y;
 	
-	public Robot(int y){
+	public Carte(int y){
 		this.y = y;
 	}
 	
