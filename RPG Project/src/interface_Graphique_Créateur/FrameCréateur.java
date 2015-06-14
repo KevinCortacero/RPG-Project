@@ -9,10 +9,14 @@ public class FrameCréateur extends JFrame{
 
 	public FrameCréateur(){
 		super("Création de niveau");
+		this.setLayout(null);
 		this.setSize(Toolkit.getDefaultToolkit().getScreenSize());
-		this.setVisible(true);
 		this.setDefaultCloseOperation(EXIT_ON_CLOSE);
 		this.setExtendedState(MAXIMIZED_BOTH);
-		this.add(new PanelCréateur());
+		
+		this.getContentPane().add(new PanelPrincipalCréateur());
+		this.getContentPane().add(new PanelGestionCréateur());	
+		this.getContentPane().add(new PanelChoixObjetsCréateur());
+		this.getContentPane().add(new PanelValidationCréateur());
 	}
 }
