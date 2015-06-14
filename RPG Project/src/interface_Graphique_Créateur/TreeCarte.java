@@ -2,10 +2,8 @@ package interface_Graphique_Créateur;
 
 import java.awt.Color;
 import java.util.List;
-
 import javax.swing.JTree;
 import javax.swing.tree.DefaultMutableTreeNode;
-
 import jeu.Héros;
 import jeu.Robot;
 
@@ -32,7 +30,6 @@ public class TreeCarte extends JTree{
 		this.treeCartes = new JTree(listeCartes);
 		// SALUUUUUUUUUUUUUUUUUUUUUUUUUUUUT
 	}
-	
 	
 	public JTree getTree(){
 		return this.treeCartes;
