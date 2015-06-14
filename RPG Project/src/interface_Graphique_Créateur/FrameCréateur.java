@@ -5,9 +5,9 @@ import java.awt.Toolkit;
 import javax.swing.JFrame;
 
 @SuppressWarnings("serial")
-public class Frame extends JFrame{
+public class FrameCréateur extends JFrame{
 
-	public Frame(){
+	public FrameCréateur(){
 		super("Création de niveau");
 		this.setSize(Toolkit.getDefaultToolkit().getScreenSize());
 		this.setVisible(true);
