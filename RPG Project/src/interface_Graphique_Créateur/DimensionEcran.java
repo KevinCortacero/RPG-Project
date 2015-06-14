@@ -4,10 +4,10 @@ import java.awt.Dimension;
 import java.awt.Toolkit;
 
 @SuppressWarnings("serial")
-public class DimensionsCréateurNiveau extends Dimension {
-	
-	public DimensionsCréateurNiveau(){
-		
+public class DimensionEcran extends Dimension {
+
+	public DimensionEcran(){
+
 		this.height = (int) Toolkit.getDefaultToolkit().getScreenSize().getHeight();
 		this.width	= (int) Toolkit.getDefaultToolkit().getScreenSize().getWidth();	
 	}
