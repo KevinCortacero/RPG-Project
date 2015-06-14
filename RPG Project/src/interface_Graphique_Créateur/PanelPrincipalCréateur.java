@@ -6,10 +6,11 @@ import java.awt.event.ActionListener;
 import javax.swing.JPanel;
 
 @SuppressWarnings("serial")
-public class Panel extends JPanel implements ActionListener {
+public class PanelPrincipalCréateur extends JPanel implements ActionListener {
 	
-	public Panel(){
+	public PanelPrincipalCréateur(){
 		super();
+		this.setSize(getPreferredSize());
 	}
 
 	@Override
