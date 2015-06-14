@@ -1,4 +1,4 @@
-package interface_graphique;
+package interface_Graphique_Créateur;
 
 public class CréerNiveau {
 
