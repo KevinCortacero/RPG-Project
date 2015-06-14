@@ -9,4 +9,8 @@ public class Héros {
 		this.x = x;
 		this.o = o;
 	}
+	
+	public int getVie(){
+		return this.vie;
+	}
 }
