@@ -5,14 +5,16 @@ import javax.swing.BorderFactory;
 import javax.swing.JPanel;
 
 @SuppressWarnings("serial")
-public class PanelPrincipalCréateur extends JPanel{
+public class PanelCréateur extends JPanel{
 	
-	public PanelPrincipalCréateur(DimensionEcran dimensionEcran){
+	public PanelCréateur(DimensionEcran dimensionEcran){
 		super(null);
+		this.setLayout(null);
 		this.setBorder(BorderFactory.createCompoundBorder(BorderFactory.createEmptyBorder(1, 1, 1, 1),	
 					   BorderFactory.createCompoundBorder(BorderFactory.createLineBorder(Color.BLUE), 			
 					   BorderFactory.createEmptyBorder(10, 10, 10, 10))));
-		this.setBackground(Color.GRAY);
-		this.setBounds(200, 200,dimensionEcran.width - 200 , dimensionEcran.height - 200);
+		this.setBackground(new Color(220,220,220));
+		this.setBounds(0, 0,dimensionEcran.width, dimensionEcran.height);
+		this.add(new PanelChoixObjetsCréateur(dimensionEcran));
 	}
 }

@@ -6,8 +6,8 @@ import javax.swing.JFrame;
 public class Frame extends JFrame{
 	
 	private DimensionEcran dimensionEcran;
-	private PanelPrincipalCréateur panelPrincipal;
-	private PanelChoixObjetsCréateur panelChoixObjets;
+	private PanelCréateur panelPrincipal;
+//	private PanelChoixObjetsCréateur panelChoixObjets;
 
 	public Frame(){
 		super("Création de niveau");
@@ -18,7 +18,7 @@ public class Frame extends JFrame{
 		this.setExtendedState(MAXIMIZED_BOTH);
 		
 		
-		this.panelPrincipal = new PanelPrincipalCréateur(this.dimensionEcran);
+		this.panelPrincipal = new PanelCréateur(this.dimensionEcran);
 	//	this.panelChoixObjets = new PanelChoixObjetsCréateur(this.dimensionEcran);
 		
 		this.add(this.panelPrincipal);
