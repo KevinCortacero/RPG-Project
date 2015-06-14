@@ -1,10 +1,14 @@
 package interface_Graphique_Créateur;
 
 import java.awt.Dimension;
+import java.awt.Toolkit;
 
+@SuppressWarnings("serial")
 public class DimensionsCréateurNiveau extends Dimension {
 	
 	public DimensionsCréateurNiveau(){
-		this.setSize(1200, 800);
+		
+		this.height = (int) Toolkit.getDefaultToolkit().getScreenSize().getHeight();
+		this.width	= (int) Toolkit.getDefaultToolkit().getScreenSize().getWidth();	
 	}
 }

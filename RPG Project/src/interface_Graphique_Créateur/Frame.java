@@ -2,6 +2,7 @@ package interface_Graphique_Créateur;
 
 import javax.swing.JFrame;
 
+@SuppressWarnings("serial")
 public class Frame extends JFrame{
 
 	public Frame(){
@@ -9,6 +10,6 @@ public class Frame extends JFrame{
 		this.setSize(new DimensionsCréateurNiveau());
 		this.setVisible(true);
 		this.setDefaultCloseOperation(EXIT_ON_CLOSE);
-		this.setLocationRelativeTo(null);
+		this.setExtendedState(MAXIMIZED_BOTH);
 	}
 }
