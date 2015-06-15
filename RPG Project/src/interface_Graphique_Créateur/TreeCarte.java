@@ -3,10 +3,8 @@ package interface_Graphique_Créateur;
 import java.awt.Color;
 import java.util.List;
 import java.util.Map;
-
 import javax.swing.JTree;
 import javax.swing.tree.DefaultMutableTreeNode;
-
 import jeu.ZoneDeCarte;
 import jeu.Carte;
 import jeu.TypeDeCarte;
