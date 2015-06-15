@@ -2,6 +2,7 @@ package interface_Graphique_Créateur;
 
 import java.awt.Color;
 import java.util.List;
+import java.util.Map;
 
 import javax.swing.JTree;
 import javax.swing.tree.DefaultMutableTreeNode;
@@ -15,7 +16,7 @@ public class TreeCarte extends JTree{
 
 	private JTree treeCartes;
 
-	public TreeCarte(List<TypeDeCarte> cartes){
+	public TreeCarte(Map<String, TypeDeCarte> cartes){
 		this.setRootVisible(true);
 		this.setBackground(Color.BLUE);
 		
@@ -38,6 +39,8 @@ public class TreeCarte extends JTree{
 
 		this.treeCartes = new JTree(type);
 	}
+	
+	// BONJOUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUR
 
 	public JTree getTree(){
 		return this.treeCartes;

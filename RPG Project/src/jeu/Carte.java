@@ -6,19 +6,23 @@ public class Carte {
 
 	private File file;
 	private String type;
-	private String lieu;
+	private String zone;
 	private int numéro;
 	private String nom;
 	
-	public Carte(String type, String lieu, int numéro){
+	public Carte(String type, String zone, int numéro){
 		this.type = type;
-		this.lieu = lieu;
+		this.zone = zone;
 		this.numéro = numéro;
-		this.nom = this.type + "-" + this.lieu + "-" + Integer.toString(this.numéro);
+		this.nom = this.type + "-" + this.zone + "-" + Integer.toString(this.numéro);
 		this.file = new File(this.nom);
 	}
 	
 	public String toString(){
 		return this.nom;
+	}
+
+	public String getZone() {
+		return this.zone;
 	}
 }

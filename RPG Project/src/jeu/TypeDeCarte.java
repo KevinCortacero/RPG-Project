@@ -1,16 +1,16 @@
 package jeu;
 
-import java.util.ArrayList;
-import java.util.List;
+import java.util.HashMap;
+import java.util.Map;
 
 public class TypeDeCarte {
 	
 	private String type;
-	private List<ZoneDeCarte> listeZoneCartes;	
+	private Map<String,ZoneDeCarte> listeZoneCartes;	
 	
 	public TypeDeCarte(String type){
 		this.type = type;
-		this.listeZoneCartes = new ArrayList<ZoneDeCarte>();
+		this.listeZoneCartes = new HashMap<String,ZoneDeCarte>();
 		
 		if (this.type == "Base")
 			this.listeZoneCartes.add(new ZoneDeCarte(this.type, "Maison"));

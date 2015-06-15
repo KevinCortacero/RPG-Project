@@ -1,29 +1,29 @@
 package jeu;
 
-import java.util.ArrayList;
-import java.util.List;
+import java.util.HashMap;
+import java.util.Map;
 
 public class ZoneDeCarte {
 	
 	private String zone;
 	private String type;
-	private List<Carte> listeCartes;	
+	private Map<String,Carte> listeCartes;	
 	
 	public ZoneDeCarte(String type, String zone){
 		this.type = type;
 		this.zone = zone;
-		this.listeCartes = new ArrayList<Carte>();
+		this.listeCartes = new  HashMap<String,Carte>();
 	}
 	
 	public String toString(){
 		return "Zone : " + this.zone;
 	}
 	
-	public List<Carte> getListeCarte(){
+	public  Map<String,Carte> getListeCarte(){
 		return this.listeCartes;
 	}
 	
 	public void addCarte(Carte carte){
-		this.listeCartes.add(carte);
+		this.listeCartes.put(carte.getZone(),carte);
 	}
 }
