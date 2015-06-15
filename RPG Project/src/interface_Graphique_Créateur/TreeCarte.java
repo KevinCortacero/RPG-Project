@@ -4,7 +4,7 @@ import java.awt.Color;
 import java.util.List;
 import javax.swing.JTree;
 import javax.swing.tree.DefaultMutableTreeNode;
-import jeu.Héros;
+import jeu.LieuDeCarte;
 import jeu.Carte;
 
 @SuppressWarnings("serial")
@@ -12,12 +12,12 @@ public class TreeCarte extends JTree{
 	
 	private JTree treeCartes;
 
-	public TreeCarte(List<Héros> cartes){
+	public TreeCarte(List<LieuDeCarte> cartes){
 		this.setRootVisible(true);
 		this.setBackground(Color.BLUE);
 		DefaultMutableTreeNode listeCartes = new DefaultMutableTreeNode("Liste des Cartes");
 		
-		for (Héros carte : cartes){
+		for (LieuDeCarte carte : cartes){
 			DefaultMutableTreeNode typeCarte = new DefaultMutableTreeNode(carte.toString());
 			
 			for (Carte robot : carte.getListeRobot()){

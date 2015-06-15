@@ -2,6 +2,7 @@ package interface_Graphique_Créateur;
 
 import java.awt.Color;
 import java.awt.Font;
+import java.awt.GridLayout;
 import java.awt.Toolkit;
 
 import javax.swing.JLabel;
@@ -14,6 +15,7 @@ public class PanelChoixObjetsCréateur extends JPanel{
 	
 	public PanelChoixObjetsCréateur(){
 		super();
+		this.setLayout(new GridLayout());
 		this.setBorder(new BorderGray());
 		this.setBackground(new Color(245,245,245));
 		this.setBounds(200, 10, Toolkit.getDefaultToolkit().getScreenSize().width - 210 , 180);

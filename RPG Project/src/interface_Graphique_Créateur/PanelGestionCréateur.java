@@ -9,7 +9,7 @@ import java.util.List;
 import javax.swing.JLabel;
 import javax.swing.JPanel;
 
-import jeu.Héros;
+import jeu.LieuDeCarte;
 
 @SuppressWarnings("serial")
 public class PanelGestionCréateur extends JPanel{
@@ -25,10 +25,10 @@ public class PanelGestionCréateur extends JPanel{
 		this.titre.setFont(new Font("Arial", 18,18));
 		this.add(this.titre);
 		
-		List<Héros> cartes = new ArrayList<Héros>();
-		cartes.add(new Héros(1,0,0));
-		cartes.add(new Héros(2,0,0));
-		cartes.add(new Héros(3,0,0));
+		List<LieuDeCarte> cartes = new ArrayList<LieuDeCarte>();
+		cartes.add(new LieuDeCarte(1,0,0));
+		cartes.add(new LieuDeCarte(2,0,0));
+		cartes.add(new LieuDeCarte(3,0,0));
 		this.add(new TreeCarte(cartes).getTree());
 	}
 }
