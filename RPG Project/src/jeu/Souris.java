@@ -7,7 +7,7 @@ public class Souris {
 	private ImageIcon image;
 	
 	public Souris(){
-		this.image = new ImageIcon("images/souris.jpg");
+		this.image = new ImageIcon("Images/souris.jpg");
 	}
 }
 

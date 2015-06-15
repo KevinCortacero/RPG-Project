@@ -5,9 +5,6 @@ import java.util.List;
 import java.util.Map;
 import javax.swing.JTree;
 import javax.swing.tree.DefaultMutableTreeNode;
-import jeu.ZoneDeCarte;
-import jeu.Carte;
-import jeu.TypeDeCarte;
 
 @SuppressWarnings("serial")
 public class TreeCarte extends JTree{
@@ -34,18 +31,6 @@ public class TreeCarte extends JTree{
 			}
 			type.add(lieu);
 		}
-
 		this.treeCartes = new JTree(type);
 	}
-	
-	// BONJOUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUR
-
-	public JTree getTree(){
-		return this.treeCartes;
-	}
-
 }
-
-// bonjour c'est le test 
-// bonjour c'est le test ligne 2 
-// bonjour c'est le test ligne 3
