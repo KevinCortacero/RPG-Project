@@ -17,7 +17,8 @@ public class PanelGestionCréateur extends JPanel{
 
 	private JLabel titre;
 	private JTree arbre;
-	private FileSystem file;
+	private File file;
+	private File carte;
 	private DefaultMutableTreeNode racine;
 
 	public PanelGestionCréateur(){
@@ -27,8 +28,14 @@ public class PanelGestionCréateur extends JPanel{
 		this.setBounds(10, 200, 180 , Toolkit.getDefaultToolkit().getScreenSize().height - 270);
 		this.titre = new JLabel("Gestion des cartes");
 		this.titre.setFont(new Font("Arial", 18,18));
+		this.carte = new File("cartes");
+		this.file = new File("cartes/Base/Laboratoire/Laboratoire-1.txt");
 		this.add(this.titre);
 		this.listRoot();
+		System.out.println(this.file.exists());
+		System.out.println(this.file.getAbsolutePath());
+		System.out.println(this.carte.exists());
+		System.out.println(this.carte.getAbsolutePath());
 	}
 
 	private void listRoot(){      
@@ -36,19 +43,19 @@ public class PanelGestionCréateur extends JPanel{
 		int count = 0;
 		
 		
-		for(Folder file : java.lang.Object[]){
+		for(String file : this.carte.list()){
 			
+			System.out.println(this.carte.getAbsolutePath() + "\\" + file);
 			
-			
-			DefaultMutableTreeNode lecteur = new DefaultMutableTreeNode(file.getAbsolutePath());
-			try {
-				for(File nom : file.listFiles()){
-					DefaultMutableTreeNode node = new DefaultMutableTreeNode(nom.getName()+"\\");               
-					lecteur.add(this.listFile(nom, node));               
-				}
-			} catch (NullPointerException e) {}
-
-			this.racine.add(lecteur);                 
+//			DefaultMutableTreeNode lecteur = new DefaultMutableTreeNode(file.getAbsolutePath());
+//			try {
+//				for(File nom : file.listFiles()){
+//					DefaultMutableTreeNode node = new DefaultMutableTreeNode(nom.getName()+"\\");               
+//					lecteur.add(this.listFile(nom, node));               
+//				}
+//			} catch (NullPointerException e) {}
+//
+//			this.racine.add(lecteur);                 
 		}
 		//Nous créons, avec notre hiérarchie, un arbre
 		arbre = new JTree(this.racine);      
