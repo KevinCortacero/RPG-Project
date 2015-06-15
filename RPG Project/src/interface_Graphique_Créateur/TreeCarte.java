@@ -2,38 +2,45 @@ package interface_Graphique_Créateur;
 
 import java.awt.Color;
 import java.util.List;
+
 import javax.swing.JTree;
 import javax.swing.tree.DefaultMutableTreeNode;
-import jeu.LieuDeCarte;
+
+import jeu.ZoneDeCarte;
 import jeu.Carte;
+import jeu.TypeDeCarte;
 
 @SuppressWarnings("serial")
 public class TreeCarte extends JTree{
-	
+
 	private JTree treeCartes;
 
-	public TreeCarte(List<LieuDeCarte> cartes){
+	public TreeCarte(List<TypeDeCarte> cartes){
 		this.setRootVisible(true);
 		this.setBackground(Color.BLUE);
-		DefaultMutableTreeNode listeCartes = new DefaultMutableTreeNode("Liste des Cartes");
 		
-		for (LieuDeCarte carte : cartes){
-			DefaultMutableTreeNode typeCarte = new DefaultMutableTreeNode(carte.toString());
-			
-			for (Carte robot : carte.getListeRobot()){
-				DefaultMutableTreeNode numéroCarte = new DefaultMutableTreeNode(robot.toString());
-				typeCarte.add(numéroCarte);
+		DefaultMutableTreeNode type = new DefaultMutableTreeNode("Liste des Cartes");
+
+		for (TypeDeCarte typeDeCarte : cartes){
+			DefaultMutableTreeNode lieu = new DefaultMutableTreeNode(typeDeCarte.toString());
+
+			for (ZoneDeCarte lieuCarte : typeDeCarte.getListeCarte()){
+				DefaultMutableTreeNode zone = new DefaultMutableTreeNode(lieuCarte.toString());
+
+				for (Carte carte : lieuCarte.getListeCarte()){
+					DefaultMutableTreeNode numéroCarte = new DefaultMutableTreeNode(carte.toString());
+					zone.add(numéroCarte);
+				}
+				lieu.add(zone);
 			}
-			listeCartes.add(typeCarte);
+			type.add(lieu);
 		}
 
-		this.treeCartes = new JTree(listeCartes);
-		// SALUUUUUUUUUUUUUUUUUUUUUUUUUUUUT
-		//Inch'allah on mange des bananes on bas des cités !
+		this.treeCartes = new JTree(type);
 	}
-	
+
 	public JTree getTree(){
 		return this.treeCartes;
 	}
-	
+
 }

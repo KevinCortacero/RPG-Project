@@ -5,11 +5,9 @@ import java.awt.Font;
 import java.awt.Toolkit;
 import java.util.ArrayList;
 import java.util.List;
-
 import javax.swing.JLabel;
 import javax.swing.JPanel;
-
-import jeu.LieuDeCarte;
+import jeu.TypeDeCarte;
 
 @SuppressWarnings("serial")
 public class PanelGestionCréateur extends JPanel{
@@ -25,10 +23,10 @@ public class PanelGestionCréateur extends JPanel{
 		this.titre.setFont(new Font("Arial", 18,18));
 		this.add(this.titre);
 		
-		List<LieuDeCarte> cartes = new ArrayList<LieuDeCarte>();
-		cartes.add(new LieuDeCarte(1,0,0));
-		cartes.add(new LieuDeCarte(2,0,0));
-		cartes.add(new LieuDeCarte(3,0,0));
+		List<TypeDeCarte> cartes = new ArrayList<TypeDeCarte>();
+		cartes.add(new TypeDeCarte("Base"));
+		cartes.add(new TypeDeCarte("Village"));
+		cartes.add(new TypeDeCarte("Level"));
 		this.add(new TreeCarte(cartes).getTree());
 	}
 }
