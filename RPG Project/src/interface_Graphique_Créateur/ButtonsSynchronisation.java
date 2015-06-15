@@ -1,9 +1,13 @@
 package interface_Graphique_Créateur;
 
-import java.awt.Component;
+import java.awt.Color;
+import java.awt.event.ActionEvent;
+import java.awt.event.ActionListener;
+
+import javax.swing.JPanel;
 
 @SuppressWarnings("serial")
-public class ButtonsSynchronisation extends Component{
+public class ButtonsSynchronisation extends JPanel{
 	
 	protected ButtonAjoutCarte buttonAjoutCarte;
 	protected ButtonAjoutDossier buttonAjoutDossier;
@@ -11,8 +15,13 @@ public class ButtonsSynchronisation extends Component{
 	
 	public ButtonsSynchronisation(){
 		super();
-		this.buttonAjoutCarte = new ButtonAjoutCarte();
-		this.buttonAjoutDossier = new ButtonAjoutDossier();
-		this.buttonSupprimer = new ButtonSupprimer();
+		this.setLayout(null);
+		this.setBounds(5, 600, 170, 120);
+		this.buttonAjoutCarte = new ButtonAjoutCarte(this);
+		this.buttonAjoutDossier = new ButtonAjoutDossier(this);
+		this.buttonSupprimer = new ButtonSupprimer(this);
+		this.add(this.buttonAjoutCarte);
+		this.add(this.buttonAjoutDossier);
+		this.add(this.buttonSupprimer);
 	}
 }

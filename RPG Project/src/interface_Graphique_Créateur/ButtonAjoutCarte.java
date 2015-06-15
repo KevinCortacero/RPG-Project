@@ -6,24 +6,17 @@ import java.awt.event.ActionListener;
 import javax.swing.JButton;
 
 @SuppressWarnings("serial")
-public class ButtonAjoutCarte extends JButton implements ActionListener {
+public class ButtonAjoutCarte extends JButton implements ActionListener{
 
 	private boolean peutCréerCarte;
+	private ButtonsSynchronisation buttonsSynchronisation;
 	
-	public ButtonAjoutCarte(){
+	public ButtonAjoutCarte(ButtonsSynchronisation buttonsSynchronisation){
 		super("Ajouter une Carte");
+		this.buttonsSynchronisation = buttonsSynchronisation;
 		this.setPeutCréerCarte(false);
+		this.setBounds(5, 0, 160, 30);
 		this.addActionListener(this);
-		this.setBounds(10, 600, 160, 30);
-	}
-
-	@Override
-	public void actionPerformed(ActionEvent e) {
-		if (e.getSource() == this)
-			this.setPeutCréerCarte(true);
-		else
-			this.setPeutCréerCarte(false);
-		System.out.println(this.peutCréerCarte);
 	}
 
 	public boolean isPeutCréerCarte() {
@@ -32,5 +25,18 @@ public class ButtonAjoutCarte extends JButton implements ActionListener {
 
 	public void setPeutCréerCarte(boolean peutCréerCarte) {
 		this.peutCréerCarte = peutCréerCarte;
+	}
+	
+	@Override
+	public void actionPerformed(ActionEvent e) {
+		this.buttonsSynchronisation.buttonAjoutCarte.setPeutCréerCarte(true);
+		this.buttonsSynchronisation.buttonAjoutDossier.setPeutCréerDossier(false);
+		this.buttonsSynchronisation.buttonSupprimer.setPeutSupprimer(false);
+
+
+		System.out.println("\n" + this.buttonsSynchronisation.buttonAjoutCarte.isPeutCréerCarte());
+		System.out.println(this.buttonsSynchronisation.buttonAjoutDossier.isPeutCréerDossier());
+		System.out.println(this.buttonsSynchronisation.buttonSupprimer.isPeutSupprimer());
+
 	}
 }

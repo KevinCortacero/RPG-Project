@@ -6,30 +6,37 @@ import java.awt.event.ActionListener;
 import javax.swing.JButton;
 
 @SuppressWarnings("serial")
-public class ButtonAjoutDossier extends JButton implements ActionListener {
+public class ButtonAjoutDossier extends JButton implements ActionListener{
 
 	private boolean peutCréerDossier;
+	private ButtonsSynchronisation buttonsSynchronisation;
 	
-	public ButtonAjoutDossier(){
+	public ButtonAjoutDossier(ButtonsSynchronisation buttonsSynchronisation){
 		super("Ajouter un Dossier");
-		this.setPeutCréerCarte(false);
+		this.buttonsSynchronisation = buttonsSynchronisation;
+		this.setPeutCréerDossier(false);
+		this.setBounds(5, 40, 160, 30);
 		this.addActionListener(this);
-		this.setBounds(10, 640, 160, 30);
 	}
 
-	@Override
-	public void actionPerformed(ActionEvent e) {
-		if (e.getSource() == this)
-			this.setPeutCréerCarte(true);
-		else
-			this.setPeutCréerCarte(false);
-	}
-
-	public boolean isPeutCréerCarte() {
+	public boolean isPeutCréerDossier() {
 		return peutCréerDossier;
 	}
 
-	public void setPeutCréerCarte(boolean peutCréerCarte) {
-		this.peutCréerDossier = peutCréerCarte;
+	public void setPeutCréerDossier(boolean peutCréerDossier) {
+		this.peutCréerDossier = peutCréerDossier;
+	}
+	
+	@Override
+	public void actionPerformed(ActionEvent e) {
+		this.buttonsSynchronisation.buttonAjoutCarte.setPeutCréerCarte(false);
+		this.buttonsSynchronisation.buttonAjoutDossier.setPeutCréerDossier(true);
+		this.buttonsSynchronisation.buttonSupprimer.setPeutSupprimer(false);
+
+
+		System.out.println("\n" + this.buttonsSynchronisation.buttonAjoutCarte.isPeutCréerCarte());
+		System.out.println(this.buttonsSynchronisation.buttonAjoutDossier.isPeutCréerDossier());
+		System.out.println(this.buttonsSynchronisation.buttonSupprimer.isPeutSupprimer());
+
 	}
 }

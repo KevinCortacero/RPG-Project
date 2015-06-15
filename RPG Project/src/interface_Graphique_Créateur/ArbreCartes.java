@@ -11,14 +11,11 @@ public class ArbreCartes extends JTree implements TreeSelectionListener   {
 
 	private ButtonsSynchronisation boutons;
 	
-	public ArbreCartes(ButtonsSynchronisation boutons){
+	public ArbreCartes(){
 		super(new ModelArbreCarte());
-		this.boutons = boutons;
 		this.addTreeSelectionListener(this);
 		this.setBackground(new Color(245, 245, 245));
 		this.setBounds(5,100,170,500);
-
-
 	}
 
 	@Override

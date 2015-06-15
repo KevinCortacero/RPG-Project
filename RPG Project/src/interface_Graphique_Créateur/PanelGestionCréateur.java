@@ -21,14 +21,12 @@ public class PanelGestionCréateur extends JPanel {
 		this.setBackground(new Color(245, 245, 245));
 		this.setBounds(10, 200, 180, Toolkit.getDefaultToolkit().getScreenSize().height - 270);
 		this.boutons = new ButtonsSynchronisation();
+		this.add(this.boutons);
 		this.titre = new JLabel("Gestion des cartes");
 		this.titre.setFont(new Font("Arial", 18, 18));
 		this.titre.setBounds(10, 10, 160, 40);
 		this.add(this.titre);
-		this.add(this.boutons.buttonAjoutCarte);
-		this.add(this.boutons.buttonAjoutDossier);
-		this.add(this.boutons.buttonSupprimer);
-		this.arbre = new ArbreCartes(this.boutons);
+		this.arbre = new ArbreCartes();
 		this.add(this.arbre);
 	}
 }
