@@ -4,8 +4,6 @@ import java.awt.Color;
 import java.awt.Font;
 import java.awt.Toolkit;
 import java.io.File;
-import java.nio.file.FileSystem;
-
 import javax.swing.JLabel;
 import javax.swing.JPanel;
 import javax.swing.JScrollPane;
@@ -17,7 +15,6 @@ public class PanelGestionCréateur extends JPanel{
 
 	private JLabel titre;
 	private JTree arbre;
-	private File file;
 	private File carte;
 	private DefaultMutableTreeNode racine;
 
@@ -29,13 +26,8 @@ public class PanelGestionCréateur extends JPanel{
 		this.titre = new JLabel("Gestion des cartes");
 		this.titre.setFont(new Font("Arial", 18,18));
 		this.carte = new File("cartes");
-		this.file = new File("cartes/Base/Laboratoire/Laboratoire-1.txt");
 		this.add(this.titre);
 		this.listRoot();
-		System.out.println(this.file.exists());
-		System.out.println(this.file.getAbsolutePath());
-		System.out.println(this.carte.exists());
-		System.out.println(this.carte.getAbsolutePath());
 	}
 
 	private void listRoot(){      
