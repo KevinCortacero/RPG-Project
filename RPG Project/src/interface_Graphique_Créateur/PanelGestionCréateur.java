@@ -4,10 +4,12 @@ import java.awt.Color;
 import java.awt.Font;
 import java.awt.Toolkit;
 import java.io.File;
+
 import javax.swing.JLabel;
 import javax.swing.JPanel;
-import javax.swing.JScrollPane;
 import javax.swing.JTree;
+import javax.swing.event.TreeSelectionEvent;
+import javax.swing.event.TreeSelectionListener;
 import javax.swing.tree.DefaultMutableTreeNode;
 
 @SuppressWarnings("serial")
@@ -41,15 +43,16 @@ public class PanelGestionCréateur extends JPanel {
 			System.out.println(this.carte.getAbsolutePath() + "\\" + file);
 
 			DefaultMutableTreeNode lecteur = new DefaultMutableTreeNode(file);
-				File fileEnfant = new File(this.carte.getAbsolutePath()+ "\\" + file);
-			if ( fileEnfant.isDirectory()){
-				try { 
-					 for(String nom : fileEnfant.list()){ 
-						 DefaultMutableTreeNode node = new DefaultMutableTreeNode(nom );
-						 lecteur.add(this.listFile( new File( this.carte.getAbsolutePath() + "\\" + file + "\\" + nom), node  ));
-						 }
-					 } catch
-					 (NullPointerException e) {}
+			File fileEnfant = new File(this.carte.getAbsolutePath() + "\\"
+					+ file);
+			if (fileEnfant.isDirectory()) {
+				for (String nom : fileEnfant.list()) {
+					DefaultMutableTreeNode node = new DefaultMutableTreeNode(
+							nom);
+					lecteur.add(this.listFile(
+							new File(this.carte.getAbsolutePath() + "\\" + file
+									+ "\\" + nom), node));
+				}
 			}
 
 			this.racine.add(lecteur);
@@ -58,7 +61,17 @@ public class PanelGestionCréateur extends JPanel {
 		arbre = new JTree(this.racine);
 		// Que nous plaçons sur le ContentPane de notre JFrame à l'aide d'un
 		// scroll
-		this.add(new JScrollPane(arbre));
+		this.add(arbre);
+
+		this.arbre.addTreeSelectionListener(new TreeSelectionListener() {
+
+			public void valueChanged(TreeSelectionEvent event) {
+				if (arbre.getLastSelectedPathComponent() != null) {
+					System.out.println(arbre.getLastSelectedPathComponent()
+							.toString());
+				}
+			}
+		});
 	}
 
 	private DefaultMutableTreeNode listFile(File file,
