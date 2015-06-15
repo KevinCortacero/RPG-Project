@@ -13,7 +13,7 @@ import javax.swing.event.TreeSelectionListener;
 import javax.swing.tree.DefaultMutableTreeNode;
 
 @SuppressWarnings("serial")
-public class PanelGestionCréateur extends JPanel {
+public class PanelGestionCréateur extends JPanel implements TreeSelectionListener{
 
 	private JLabel titre;
 	private JTree arbre;
@@ -31,15 +31,7 @@ public class PanelGestionCréateur extends JPanel {
 		this.add(this.titre);
 		this.listRoot();
 		this.add(arbre);
-		this.arbre.addTreeSelectionListener(new TreeSelectionListener() {
-
-			public void valueChanged(TreeSelectionEvent event) {
-				if (arbre.getLastSelectedPathComponent() != null) {
-					System.out.println(arbre.getLastSelectedPathComponent().toString());
-				}
-			}
-		});
-
+		this.arbre.addTreeSelectionListener(this);
 	}
 
 	private void listRoot() {
@@ -48,7 +40,7 @@ public class PanelGestionCréateur extends JPanel {
 		for (String file : this.carte.list()) {
 
 			DefaultMutableTreeNode lecteur = new DefaultMutableTreeNode(file);
-			
+
 			File fileEnfant = new File(this.carte.getAbsolutePath()+ "\\" + file);
 
 			if ( fileEnfant.isDirectory()){
@@ -66,26 +58,29 @@ public class PanelGestionCréateur extends JPanel {
 
 	private DefaultMutableTreeNode listFile(File file, DefaultMutableTreeNode node) {
 
-		if (file.isFile())
+		if (file.isFile() || file.listFiles() == null)
 			return new DefaultMutableTreeNode(file.getName());
 
-		File[] list = file.listFiles();
-		if (list == null)
-			return new DefaultMutableTreeNode(file.getName());
+		for (File nom : file.listFiles()) {
 
-		for (File nom : list) {
-			DefaultMutableTreeNode subNode;
-			if (nom.isDirectory()) {
-				subNode = new DefaultMutableTreeNode(nom.getName()
-						+ "\\");
+			DefaultMutableTreeNode subNode = new DefaultMutableTreeNode(nom.getName());
+
+			if (nom.isDirectory()) 
 				node.add(this.listFile(nom, subNode));
-			} else {
-				subNode = new DefaultMutableTreeNode(nom.getName());
-			}
-			node.add(subNode);
+			else
+				node.add(subNode);	
 		}
-
 		return node;
 	}
+
+	@Override
+	public void valueChanged(TreeSelectionEvent e) {
+		if (this.arbre.getLastSelectedPathComponent() != null) {
+			System.out.println(this.arbre.getLastSelectedPathComponent().toString());
+		}
+		
+		
+	}
 }
+
 
