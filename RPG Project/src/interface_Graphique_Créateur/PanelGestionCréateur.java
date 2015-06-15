@@ -34,12 +34,15 @@ public class PanelGestionCréateur extends JPanel{
 		this.racine = new DefaultMutableTreeNode("Liste des cartes :");       
 		int count = 0;
 		
-		
 		for(String file : this.carte.list()){
 			
 			System.out.println(this.carte.getAbsolutePath() + "\\" + file);
 			
-//			DefaultMutableTreeNode lecteur = new DefaultMutableTreeNode(file.getAbsolutePath());
+     		DefaultMutableTreeNode lecteur = new DefaultMutableTreeNode(file);
+     		
+     		
+     		this.carte.isDirectory()
+     		
 //			try {
 //				for(File nom : file.listFiles()){
 //					DefaultMutableTreeNode node = new DefaultMutableTreeNode(nom.getName()+"\\");               
@@ -47,7 +50,7 @@ public class PanelGestionCréateur extends JPanel{
 //				}
 //			} catch (NullPointerException e) {}
 //
-//			this.racine.add(lecteur);                 
+			this.racine.add(lecteur);                 
 		}
 		//Nous créons, avec notre hiérarchie, un arbre
 		arbre = new JTree(this.racine);      
