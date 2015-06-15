@@ -4,9 +4,12 @@ import java.awt.Color;
 import java.awt.Font;
 import java.awt.Toolkit;
 import java.io.File;
+
 import javax.swing.JLabel;
 import javax.swing.JPanel;
 import javax.swing.JTree;
+import javax.swing.event.TreeSelectionEvent;
+import javax.swing.event.TreeSelectionListener;
 import javax.swing.tree.DefaultMutableTreeNode;
 
 @SuppressWarnings("serial")
@@ -27,6 +30,15 @@ public class PanelGestionCréateur extends JPanel {
 		this.carte = new File("cartes");
 		this.add(this.titre);
 		this.listRoot();
+		this.add(arbre);
+		this.arbre.addTreeSelectionListener(new TreeSelectionListener() {
+
+			public void valueChanged(TreeSelectionEvent event) {
+				if (arbre.getLastSelectedPathComponent() != null) {
+					System.out.println(arbre.getLastSelectedPathComponent().toString());
+				}
+			}
+		});
 
 	}
 
@@ -36,6 +48,7 @@ public class PanelGestionCréateur extends JPanel {
 		for (String file : this.carte.list()) {
 
 			DefaultMutableTreeNode lecteur = new DefaultMutableTreeNode(file);
+			
 			File fileEnfant = new File(this.carte.getAbsolutePath()+ "\\" + file);
 
 			if ( fileEnfant.isDirectory()){
@@ -49,7 +62,6 @@ public class PanelGestionCréateur extends JPanel {
 
 		this.arbre = new JTree(this.racine);
 		this.arbre.setBackground(new Color(245, 245, 245));
-		this.add(arbre);
 	}
 
 	private DefaultMutableTreeNode listFile(File file, DefaultMutableTreeNode node) {
