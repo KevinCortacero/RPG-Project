@@ -36,7 +36,7 @@ public class PanelGestionCréateur extends JPanel{
 		int count = 0;
 		
 		
-		for(Folder file : java.lang.Object[].){
+		for(Folder file : java.lang.Object[]){
 			
 			
 			
