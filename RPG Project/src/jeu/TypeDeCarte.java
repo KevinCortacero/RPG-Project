@@ -6,19 +6,20 @@ import java.util.List;
 public class TypeDeCarte {
 	
 	private String type;
-	private List<ZoneDeCarte> listeLieuCartes;	
+	private List<ZoneDeCarte> listeZoneCartes;	
 	
 	public TypeDeCarte(String type){
 		this.type = type;
-		this.listeLieuCartes = new ArrayList<ZoneDeCarte>();
+		this.listeZoneCartes = new ArrayList<ZoneDeCarte>();
 		
 		if (this.type == "Base")
-			this.listeLieuCartes.add(new ZoneDeCarte(this.type, "Maison"));
+			this.listeZoneCartes.add(new ZoneDeCarte(this.type, "Maison"));
 		if (this.type == "Village")
-			this.listeLieuCartes.add(new ZoneDeCarte(this.type,"Banque"));
-		if (this.type == "Level")
-			this.listeLieuCartes.add(new ZoneDeCarte(this.type,"Montagne"));
-			this.listeLieuCartes.add(new ZoneDeCarte(this.type,"Plaine"));
+			this.listeZoneCartes.add(new ZoneDeCarte(this.type,"Banque"));
+		if (this.type == "Level"){
+			this.listeZoneCartes.add(new ZoneDeCarte(this.type,"Montagne"));
+			this.listeZoneCartes.add(new ZoneDeCarte(this.type,"Plaine"));
+		}
 	}
 	
 	public String toString(){
@@ -26,6 +27,10 @@ public class TypeDeCarte {
 	}
 	
 	public List<ZoneDeCarte> getListeCarte(){
-		return this.listeLieuCartes;
+		return this.listeZoneCartes;
+	}
+	
+	public void addCarte(Carte carte){
+		this.listeZoneCartes.get(0).addCarte(carte);
 	}
 }

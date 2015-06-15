@@ -13,10 +13,6 @@ public class ZoneDeCarte {
 		this.type = type;
 		this.zone = zone;
 		this.listeCartes = new ArrayList<Carte>();
-		this.listeCartes.add(new Carte(this.type, this.zone, this.listeCartes.size() +1 ));
-		this.listeCartes.add(new Carte(this.type,this.zone , this.listeCartes.size() +1 ));
-		this.listeCartes.add(new Carte(this.type,this.zone , this.listeCartes.size() +1 ));
-		this.listeCartes.add(new Carte(this.type,this.zone , this.listeCartes.size() +1 ));
 	}
 	
 	public String toString(){
@@ -25,5 +21,9 @@ public class ZoneDeCarte {
 	
 	public List<Carte> getListeCarte(){
 		return this.listeCartes;
+	}
+	
+	public void addCarte(Carte carte){
+		this.listeCartes.add(carte);
 	}
 }
