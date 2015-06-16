@@ -7,7 +7,7 @@ public class CréerNiveau {
 		f.setVisible(true);
 		
 		int i = 0;
-		while ( i < 2000 ){
+		while ( i < 60 ){
 			f.raffraichir();
 			
 			try {
