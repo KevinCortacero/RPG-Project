@@ -41,6 +41,7 @@ public class PanelGestionCréateur extends JPanel {
 			coordonésY = 150 ;
 		}
 		this.boutons.repaint();
-		this.boutons.setBounds(5,coordonésY,170, 120);
+		this.boutons.setBounds(5,coordonésY,170, 112);
+		this.arbre.setBounds(5, 50, 170, this.getHeight() - this.boutons.getHeight() - 66);
 	}
 }
