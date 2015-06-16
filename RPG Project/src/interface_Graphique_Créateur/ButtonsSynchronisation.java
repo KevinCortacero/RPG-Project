@@ -16,7 +16,7 @@ public class ButtonsSynchronisation extends JPanel{
 	public ButtonsSynchronisation(){
 		super();
 		this.setLayout(null);
-		this.setBounds(5, 600, 170, 120);
+		this.setBounds(5, 380, 170, 120);
 		this.buttonAjoutCarte = new ButtonAjoutCarte(this);
 		this.buttonAjoutDossier = new ButtonAjoutDossier(this);
 		this.buttonSupprimer = new ButtonSupprimer(this);
