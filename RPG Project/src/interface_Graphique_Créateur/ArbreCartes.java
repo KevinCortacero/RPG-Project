@@ -26,30 +26,27 @@ public class ArbreCartes extends JTree implements TreeSelectionListener {
 
 	@Override
 	public void valueChanged(TreeSelectionEvent e) {
-		String nom = "";
-		
+
 		if (this.getLastSelectedPathComponent() != null) {
-			
+
 			DefaultMutableTreeNode node = (DefaultMutableTreeNode) this.getLastSelectedPathComponent();
+
 			if (this.boutons.buttonAjoutCarte.isPeutCréerCarte()){
-
-				nom = JOptionPane.showInputDialog(null, "Veuillez entrer le nom de la carte à créer : ", "Création de carte !", JOptionPane.QUESTION_MESSAGE);
-				File file = new File(fileName(node, nom + ".txt"));
-				try {
-					file.createNewFile();
-				} catch (IOException e1) {
-					e1.printStackTrace();
-				}
+				if (!node.toString().contains(".txt"))
+					this.creerCarte(node);
+				else
+					JOptionPane.showMessageDialog(null, "Impossible d'ajouter une carte dans un fichier .txt", "Erreur", JOptionPane.ERROR_MESSAGE);
 			}
+
 			if (this.boutons.buttonAjoutDossier.isPeutCréerDossier()){
-
-				nom = JOptionPane.showInputDialog(null, "Veuillez entrer le nom du dossier à créer : ", "Création de dossier !", JOptionPane.QUESTION_MESSAGE);
-				File file = new File(fileName(node, nom));
-				file.mkdir();
+				if (!node.toString().contains(".txt"))
+					this.creerDossier(node);
+				else
+					JOptionPane.showMessageDialog(null, "Impossible d'ajouter un dossier dans un fichier .txt", "Erreur", JOptionPane.ERROR_MESSAGE);
 			}
-			
+
 			if (this.boutons.buttonSupprimer.isPeutSupprimer()){
-				new File(fileName(node,nom)).delete();
+				new File(fileName(node,"")).delete();
 			}
 		}
 	}
@@ -58,5 +55,41 @@ public class ArbreCartes extends JTree implements TreeSelectionListener {
 		if (node == this.model.getRoot())
 			return "cartes" + "\\" + fileName;
 		return fileName((DefaultMutableTreeNode) node.getParent(), node.toString() + "\\" + fileName);
+	}
+
+	public void creerCarte(DefaultMutableTreeNode node){
+		String nom = JOptionPane.showInputDialog(null, "Veuillez entrer le nom de la carte à créer dans " + node.toString(), "Création de carte !", JOptionPane.QUESTION_MESSAGE);
+		System.out.println("|"+nom+"|");
+		
+		if (nom.trim().isEmpty())
+			JOptionPane.showMessageDialog(null, "Le nom de Carte entré n'est pas valide (nul)", "Information", JOptionPane.INFORMATION_MESSAGE);	
+
+		if (nom == null)
+			JOptionPane.showMessageDialog(null, "L'ajout de la carte à été annulé", "Information", JOptionPane.INFORMATION_MESSAGE);
+
+		if (!nom.isEmpty() && nom != null) {
+			try {
+				new File(fileName(node, nom + ".txt")).createNewFile();
+			} catch (IOException e) {
+				e.printStackTrace();
+			}
+		}
+	}
+
+	public void creerCarteDepuisNouveauDossier(String nom){
+		try {
+			new File(nom + ".txt").createNewFile();
+		} catch (IOException e) {
+			e.printStackTrace();
+		}
+	}
+
+	public void creerDossier(DefaultMutableTreeNode node){
+		String nom = JOptionPane.showInputDialog(null, "Veuillez entrer le nom du dossier à créer : ", "Création de dossier !", JOptionPane.QUESTION_MESSAGE);
+		if (nom != "" && nom != "null"){
+			File file = new File(fileName(node, nom));
+			file.mkdir();
+			this.creerCarteDepuisNouveauDossier(file.getAbsolutePath() + "\\" + file.getName() + "-1");
+		}
 	}
 }
