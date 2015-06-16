@@ -9,9 +9,9 @@ public class ModelArbreCarte extends  DefaultMutableTreeNode{
 
 	private File carte;
 	
-	public ModelArbreCarte(){
+	public ModelArbreCarte(File départ){
 		super("Liste des cartes ");
-		this.carte = new File("cartes");
+		this.carte = départ;
 		this.listRoot();
 	}
 	
