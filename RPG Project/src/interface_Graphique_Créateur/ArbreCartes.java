@@ -1,18 +1,23 @@
 package interface_Graphique_Créateur;
 
 import java.awt.Color;
-
+import java.io.File;
+import java.io.IOException;
+import javax.swing.JOptionPane;
 import javax.swing.JTree;
 import javax.swing.event.TreeSelectionEvent;
 import javax.swing.event.TreeSelectionListener;
+import javax.swing.tree.DefaultMutableTreeNode;
 
 @SuppressWarnings("serial")
-public class ArbreCartes extends JTree implements TreeSelectionListener   {
+public class ArbreCartes extends JTree implements TreeSelectionListener {
 
 	private ButtonsSynchronisation boutons;
-	
-	public ArbreCartes(ButtonsSynchronisation boutons){
-		super(new ModelArbreCarte());
+	private ModelArbreCarte model;
+
+	public ArbreCartes(ButtonsSynchronisation boutons, ModelArbreCarte model){
+		super(model);
+		this.model = model;
 		this.boutons = boutons;
 		this.addTreeSelectionListener(this);
 		this.setBackground(new Color(245, 245, 245));
@@ -21,14 +26,37 @@ public class ArbreCartes extends JTree implements TreeSelectionListener   {
 
 	@Override
 	public void valueChanged(TreeSelectionEvent e) {
+		String nom = "";
+		
 		if (this.getLastSelectedPathComponent() != null) {
-			if (this.boutons.buttonAjoutCarte.isPeutCréerCarte())
-				System.out.println("On peut créer une carte ici : " + this.getLastSelectedPathComponent().toString());
-			if (this.boutons.buttonAjoutDossier.isPeutCréerDossier())
-				System.out.println("On peut créer un dossier ici : " + this.getLastSelectedPathComponent().toString());
-			if (this.boutons.buttonSupprimer.isPeutSupprimer())
-				System.out.println("On peut supprimer  : " + this.getLastSelectedPathComponent().toString());
+			
+			DefaultMutableTreeNode node = (DefaultMutableTreeNode) this.getLastSelectedPathComponent();
+			if (this.boutons.buttonAjoutCarte.isPeutCréerCarte()){
+
+				nom = JOptionPane.showInputDialog(null, "Veuillez entrer le nom de la carte à créer : ", "Création de carte !", JOptionPane.QUESTION_MESSAGE);
+				File file = new File(fileName(node, nom + ".txt"));
+				try {
+					file.createNewFile();
+				} catch (IOException e1) {
+					e1.printStackTrace();
+				}
+			}
+			if (this.boutons.buttonAjoutDossier.isPeutCréerDossier()){
+
+				nom = JOptionPane.showInputDialog(null, "Veuillez entrer le nom du dossier à créer : ", "Création de dossier !", JOptionPane.QUESTION_MESSAGE);
+				File file = new File(fileName(node, nom));
+				file.mkdir();
+			}
+			
+			if (this.boutons.buttonSupprimer.isPeutSupprimer()){
+				new File(fileName(node,nom)).delete();
+			}
 		}
 	}
 
+	public String fileName(DefaultMutableTreeNode node, String fileName){
+		if (node == this.model.getRoot())
+			return "cartes" + "\\" + fileName;
+		return fileName((DefaultMutableTreeNode) node.getParent(), node.toString() + "\\" + fileName);
+	}
 }

@@ -3,6 +3,7 @@ package interface_Graphique_Créateur;
 import java.awt.Color;
 import java.awt.Font;
 import java.awt.Toolkit;
+import java.io.File;
 
 import javax.swing.JLabel;
 import javax.swing.JPanel;
@@ -26,7 +27,7 @@ public class PanelGestionCréateur extends JPanel {
 		this.titre.setFont(new Font("Arial", 18, 18));
 		this.titre.setBounds(10, 10, 160, 40);
 		this.add(this.titre);
-		this.arbre = new ArbreCartes(this.boutons);
+		this.arbre = new ArbreCartes(this.boutons, new ModelArbreCarte(new File("cartes")));
 		this.add(this.arbre);
 	}
 }
