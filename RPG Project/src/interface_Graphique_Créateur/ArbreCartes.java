@@ -30,5 +30,5 @@ public class ArbreCartes extends JTree implements TreeSelectionListener   {
 				System.out.println("On peut supprimer  : " + this.getLastSelectedPathComponent().toString());
 		}
 	}
-
 }
+

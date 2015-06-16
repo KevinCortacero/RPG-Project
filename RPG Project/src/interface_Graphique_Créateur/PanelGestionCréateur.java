@@ -21,6 +21,7 @@ public class PanelGestionCréateur extends JPanel {
 		this.setBackground(new Color(245, 245, 245));
 		this.setBounds(10, 200, 180, Toolkit.getDefaultToolkit().getScreenSize().height - 270);
 		this.boutons = new ButtonsSynchronisation();
+		this.boutons.setBounds(5, (int)this.getSize().getHeight()-120,170, 120);
 		this.add(this.boutons);
 		this.titre = new JLabel("Gestion des cartes");
 		this.titre.setFont(new Font("Arial", 18, 18));
@@ -28,5 +29,17 @@ public class PanelGestionCréateur extends JPanel {
 		this.add(this.titre);
 		this.arbre = new ArbreCartes(this.boutons);
 		this.add(this.arbre);
+	}
+	
+	
+	public void raffraichir(){
+		int coordonésY;
+		if ( (int)this.getSize().getHeight()-120 > 150 ){
+			coordonésY = (int)this.getSize().getHeight()-120;
+		}else{
+			coordonésY = 150 ;
+		}
+		this.boutons.repaint();
+		this.boutons.setBounds(5,coordonésY,170, 120);
 	}
 }
