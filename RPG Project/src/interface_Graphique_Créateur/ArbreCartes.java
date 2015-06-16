@@ -16,7 +16,7 @@ public class ArbreCartes extends JTree implements TreeSelectionListener {
 	private ModelArbreCarte model;
 
 	public ArbreCartes(ButtonsSynchronisation boutons, ModelArbreCarte model){
-		super(model);
+		super(new ModelArbreCarte(new File("cartes")));
 		this.model = model;
 		this.boutons = boutons;
 		this.addTreeSelectionListener(this);
@@ -61,8 +61,8 @@ public class ArbreCartes extends JTree implements TreeSelectionListener {
 		String nom = JOptionPane.showInputDialog(null, "Veuillez entrer le nom de la carte à créer dans " + node.toString(), "Création de carte !", JOptionPane.QUESTION_MESSAGE);
 		System.out.println("|"+nom+"|");
 		
-		if (nom == null)
-			JOptionPane.showMessageDialog(null, "L'ajout de la carte à été annulé", "Information", JOptionPane.INFORMATION_MESSAGE);
+//		if (nom == null)
+//			JOptionPane.showMessageDialog(null, "L'ajout de la carte à été annulé", "Information", JOptionPane.INFORMATION_MESSAGE);
 		
 		if (nom.trim().isEmpty())
 			JOptionPane.showMessageDialog(null, "Le nom de Carte entré n'est pas valide (nul)", "Information", JOptionPane.INFORMATION_MESSAGE);	
