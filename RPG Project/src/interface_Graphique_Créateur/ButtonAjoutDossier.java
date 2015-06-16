@@ -32,11 +32,5 @@ public class ButtonAjoutDossier extends JButton implements ActionListener{
 		this.buttonsSynchronisation.buttonAjoutCarte.setPeutCréerCarte(false);
 		this.buttonsSynchronisation.buttonAjoutDossier.setPeutCréerDossier(true);
 		this.buttonsSynchronisation.buttonSupprimer.setPeutSupprimer(false);
-
-
-		System.out.println("\n" + this.buttonsSynchronisation.buttonAjoutCarte.isPeutCréerCarte());
-		System.out.println(this.buttonsSynchronisation.buttonAjoutDossier.isPeutCréerDossier());
-		System.out.println(this.buttonsSynchronisation.buttonSupprimer.isPeutSupprimer());
-
 	}
 }

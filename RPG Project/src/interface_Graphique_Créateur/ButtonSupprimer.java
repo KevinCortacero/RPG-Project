@@ -32,11 +32,5 @@ public class ButtonSupprimer extends JButton implements ActionListener{
 		this.buttonsSynchronisation.buttonAjoutCarte.setPeutCréerCarte(false);
 		this.buttonsSynchronisation.buttonAjoutDossier.setPeutCréerDossier(false);
 		this.buttonsSynchronisation.buttonSupprimer.setPeutSupprimer(true);
-
-
-		System.out.println("\n" + this.buttonsSynchronisation.buttonAjoutCarte.isPeutCréerCarte());
-		System.out.println(this.buttonsSynchronisation.buttonAjoutDossier.isPeutCréerDossier());
-		System.out.println(this.buttonsSynchronisation.buttonSupprimer.isPeutSupprimer());
-
 	}
 }

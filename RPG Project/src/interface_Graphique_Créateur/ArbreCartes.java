@@ -11,17 +11,23 @@ public class ArbreCartes extends JTree implements TreeSelectionListener   {
 
 	private ButtonsSynchronisation boutons;
 	
-	public ArbreCartes(){
+	public ArbreCartes(ButtonsSynchronisation boutons){
 		super(new ModelArbreCarte());
+		this.boutons = boutons;
 		this.addTreeSelectionListener(this);
 		this.setBackground(new Color(245, 245, 245));
-		this.setBounds(5,100,170,500);
+		this.setBounds(5,50,170,500);
 	}
 
 	@Override
 	public void valueChanged(TreeSelectionEvent e) {
 		if (this.getLastSelectedPathComponent() != null) {
-			System.out.println(this.getLastSelectedPathComponent().toString());
+			if (this.boutons.buttonAjoutCarte.isPeutCréerCarte())
+				System.out.println("On peut créer une carte ici : " + this.getLastSelectedPathComponent().toString());
+			if (this.boutons.buttonAjoutDossier.isPeutCréerDossier())
+				System.out.println("On peut créer un dossier ici : " + this.getLastSelectedPathComponent().toString());
+			if (this.boutons.buttonSupprimer.isPeutSupprimer())
+				System.out.println("On peut supprimer  : " + this.getLastSelectedPathComponent().toString());
 		}
 	}
 
