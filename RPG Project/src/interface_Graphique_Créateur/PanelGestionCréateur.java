@@ -26,7 +26,7 @@ public class PanelGestionCréateur extends JPanel {
 		this.titre.setFont(new Font("Arial", 18, 18));
 		this.titre.setBounds(10, 10, 160, 40);
 		this.add(this.titre);
-		this.arbre = new ArbreCartes();
+		this.arbre = new ArbreCartes(this.boutons);
 		this.add(this.arbre);
 	}
 }
