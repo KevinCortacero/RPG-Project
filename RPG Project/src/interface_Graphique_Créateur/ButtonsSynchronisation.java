@@ -1,5 +1,6 @@
 package interface_Graphique_Créateur;
 
+import java.awt.Color;
 import java.awt.Toolkit;
 
 import javax.swing.JPanel;
@@ -13,9 +14,8 @@ public class ButtonsSynchronisation extends JPanel{
 	
 	public ButtonsSynchronisation(){
 		super();
-
 		this.setLayout(null);
-		this.setBounds(5, Toolkit.getDefaultToolkit().getScreenSize().height-400, 170, 120);
+		this.setBounds(5, Toolkit.getDefaultToolkit().getScreenSize().height-400, 170, 112);
 		this.buttonAjoutCarte = new ButtonAjoutCarte(this);
 		this.buttonAjoutDossier = new ButtonAjoutDossier(this);
 		this.buttonSupprimer = new ButtonSupprimer(this);
