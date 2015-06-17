@@ -8,7 +8,7 @@ public class CréerNiveau {
 		
 		int i = 0;
 		while ( i < 60 ){
-			f.raffraichir();			
+			f.raffraichir();		
 
 			try {
 			      Thread.sleep(100);

@@ -10,6 +10,7 @@ import javax.swing.event.TreeSelectionEvent;
 import javax.swing.event.TreeSelectionListener;
 import javax.swing.tree.DefaultMutableTreeNode;
 import javax.swing.tree.DefaultTreeModel;
+import javax.swing.tree.TreeSelectionModel;
 
 @SuppressWarnings("serial")
 public class ArbreCartes extends JTree implements TreeSelectionListener {
@@ -60,9 +61,17 @@ public class ArbreCartes extends JTree implements TreeSelectionListener {
 			
 			this.boutons.buttonAjoutCarte.setPeutCréerCarte(false);
 			this.boutons.buttonAjoutDossier.setPeutCréerDossier(false);
-			this.boutons.buttonAjoutCarte.setPeutCréerCarte(false);
+			this.boutons.buttonSupprimer.setPeutSupprimer(false);
+			TreeSelectionModel TreeModel = this.getSelectionModel();
+			
 			((DefaultTreeModel) this.getModel()).setRoot(new ModelArbreCarte(new File("cartes")));
+			this.setSelectionModel(TreeModel);
+			this.repaint();
+			
+		
+			((DefaultTreeModel) this.getModel()).reload();
 			this.expandAll();
+		
 		}
 	}
 
