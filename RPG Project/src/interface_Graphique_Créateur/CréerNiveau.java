@@ -7,10 +7,10 @@ public class CréerNiveau {
 		f.setVisible(true);
 		
 		int i = 0;
-		while ( i < 60 ){
+		while ( i < 40 ){
 			f.raffraichir();			
 			try {
-			      Thread.sleep(10000);
+			      Thread.sleep(1000);
 			    } catch (InterruptedException e) {
 			      e.printStackTrace();
 			    }
