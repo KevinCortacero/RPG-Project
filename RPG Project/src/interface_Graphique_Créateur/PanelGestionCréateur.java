@@ -31,7 +31,6 @@ public class PanelGestionCréateur extends JPanel {
 		this.add(this.arbre);
 	}
 	
-	
 	public void raffraichir(){
 		int coordonésY;
 		if ( (int)this.getSize().getHeight()-120 > 150 ){
