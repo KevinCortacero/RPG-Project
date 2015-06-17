@@ -39,7 +39,7 @@ public class PanelChoixObjetsCréateur extends JPanel{
 	
 	public PanelChoixObjetsCréateur(){
 		super();
-		this.setLayout(new GridLayout());
+		//this.setLayout(new GridLayout());
 		this.setBorder(new BorderGray());
 		this.setBackground(new Color(245,245,245));
 		this.setBounds(200, 10, Toolkit.getDefaultToolkit().getScreenSize().width - 210 , 180);
