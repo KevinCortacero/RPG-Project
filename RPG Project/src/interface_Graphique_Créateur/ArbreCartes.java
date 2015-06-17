@@ -3,27 +3,36 @@ package interface_Graphique_Créateur;
 import java.awt.Color;
 import java.io.File;
 import java.io.IOException;
+
 import javax.swing.JOptionPane;
 import javax.swing.JTree;
 import javax.swing.event.TreeSelectionEvent;
 import javax.swing.event.TreeSelectionListener;
 import javax.swing.tree.DefaultMutableTreeNode;
+import javax.swing.tree.DefaultTreeModel;
 
 @SuppressWarnings("serial")
 public class ArbreCartes extends JTree implements TreeSelectionListener {
 
 	private ButtonsSynchronisation boutons;
-	private ModelArbreCarte model;
+	protected ModelArbreCarte model;
 
 	public ArbreCartes(ButtonsSynchronisation boutons, ModelArbreCarte model){
 		super(model);
 		this.model = model;
 		this.boutons = boutons;
+		this.expandAll();
 		this.addTreeSelectionListener(this);
 		this.setBackground(new Color(245, 245, 245));
 		this.setBounds(5,50,170,500);
 	}
 
+	public void expandAll() {  
+	    for (int row = 0; row < this.getRowCount() ; row++) {
+	      this.expandRow(row);
+	    }
+	}
+	
 	@Override
 	public void valueChanged(TreeSelectionEvent e) {
 
@@ -52,26 +61,27 @@ public class ArbreCartes extends JTree implements TreeSelectionListener {
 			this.boutons.buttonAjoutCarte.setPeutCréerCarte(false);
 			this.boutons.buttonAjoutDossier.setPeutCréerDossier(false);
 			this.boutons.buttonAjoutCarte.setPeutCréerCarte(false);
+			((DefaultTreeModel) this.getModel()).setRoot(new ModelArbreCarte(new File("cartes")));
+			this.expandAll();
 		}
 	}
 
 	public String fileName(DefaultMutableTreeNode node, String fileName){
-		if (node == this.model.getRoot())
+		if (node.toString() == "Liste des cartes ")
 			return "cartes" + "\\" + fileName;
 		return fileName((DefaultMutableTreeNode) node.getParent(), node.toString() + "\\" + fileName);
 	}
 
 	public void creerCarte(DefaultMutableTreeNode node){
 		String nom = JOptionPane.showInputDialog(null, "Veuillez entrer le nom de la carte à créer dans " + node.toString(), "Création de carte !", JOptionPane.QUESTION_MESSAGE);
-		System.out.println("|"+nom+"|");
 		
-//		if (nom.is)
-//			JOptionPane.showMessageDialog(null, "L'ajout de la carte à été annulé", "Information", JOptionPane.INFORMATION_MESSAGE);
+		if (nom == null)
+			JOptionPane.showMessageDialog(null, "L'ajout de la carte à été annulé", "Information", JOptionPane.INFORMATION_MESSAGE);
 		
-		if (nom.trim().isEmpty())
+		else if (nom.trim().isEmpty())
 			JOptionPane.showMessageDialog(null, "Le nom de Carte entré n'est pas valide (nul)", "Information", JOptionPane.INFORMATION_MESSAGE);	
 
-		if (!nom.isEmpty() && nom != null) {
+		else if (!nom.isEmpty() && nom != null) {
 			try {
 				new File(fileName(node, nom + ".txt")).createNewFile();
 			} catch (IOException e) {

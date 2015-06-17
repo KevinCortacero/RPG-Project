@@ -7,6 +7,7 @@ import java.io.File;
 
 import javax.swing.JLabel;
 import javax.swing.JPanel;
+import javax.swing.tree.DefaultTreeModel;
 
 @SuppressWarnings("serial")
 public class PanelGestionCréateur extends JPanel {
