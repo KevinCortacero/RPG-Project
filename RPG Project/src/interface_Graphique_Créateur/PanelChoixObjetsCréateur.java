@@ -7,8 +7,10 @@ import java.awt.Rectangle;
 import java.awt.Toolkit;
 import java.awt.event.MouseEvent;
 import java.awt.event.MouseListener;
+
 import javax.swing.JLabel;
 import javax.swing.JPanel;
+
 
 
 import jeu.Souris;
@@ -26,12 +28,10 @@ public class PanelChoixObjetsCréateur extends JPanel{
 		this.setBorder(new BorderGray());
 		this.setBackground(new Color(245,245,245));
 		this.setBounds(200, 10, Toolkit.getDefaultToolkit().getScreenSize().width - 210 , 180);
-		/*this.titre = new JLabel("Sélectionner un objet pour le placer sur la carte actuelle");
+		this.titre = new JLabel("Sélectionner un objet pour le placer sur la carte actuelle");
 		this.titre.setFont(new Font("Arial", 18,18));
-		this.add(this.titre);*/
+		this.add(this.titre);
 		this.repaint();
-		//this.files = new ArrayList<Graphics>();
-		 
 	
 	addMouseListener(new MouseListener(){
 			
@@ -39,10 +39,7 @@ public class PanelChoixObjetsCréateur extends JPanel{
 	            
 	            public void mouseClicked(MouseEvent e) {
 	            	 int x = e.getX();	
-			            int y= e.getY();
-			            
-			     
-	            	 
+			            int y= e.getY(); 
 				}
 	 
 				public void mouseEntered(MouseEvent e) {

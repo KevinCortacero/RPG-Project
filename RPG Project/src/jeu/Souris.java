@@ -5,6 +5,7 @@ import javax.swing.ImageIcon;
 public class Souris {
 	
 	private ImageIcon image;
+	public static ImageIcon imageIcon = new ImageIcon("images/souris.jpg");
 	
 	public Souris(){
 

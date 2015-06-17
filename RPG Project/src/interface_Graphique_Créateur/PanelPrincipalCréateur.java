@@ -5,9 +5,9 @@ import java.awt.Graphics;
 import java.awt.Toolkit;
 import java.awt.event.MouseEvent;
 import java.awt.event.MouseListener;
-
 import javax.swing.ImageIcon;
 import javax.swing.JPanel;
+import jeu.Souris;
 
 @SuppressWarnings("serial")
 public class PanelPrincipalCréateur extends JPanel{
@@ -21,7 +21,7 @@ public class PanelPrincipalCréateur extends JPanel{
 		this.setBorder(new BorderGray());
 		this.setBackground(new Color(245,245,245));
 		this.setBounds(200,200, Toolkit.getDefaultToolkit().getScreenSize().width - 210 , Toolkit.getDefaultToolkit().getScreenSize().height - 270);
-		setImageCourante(null);
+		setImageCourante(Souris.imageIcon);
 		addMouseListener(new MouseListener(){
 	
 	           
