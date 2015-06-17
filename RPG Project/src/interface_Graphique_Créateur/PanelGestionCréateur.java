@@ -4,10 +4,8 @@ import java.awt.Color;
 import java.awt.Font;
 import java.awt.Toolkit;
 import java.io.File;
-
 import javax.swing.JLabel;
 import javax.swing.JPanel;
-import javax.swing.tree.DefaultTreeModel;
 
 @SuppressWarnings("serial")
 public class PanelGestionCréateur extends JPanel {
