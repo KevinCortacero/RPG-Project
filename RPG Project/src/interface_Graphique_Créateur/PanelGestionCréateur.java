@@ -48,9 +48,7 @@ public class PanelGestionCréateur extends JPanel {
 		this.arbre.setBounds(5, 50, 170, this.getHeight() - this.boutons.getHeight() - 66);
 		this.model.listRoot();
 
-		this.arbre = new ArbreCartes(this.boutons, this.model);
-		this.add(this.arbre);
-		((DefaultTreeModel) this.arbre.getModel()).reload();
-	    //((DefaultTreeModel) arbre.getModel()).setRoot(new ModelArbreCarte(new File("cartes")));
+		
+	    ((DefaultTreeModel) arbre.getModel()).setRoot(new ModelArbreCarte(new File("cartes")));
 	}
 }

@@ -7,7 +7,7 @@ public class CréerNiveau {
 		f.setVisible(true);
 		
 		int i = 0;
-		while ( i < 40 ){
+		while ( i < 60 ){
 			f.raffraichir();			
 			try {
 			      Thread.sleep(1000);
