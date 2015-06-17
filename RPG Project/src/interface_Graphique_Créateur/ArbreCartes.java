@@ -13,10 +13,10 @@ import javax.swing.tree.DefaultMutableTreeNode;
 public class ArbreCartes extends JTree implements TreeSelectionListener {
 
 	private ButtonsSynchronisation boutons;
-	private ModelArbreCarte model;
+	protected ModelArbreCarte model;
 
 	public ArbreCartes(ButtonsSynchronisation boutons, ModelArbreCarte model){
-		super(new ModelArbreCarte(new File("cartes")));
+		super(model);
 		this.model = model;
 		this.boutons = boutons;
 		this.addTreeSelectionListener(this);

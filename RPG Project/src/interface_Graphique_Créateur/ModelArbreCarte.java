@@ -15,7 +15,7 @@ public class ModelArbreCarte extends  DefaultMutableTreeNode{
 		this.listRoot();
 	}
 	
-	private void listRoot() {
+	public void listRoot() {
 
 		for (String file : this.carte.list()) {
 
