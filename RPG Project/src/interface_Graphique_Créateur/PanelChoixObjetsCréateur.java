@@ -1,28 +1,15 @@
 package interface_Graphique_Créateur;
 
 import java.awt.Color;
-import java.util.Random;
-import java.awt.Dimension;
 import java.awt.Font;
-
 import java.awt.Graphics;
 import java.awt.Rectangle;
-
-import java.awt.GridLayout;
-
 import java.awt.Toolkit;
-
 import java.awt.event.MouseEvent;
 import java.awt.event.MouseListener;
-import java.util.ArrayList;
-import java.util.List;
-
-import javax.swing.ImageIcon;
-import javax.swing.JButton;
 
 import javax.swing.JLabel;
 import javax.swing.JPanel;
-import javax.swing.tree.DefaultMutableTreeNode;
 
 
 import jeu.Souris;
@@ -31,8 +18,6 @@ import jeu.Souris;
 public class PanelChoixObjetsCréateur extends JPanel{
 
 	private JLabel titre;
-	private List<JButton> boutons;
-	//private List<Graphics> files;
 	private Souris souris = new Souris();
 	private Rectangle logoImageRect;
 	Rectangle logoImage = new Rectangle(50, 50, souris.getImageIcon().getIconWidth(), souris.getImageIcon().getIconHeight());

@@ -2,7 +2,6 @@ package interface_Graphique_Créateur;
 
 import java.awt.Color;
 import java.awt.Graphics;
-import java.awt.Image;
 import java.awt.Toolkit;
 import java.awt.event.MouseEvent;
 import java.awt.event.MouseListener;
@@ -22,6 +21,7 @@ public class PanelPrincipalCréateur extends JPanel{
 		this.setBorder(new BorderGray());
 		this.setBackground(new Color(245,245,245));
 		this.setBounds(200,200, Toolkit.getDefaultToolkit().getScreenSize().width - 210 , Toolkit.getDefaultToolkit().getScreenSize().height - 270);
+		
 		addMouseListener(new MouseListener(){
 	
 	           

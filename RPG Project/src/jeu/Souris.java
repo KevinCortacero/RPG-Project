@@ -10,7 +10,6 @@ public class Souris {
 
 		this.image = new ImageIcon("images/souris.jpg");
 
-
 	}
 	
 	public ImageIcon getImageIcon(){
