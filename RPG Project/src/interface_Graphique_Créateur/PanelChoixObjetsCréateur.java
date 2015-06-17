@@ -4,9 +4,14 @@ import java.awt.Color;
 import java.util.Random;
 import java.awt.Dimension;
 import java.awt.Font;
+
 import java.awt.Graphics;
 import java.awt.Rectangle;
+
+import java.awt.GridLayout;
+
 import java.awt.Toolkit;
+
 import java.awt.event.MouseEvent;
 import java.awt.event.MouseListener;
 import java.util.ArrayList;
@@ -14,12 +19,12 @@ import java.util.List;
 
 import javax.swing.ImageIcon;
 import javax.swing.JButton;
+
 import javax.swing.JLabel;
 import javax.swing.JPanel;
 import javax.swing.tree.DefaultMutableTreeNode;
 
-import jeu.Héros;
-import jeu.Robot;
+
 import jeu.Souris;
 
 @SuppressWarnings("serial")
@@ -34,6 +39,7 @@ public class PanelChoixObjetsCréateur extends JPanel{
 	
 	public PanelChoixObjetsCréateur(){
 		super();
+		this.setLayout(new GridLayout());
 		this.setBorder(new BorderGray());
 		this.setBackground(new Color(245,245,245));
 		this.setBounds(200, 10, Toolkit.getDefaultToolkit().getScreenSize().width - 210 , 180);
