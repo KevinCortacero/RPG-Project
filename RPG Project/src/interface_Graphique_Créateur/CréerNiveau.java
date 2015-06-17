@@ -9,8 +9,9 @@ public class CréerNiveau {
 		int i = 0;
 		while ( i < 60 ){
 			f.raffraichir();			
+
 			try {
-			      Thread.sleep(1000);
+			      Thread.sleep(100);
 			    } catch (InterruptedException e) {
 			      e.printStackTrace();
 			    }
