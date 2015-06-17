@@ -12,7 +12,7 @@ import javax.swing.JPanel;
 @SuppressWarnings("serial")
 public class PanelPrincipalCréateur extends JPanel{
 	
-	private static ImageIcon imageCourante;
+	private static  ImageIcon imageCourante;
 	int x;	
     int y;
 
@@ -21,7 +21,7 @@ public class PanelPrincipalCréateur extends JPanel{
 		this.setBorder(new BorderGray());
 		this.setBackground(new Color(245,245,245));
 		this.setBounds(200,200, Toolkit.getDefaultToolkit().getScreenSize().width - 210 , Toolkit.getDefaultToolkit().getScreenSize().height - 270);
-		
+		setImageCourante(null);
 		addMouseListener(new MouseListener(){
 	
 	           
@@ -29,7 +29,7 @@ public class PanelPrincipalCréateur extends JPanel{
             public void mouseClicked(MouseEvent e) {
                  x = e.getX();	
                  y= e.getY();
-                repaint();
+                 repaint();
 			}
  
 			public void mouseEntered(MouseEvent e) {
