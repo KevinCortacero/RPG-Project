@@ -28,8 +28,6 @@ public class TreeCarte extends JTree{
 		}
 
 		this.treeCartes = new JTree(listeCartes);
-		// SALUUUUUUUUUUUUUUUUUUUUUUUUUUUUT
-		//Inch'allah on mange des bananes on bas des cités !
 	}
 	
 	public JTree getTree(){
