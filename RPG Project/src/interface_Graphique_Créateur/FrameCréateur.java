@@ -27,7 +27,7 @@ public class FrameCréateur extends JFrame{
 		panelGestionCréateur.setBounds(10, 200, 180, this.getHeight() - 270 );
 		this.getContentPane().add(panelGestionCréateur);
 		
-		panelChoixObjetsCréateur =new PanelChoixObjetsCréateur();
+		panelChoixObjetsCréateur = new PanelChoixObjetsCréateur(this.panelPrincipalCréateur);
 		panelChoixObjetsCréateur.setBounds(200, 10 , this.getWidth() - 230, 200 );
 		this.getContentPane().add(panelChoixObjetsCréateur);
 		

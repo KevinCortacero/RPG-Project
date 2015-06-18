@@ -20,7 +20,7 @@ import jeu.ImageTest;
 @SuppressWarnings("serial")
 public class PanelChoixObjetsCréateur extends JPanel implements ActionListener{
 
-	public PanelChoixObjetsCréateur() {
+	public PanelChoixObjetsCréateur(PanelPrincipalCréateur panel ) {
 		super();
 		this.setBorder(new BorderGray());
 		this.setBackground(new Color(245, 245, 245));
@@ -46,9 +46,9 @@ public class PanelChoixObjetsCréateur extends JPanel implements ActionListener{
 	    	for ( int j = 0 ; j < 20; j++){
 	    		gridBagConstraints.gridx = j;
 	    		if ( i == 1 ){
-	    			onglet1.add(new ButtonImageParametre(new ImageTest("souris").getImageIcon().getImage()),gridBagConstraints);
+	    			onglet1.add(new ButtonImageParametre(new ImageTest("souris").getImageIcon().getImage(), panel),gridBagConstraints);
 	    		}else{
-	    			onglet1.add(new ButtonImageParametre(new ImageTest("lion").getImageIcon().getImage()),gridBagConstraints);
+	    			onglet1.add(new ButtonImageParametre(new ImageTest("lion").getImageIcon().getImage(), panel ),gridBagConstraints);
 	    		}
 	    	}
 	    }
