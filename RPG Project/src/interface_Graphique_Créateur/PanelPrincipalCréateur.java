@@ -68,13 +68,13 @@ public class PanelPrincipalCréateur extends JPanel{
 	public void paintComponent(Graphics g) {
 		super.paintComponent(g);
 		g.drawImage(imageCourante.getImage(),x-(imageCourante.getIconWidth()/2),y-(imageCourante.getIconHeight()/2),imageCourante.getImageObserver());
-		System.out.println("ReDessiner" );
+		//System.out.println("ReDessiner" );
 		} 
 	
 	
 	public static void setImageCourante(ImageIcon image){
 		imageCourante = image;
-		System.out.println("J'AI" ); 
+		//System.out.println("J'AI" ); 
 	}
 	
 	
