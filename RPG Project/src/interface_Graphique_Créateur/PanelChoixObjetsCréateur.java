@@ -55,7 +55,7 @@ public class PanelChoixObjetsCréateur extends JPanel{
 				public void mousePressed(MouseEvent e) {
 				       if (logoImage.contains(e.getX(), e.getY()))
 		            	    PanelPrincipalCréateur.setImageCourante(souris.getImageIcon());
-		            System.out.println("En mémoire" );
+		           // System.out.println("En mémoire" );
 				}
 	 
 				public void mouseReleased(MouseEvent e) {
@@ -71,7 +71,7 @@ public class PanelChoixObjetsCréateur extends JPanel{
 		super.paintComponent(g);
 		g.drawImage(souris.getImageIcon().getImage(),50,50,this);
 		
-		System.out.println("Dessiner" );
+		//System.out.println("Dessiner" );
 	}
 			
 	}
