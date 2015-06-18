@@ -67,7 +67,7 @@ public class PanelPrincipalCréateur extends JPanel{
 	
 	public void paintComponent(Graphics g) {
 		super.paintComponent(g);
-		g.drawImage(imageCourante.getImage(),x-(imageCourante.getIconWidth()/2),y-(imageCourante.getIconHeight()/2),imageCourante.getImageObserver());
+		//g.drawImage(imageCourante.getImage(),x-(imageCourante.getIconWidth()/2),y-(imageCourante.getIconHeight()/2),imageCourante.getImageObserver());
 		//System.out.println("ReDessiner" );
 		} 
 	

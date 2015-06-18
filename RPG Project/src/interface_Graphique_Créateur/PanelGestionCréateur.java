@@ -12,6 +12,7 @@ public class PanelGestionCréateur extends JPanel {
 
 	private JLabel titre;
 	private ArbreCartes arbre;
+	private ModelArbreCarte model;
 	private ButtonsSynchronisation boutons;
 	
 	public PanelGestionCréateur() {
@@ -27,7 +28,8 @@ public class PanelGestionCréateur extends JPanel {
 		this.titre.setFont(new Font("Arial", 18, 18));
 		this.titre.setBounds(10, 10, 160, 40);
 		this.add(this.titre);
-		this.arbre = new ArbreCartes(this.boutons, new ModelArbreCarte(new File("cartes")));
+		this.model = new ModelArbreCarte(new File("cartes"));
+		this.arbre = new ArbreCartes(this.boutons, model );
 		this.add(this.arbre);
 	}
 	
@@ -38,8 +40,12 @@ public class PanelGestionCréateur extends JPanel {
 		}else{
 			coordonésY = 150 ;
 		}
+		
 		this.boutons.repaint();
 		this.boutons.setBounds(5,coordonésY,170, 112);
 		this.arbre.setBounds(5, 50, 170, this.getHeight() - this.boutons.getHeight() - 66);
+		this.model.listRoot();
+
+		
 	}
 }

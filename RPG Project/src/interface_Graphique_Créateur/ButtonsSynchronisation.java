@@ -13,6 +13,7 @@ public class ButtonsSynchronisation extends JPanel{
 	public ButtonsSynchronisation(){
 		super();
 		this.setLayout(null);
+
 		this.setBounds(5, Toolkit.getDefaultToolkit().getScreenSize().height-400, 170, 112);
 		this.buttonAjoutCarte = new ButtonAjoutCarte(this);
 		this.buttonAjoutDossier = new ButtonAjoutDossier(this);

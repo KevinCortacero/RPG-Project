@@ -127,6 +127,7 @@ public class ArbreCartes extends JTree implements TreeSelectionListener {
 				this.supprimer(node);
 			}
 
+
 			this.boutons.buttonAjoutCarte.setPeutCréerCarte(false);
 			this.boutons.buttonAjoutDossier.setPeutCréerDossier(false);
 			this.boutons.buttonSupprimer.setPeutSupprimer(false);
@@ -155,9 +156,9 @@ public class ArbreCartes extends JTree implements TreeSelectionListener {
 
 	public void creerCarte(DefaultMutableTreeNode node){
 		String nom = JOptionPane.showInputDialog(null, "Veuillez entrer le nom de la carte à créer dans " + node.toString(), "Création de carte !", JOptionPane.QUESTION_MESSAGE);
-
 		if (nom == null)
-			JOptionPane.showMessageDialog(null, "L'ajout de la carte a été annulé", "Information", JOptionPane.INFORMATION_MESSAGE);
+
+			JOptionPane.showMessageDialog(null, "L'ajout de la carte à été annulé", "Information", JOptionPane.INFORMATION_MESSAGE);
 
 		else if (nom.trim().isEmpty())
 			JOptionPane.showMessageDialog(null, "Le nom de Carte entré n'est pas valide (nul)", "Information", JOptionPane.INFORMATION_MESSAGE);	
