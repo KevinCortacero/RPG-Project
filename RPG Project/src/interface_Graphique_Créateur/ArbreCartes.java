@@ -9,7 +9,6 @@ import javax.swing.event.TreeSelectionEvent;
 import javax.swing.event.TreeSelectionListener;
 import javax.swing.tree.DefaultMutableTreeNode;
 import javax.swing.tree.DefaultTreeModel;
-import javax.swing.tree.TreeSelectionModel;
 
 @SuppressWarnings("serial")
 public class ArbreCartes extends JTree implements TreeSelectionListener {

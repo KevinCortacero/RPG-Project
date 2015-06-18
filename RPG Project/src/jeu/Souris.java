@@ -8,7 +8,6 @@ public class Souris {
 	public static ImageIcon imageIcon = new ImageIcon("images/souris.jpg");
 	
 	public Souris(){
-
 		this.image = new ImageIcon("images/souris.jpg");
 	}
 	
