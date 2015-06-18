@@ -5,10 +5,9 @@ import java.awt.Dimension;
 import java.awt.GridBagConstraints;
 import java.awt.GridBagLayout;
 import java.awt.Insets;
-
 import java.awt.Toolkit;
-import java.awt.event.MouseEvent;
-import java.awt.event.MouseListener;
+import java.awt.event.ActionEvent;
+import java.awt.event.ActionListener;
 
 import javax.swing.JLabel;
 import javax.swing.JPanel;
@@ -19,7 +18,7 @@ import jeu.ImageTest;
 
 
 @SuppressWarnings("serial")
-public class PanelChoixObjetsCréateur extends JPanel implements MouseListener {
+public class PanelChoixObjetsCréateur extends JPanel implements ActionListener{
 
 	public PanelChoixObjetsCréateur() {
 		super();
@@ -29,7 +28,6 @@ public class PanelChoixObjetsCréateur extends JPanel implements MouseListener {
 				Toolkit.getDefaultToolkit().getScreenSize().width - 210, 180);
 	
 		this.repaint();
-		this.addMouseListener(this);
 		
 		// onglet 1 
 		JTabbedPane onglets = new JTabbedPane(SwingConstants.TOP);
@@ -67,44 +65,12 @@ public class PanelChoixObjetsCréateur extends JPanel implements MouseListener {
 		this.add(onglets);
 	}
 
-	
-	/*public void paintComponent(Graphics g) {
-		super.paintComponent(g);
-		g.drawImage(souris.getImageIcon().getImage(), 50, 50, this);
-
-		// System.out.println("Dessiner" );
-	}*/
-
 	@Override
-	public void mouseClicked(MouseEvent e) {
-		int x = e.getX();
-		int y = e.getY();
-
-		//if (logoImage.contains(e.getX(), e.getY()))
-		//	PanelPrincipalCréateur.setImageCourante(souris.getImageIcon());
-	}
-
-	@Override
-	public void mousePressed(MouseEvent e) {
+	public void actionPerformed(ActionEvent e) {
+		// TODO Auto-generated method stub
 		
-
 	}
 
-	@Override
-	public void mouseReleased(MouseEvent e) {
-		// TODO Auto-generated method stub
 
-	}
-
-	@Override
-	public void mouseEntered(MouseEvent e) {
-		// TODO Auto-generated method stub
-
-	}
-
-	@Override
-	public void mouseExited(MouseEvent e) {
-		// TODO Auto-generated method stub
-
-	}
+	
 }
