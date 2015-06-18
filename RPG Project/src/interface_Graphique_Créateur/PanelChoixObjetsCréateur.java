@@ -16,7 +16,7 @@ import javax.swing.JPanel;
 import jeu.Souris;
 
 @SuppressWarnings("serial")
-public class PanelChoixObjetsCréateur extends JPanel{
+public class PanelChoixObjetsCréateur extends JPanel implements MouseListener{
 
 	private JLabel titre;
 	private Souris souris = new Souris();
@@ -32,46 +32,49 @@ public class PanelChoixObjetsCréateur extends JPanel{
 		this.titre.setFont(new Font("Arial", 18,18));
 		this.add(this.titre);
 		this.repaint();
-	
-	addMouseListener(new MouseListener(){
-			
-	           
-	            
-	            public void mouseClicked(MouseEvent e) {
-	            	 int x = e.getX();	
-			            int y= e.getY(); 
-				}
-	 
-				public void mouseEntered(MouseEvent e) {
-					
-	 
-				}
-	 
-				public void mouseExited(MouseEvent e) {
-
-	 
-				}
-	 
-				public void mousePressed(MouseEvent e) {
-				       if (logoImage.contains(e.getX(), e.getY()))
-		            	    PanelPrincipalCréateur.setImageCourante(souris.getImageIcon());
-		           // System.out.println("En mémoire" );
-				}
-	 
-				public void mouseReleased(MouseEvent e) {
-					// TODO Auto-generated method stub
-	 
-				}
-	
-
-	});
+		this.addMouseListener(this);
 	}
+	
+
 	
 	public  void paintComponent( Graphics g){
 		super.paintComponent(g);
 		g.drawImage(souris.getImageIcon().getImage(),50,50,this);
 		
 		//System.out.println("Dessiner" );
+	}
+
+	@Override
+	public void mouseClicked(MouseEvent e) {
+		 int x = e.getX();	
+         int y= e.getY();
+		
+	}
+
+	@Override
+	public void mouseEntered(MouseEvent e) {
+		// TODO Auto-generated method stub
+		
+	}
+
+	@Override
+	public void mouseExited(MouseEvent e) {
+		// TODO Auto-generated method stub
+		
+	}
+
+	@Override
+	public void mousePressed(MouseEvent e) {
+		if (logoImage.contains(e.getX(), e.getY()))
+    	    PanelPrincipalCréateur.setImageCourante(souris.getImageIcon());
+   // System.out.println("En mémoire" );
+		
+	}
+
+	@Override
+	public void mouseReleased(MouseEvent e) {
+		// TODO Auto-generated method stub
+		
 	}
 			
 	}

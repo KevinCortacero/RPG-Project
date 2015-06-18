@@ -58,9 +58,9 @@ public class ArbreCartes extends JTree implements TreeSelectionListener {
 	}	
 
 	public void reconstruireAjoutCarte(int rowClicked){
-		
+
 		this.mettreAJour();
-		
+
 		for (int i = this.getRowCount() ; i > rowClicked + 1 ; i--){
 			this.tableauRow[i] = this.tableauRow[i-1];
 		}
@@ -75,11 +75,11 @@ public class ArbreCartes extends JTree implements TreeSelectionListener {
 				this.collapseRow(row);
 		}
 	}
-	
-public void reconstruireAjoutDossier(int rowClicked){
-		
+
+	public void reconstruireAjoutDossier(int rowClicked){
+
 		this.mettreAJour();
-		
+
 		for (int i = this.getRowCount() ; i > rowClicked + 2 ; i--){
 			this.tableauRow[i] = this.tableauRow[i-2];
 		}
@@ -101,7 +101,7 @@ public void reconstruireAjoutDossier(int rowClicked){
 	public void valueChanged(TreeSelectionEvent e) {
 
 		if (this.getLastSelectedPathComponent() != null) {
-			
+
 			this.sauvegarder();
 			DefaultMutableTreeNode node = (DefaultMutableTreeNode) this.getLastSelectedPathComponent();
 
@@ -130,8 +130,6 @@ public void reconstruireAjoutDossier(int rowClicked){
 			this.boutons.buttonAjoutCarte.setPeutCréerCarte(false);
 			this.boutons.buttonAjoutDossier.setPeutCréerDossier(false);
 			this.boutons.buttonSupprimer.setPeutSupprimer(false);
-			System.out.println("************************************");
-			System.out.println(this.getRowForPath(e.getPath()));
 			this.sauvegarder();
 			this.mettreAJour();
 		}
@@ -175,20 +173,20 @@ public void reconstruireAjoutDossier(int rowClicked){
 
 	public void creerDossier(DefaultMutableTreeNode node){
 		String nom = JOptionPane.showInputDialog(null, "Veuillez entrer le nom du dossier à créer : ", "Création de dossier !", JOptionPane.QUESTION_MESSAGE);
-		
+
 		if (nom == null)
 			JOptionPane.showMessageDialog(null, "L'ajout du dossier a été annulé", "Information", JOptionPane.INFORMATION_MESSAGE);
-		
+
 		else if (nom.trim().isEmpty())
 			JOptionPane.showMessageDialog(null, "Le nom de Carte entré n'est pas valide (nul)", "Information", JOptionPane.INFORMATION_MESSAGE);	
-		
+
 		else if (!nom.isEmpty() && nom != null) {
 			File file = new File(fileName(node, nom));
 			file.mkdir();
 			this.creerCarteDepuisNouveauDossier(file.getAbsolutePath() + "\\" + file.getName() + "-1");
 		}
 	}
-	
+
 	public void creerCarteDepuisNouveauDossier(String nom){
 		try {
 			new File(nom + ".txt").createNewFile();
