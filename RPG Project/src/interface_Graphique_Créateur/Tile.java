@@ -16,6 +16,10 @@ public class Tile {
 		this.numéro = numéro;
 	}
 	
+	public Tile(int numéro){
+		this(0,0,null,numéro);
+	}
+	
 	public ImageIcon getImageIcon(){
 		return this.image;
 	}
@@ -26,5 +30,9 @@ public class Tile {
 	
 	public int getY(){
 		return this.y;
+	}
+	
+	public int getNuméro(){
+		return this.numéro;
 	}
 }
