@@ -17,10 +17,10 @@ public class ObjetIcone extends JButton implements ActionListener {
 	private Image imageTailleRéelle;
 	private PanelPrincipalCréateur panel;
 	private int numéro;
-	
+
 	public static final int tailleImageJeu = 50;
 	public static final int tailleImageIcone = 46;
-	
+
 	public ObjetIcone(Image imageTailleRéelle, PanelPrincipalCréateur panel, int numéro) {
 		this.setPreferredSize(new Dimension(ObjetIcone.tailleImageIcone,ObjetIcone.tailleImageIcone));
 		this.setSize(ObjetIcone.tailleImageIcone,ObjetIcone.tailleImageIcone);
@@ -34,7 +34,14 @@ public class ObjetIcone extends JButton implements ActionListener {
 
 	@Override
 	public void actionPerformed(ActionEvent e) {
-		Image image = this.imageTailleRéelle.getScaledInstance(ObjetIcone.tailleImageJeu,ObjetIcone.tailleImageJeu, Image.SCALE_SMOOTH);
-		this.panel.setObjetCourant(new ObjetCourant(image,this.numéro));	
+		if (this.numéro < 4 || this.numéro > 5){
+			Image image = this.imageTailleRéelle.getScaledInstance(ObjetIcone.tailleImageJeu,ObjetIcone.tailleImageJeu, Image.SCALE_SMOOTH);
+			this.panel.setObjetCourant(new ObjetCourant(image,this.numéro));	
+		}
+		else {
+			this.panel.setBackground(this.imageTailleRéelle);
+			this.panel.setObjetCourant(null);
+			this.panel.repaint();
+		}
 	}
 }

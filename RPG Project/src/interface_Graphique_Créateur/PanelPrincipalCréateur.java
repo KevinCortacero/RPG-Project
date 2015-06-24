@@ -2,6 +2,7 @@ package interface_Graphique_Créateur;
 
 import java.awt.Color;
 import java.awt.Graphics;
+import java.awt.Image;
 import java.awt.Toolkit;
 import java.awt.event.MouseEvent;
 import java.awt.event.MouseListener;
@@ -30,6 +31,7 @@ public class PanelPrincipalCréateur extends JPanel implements MouseListener{
 		this.y = 0 ;
 		this.map = new ArrayList<Tile>();
 		this.tileSize = new Tile(1,1,new ImageIcon("images\\1.utilitaires\\angleMax.jpg"), 1);
+		this.map.add(this.tileSize);
 		this.mapFile = new int[1000][1000];
 		this.setBorder(new BorderGray());
 		this.setBackground(new Color(245,245,245));
@@ -40,9 +42,9 @@ public class PanelPrincipalCréateur extends JPanel implements MouseListener{
 	public void paintComponent(Graphics g) {
 		super.paintComponent(g);
 		if (this.background != null)
-			g.drawImage(this.background.getImage(), 0, 0, this);
+			g.drawImage(this.background.getImage(), 0, 0,Toolkit.getDefaultToolkit().getScreenSize().width, Toolkit.getDefaultToolkit().getScreenSize().height,  this);
 		for (Tile tile : this.map){
-			g.drawImage(tile.getImageIcon().getImage(),tile.getX(),tile.getY(),this);
+			g.drawImage(tile.getImageIcon().getImage(),tile.getX()*ObjetIcone.tailleImageJeu,tile.getY()*ObjetIcone.tailleImageJeu,this);
 		}
 
 		for(int y = 0; y < this.tileSize.getY() ; y ++){
@@ -66,8 +68,6 @@ public class PanelPrincipalCréateur extends JPanel implements MouseListener{
 					g.drawImage(new ImageIcon("images\\1.utilitaires\\bordureH.jpg").getImage(), x*ObjetIcone.tailleImageJeu, y*ObjetIcone.tailleImageJeu, this);
 			}
 		}
-
-		g.drawImage(this.tileSize.getImageIcon().getImage(), this.tileSize.getX() *ObjetIcone.tailleImageJeu, this.tileSize.getY() *ObjetIcone.tailleImageJeu, this);
 	} 
 
 	public void setObjetCourant(ObjetCourant objetCourant){
@@ -76,24 +76,23 @@ public class PanelPrincipalCréateur extends JPanel implements MouseListener{
 
 	@Override
 	public void mouseClicked(MouseEvent e) {
-		this.x =(int)(e.getX()/ObjetIcone.tailleImageJeu)*ObjetIcone.tailleImageJeu;
-		this.y = (int)(e.getY()/ObjetIcone.tailleImageJeu)*ObjetIcone.tailleImageJeu;
+		this.x =(int)(e.getX()/ObjetIcone.tailleImageJeu);
+		this.y = (int)(e.getY()/ObjetIcone.tailleImageJeu);
 		
 		if (e.getButton() == MouseEvent.BUTTON1){
 
 			if (this.objetCourant != null && this.objetCourant.getNuméro() != this.tileSize.getNuméro()){
-				this.map.remove(this.getTile(this.x / ObjetIcone.tailleImageJeu, this.y / ObjetIcone.tailleImageJeu));
+				this.map.remove(this.getTile(this.x, this.y));
 				this.map.add(new Tile(this.x, this.y, this.objetCourant.getImageIcon(), this.objetCourant.getNuméro()));
 			}
 
 			if (this.objetCourant != null && this.objetCourant.getNuméro() == this.tileSize.getNuméro()){
-				this.tileSize.setX(this.x / ObjetIcone.tailleImageJeu);
-				System.out.println(this.tileSize.getX());
-				this.tileSize.setY(this.y / ObjetIcone.tailleImageJeu);
+				this.tileSize.setX(this.x);
+				this.tileSize.setY(this.y);
 			}
 		}
-		if (e.getButton() == MouseEvent.BUTTON3 && this.getTile(this.x / ObjetIcone.tailleImageJeu, this.y / ObjetIcone.tailleImageJeu) != null)
-			this.setObjetCourant(new ObjetCourant(this.getTile(this.x / ObjetIcone.tailleImageJeu, this.y / ObjetIcone.tailleImageJeu).getImageIcon().getImage(), this.getTile(this.x / ObjetIcone.tailleImageJeu, this.y / ObjetIcone.tailleImageJeu).getNuméro()));
+		if (e.getButton() == MouseEvent.BUTTON3 && this.getTile(this.x, this.y) != null)
+			this.setObjetCourant(new ObjetCourant(this.getTile(this.x, this.y).getImageIcon().getImage(), this.getTile(this.x, this.y).getNuméro()));
 
 		this.repaint();
 	}
@@ -101,10 +100,14 @@ public class PanelPrincipalCréateur extends JPanel implements MouseListener{
 	public Tile getTile(int x, int y){
 		Tile resultat = new Tile(0);
 		for (Tile tile : this.map){
-			if (tile.getX() == x*ObjetIcone.tailleImageJeu && tile.getY() == y*ObjetIcone.tailleImageJeu)
+			if (tile.getX() == x && tile.getY() == y)
 				resultat = tile;
 		}
 		return resultat;
+	}
+	
+	public void setBackground(Image imageTailleRéelle) {
+		this.background = new ImageIcon(imageTailleRéelle);	
 	}
 
 	@Override
@@ -129,6 +132,4 @@ public class PanelPrincipalCréateur extends JPanel implements MouseListener{
 		// TODO Auto-generated method stub
 
 	}
-
-
 }
