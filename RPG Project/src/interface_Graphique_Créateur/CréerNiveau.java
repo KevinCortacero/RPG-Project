@@ -1,8 +1,10 @@
 package interface_Graphique_Créateur;
 
+import java.io.IOException;
+
 public class CréerNiveau {
 
-	public static void main(String[] args) {
+	public static void main(String[] args) throws IOException {
 		FrameCréateur f = new FrameCréateur();
 		f.setVisible(true);
 		

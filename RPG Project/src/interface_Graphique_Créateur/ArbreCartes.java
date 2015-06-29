@@ -16,6 +16,7 @@ public class ArbreCartes extends JTree implements TreeSelectionListener {
 	private ButtonsSynchronisation boutons;
 	protected ModelArbreCarte model;
 	private int[] tableauRow;
+	private File currentFile;
 
 	public ArbreCartes(ButtonsSynchronisation boutons, ModelArbreCarte model){
 		super(model);
@@ -101,9 +102,10 @@ public class ArbreCartes extends JTree implements TreeSelectionListener {
 	public void valueChanged(TreeSelectionEvent e) {
 
 		if (this.getLastSelectedPathComponent() != null) {
-
 			this.sauvegarder();
 			DefaultMutableTreeNode node = (DefaultMutableTreeNode) this.getLastSelectedPathComponent();
+			System.out.println(this.fileName(node, ""));
+			this.currentFile = new File(this.fileName((DefaultMutableTreeNode) node.getParent(), node.toString()));
 
 			if (this.boutons.buttonAjoutCarte.isPeutCréerCarte()){
 				if (node.toString().contains(".txt"))

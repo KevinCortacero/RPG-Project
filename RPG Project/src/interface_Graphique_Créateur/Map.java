@@ -3,23 +3,34 @@ package interface_Graphique_Créateur;
 import java.awt.Graphics;
 import java.awt.Image;
 import java.awt.Toolkit;
+import java.io.File;
+import java.io.FileWriter;
+import java.io.IOException;
 import java.util.ArrayList;
 import java.util.List;
+
 import javax.swing.ImageIcon;
+
 import jeu.ObjetCourant;
 
+
+// Cette class doit être refactorisée en créant la class MapFile 
 public class Map {
 
 	private Tile tileSize;
+	private int backgroundNum;
 	private List<Tile> map;
 	private int[][] mapFile;
 	private ImageIcon background;
+	private FileWriter fileWriter;
+	private File currentFile;
 	
-	public Map(){
+	public Map() throws IOException{
 		this.map = new ArrayList<Tile>();
 		this.tileSize = new Tile(1,1,new ImageIcon("images\\1.utilitaires\\angleMax.jpg"), 1);
 		this.map.add(this.tileSize);
 		this.mapFile = new int[1000][1000];
+		this.currentFile = new File("cartes\\test.txt");
 	}
 	
 	public void afficherCarte(Graphics g){
@@ -75,7 +86,6 @@ public class Map {
 		}
 	}
 	
-	
 	public Tile getTile(int x, int y){
 		Tile resultat = new Tile(0);
 		for (Tile tile : this.map){
@@ -85,7 +95,24 @@ public class Map {
 		return resultat;
 	}
 	
-	public void setBackground(Image imageTailleRéelle) {
+	public void sauvegarder() throws IOException{
+		// on écrase et on resauvegarde
+		this.fileWriter = new FileWriter(this.currentFile);
+		// on retranscrie notre matrice
+		for(int y = 0; y < this.tileSize.getY() ; y ++){
+			for(int x = 0; x < this.tileSize.getX() ; x ++){
+				this.fileWriter.write(Integer.toString(this.mapFile[x][y]) + "  ");
+			}
+			// si on est sur la première ligne, on rajoute l'information du background
+			if (y == 0)
+				this.fileWriter.write(Integer.toString(this.backgroundNum));
+			this.fileWriter.write("\r\n");
+		}
+		this.fileWriter.close();
+	}
+	
+	public void setBackground(Image imageTailleRéelle, int backgroundNum) {
 		this.background = new ImageIcon(imageTailleRéelle);	
+		this.backgroundNum = backgroundNum;
 	}
 }

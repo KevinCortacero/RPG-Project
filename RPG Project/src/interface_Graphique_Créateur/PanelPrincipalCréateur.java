@@ -5,6 +5,8 @@ import java.awt.Graphics;
 import java.awt.Toolkit;
 import java.awt.event.MouseEvent;
 import java.awt.event.MouseListener;
+import java.io.IOException;
+
 import javax.swing.JPanel;
 
 import jeu.ObjetCourant;
@@ -17,7 +19,7 @@ public class PanelPrincipalCréateur extends JPanel implements MouseListener{
 	private int x;	
 	private int y;
 
-	public PanelPrincipalCréateur(){
+	public PanelPrincipalCréateur() throws IOException{
 		super();
 		this.x = 0;
 		this.y = 0 ;
