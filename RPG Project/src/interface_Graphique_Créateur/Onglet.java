@@ -25,7 +25,10 @@ public class Onglet extends JPanel {
 		
 		for (File sousfile : this.file.listFiles()){
 			if (sousfile.isFile()){
+				panelObjets.listeImageNuméro.put(panelObjets.getNbObjets(), new ImageIcon("images" + "\\" + this.file.getName() + "\\" + sousfile.getName()));
+				System.out.println("images" + "\\" + this.file.getName() + "\\" + sousfile.getName() + "   num : " + panelObjets.getNbObjets());
 				this.add(new ObjetIcone(new ImageIcon("images" + "\\" + this.file.getName() + "\\" + sousfile.getName()).getImage(), panelPrincipal, panelObjets.getNbObjets()), this.gridBagConstraints);
+				
 				this.gridBagConstraints.gridx ++;
 				panelObjets.setNbObjets(panelObjets.getNbObjets() + 1);
 				if (this.gridBagConstraints.gridx >= 20){

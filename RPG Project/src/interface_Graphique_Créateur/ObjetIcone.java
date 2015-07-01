@@ -36,7 +36,7 @@ public class ObjetIcone extends JButton implements ActionListener {
 	public void actionPerformed(ActionEvent e) {
 		if (this.numéro < 4 || this.numéro > 5){
 			Image image = this.imageTailleRéelle.getScaledInstance(ObjetIcone.tailleImageJeu,ObjetIcone.tailleImageJeu, Image.SCALE_SMOOTH);
-			this.panel.setObjetCourant(new ObjetCourant(image,this.numéro));	
+			this.panel.setObjetCourant(new ObjetCourant(image,this.numéro));
 		}
 		else {
 			this.panel.getMap().setBackground(this.imageTailleRéelle, this.numéro);
