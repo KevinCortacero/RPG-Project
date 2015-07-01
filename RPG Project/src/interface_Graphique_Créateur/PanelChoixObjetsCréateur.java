@@ -12,6 +12,7 @@ import javax.swing.SwingConstants;
 public class PanelChoixObjetsCréateur extends JPanel{
 
 	private int nbObjets;
+	protected JTabbedPane onglets;
 
 	public PanelChoixObjetsCréateur(PanelPrincipalCréateur panel){
 		super();
@@ -21,7 +22,7 @@ public class PanelChoixObjetsCréateur extends JPanel{
 		this.setBounds(200, 10, Toolkit.getDefaultToolkit().getScreenSize().width - 210, 180);
 		this.repaint();
 
-		JTabbedPane onglets = new JTabbedPane(SwingConstants.TOP);
+		onglets = new JTabbedPane(SwingConstants.TOP);
 		onglets.setPreferredSize(new Dimension((int)this.getSize().getWidth()-20, (int)this.getSize().getHeight()-20));
 
 		for (File file : new File("images").listFiles()){

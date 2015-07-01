@@ -3,11 +3,14 @@ package interface_Graphique_Créateur;
 import java.awt.Graphics;
 import java.awt.Image;
 import java.awt.Toolkit;
+import java.io.BufferedReader;
 import java.io.File;
+import java.io.FileInputStream;
 import java.io.FileNotFoundException;
-import java.io.FileReader;
 import java.io.FileWriter;
 import java.io.IOException;
+import java.io.InputStream;
+import java.io.InputStreamReader;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -22,6 +25,7 @@ public class Map {
 	private Tile tileSize;
 	private int backgroundNum;
 	private List<Tile> map;
+	private PanelChoixObjetsCréateur panelChoixObjetsCréateur;
 	private int[][] mapFile;
 	private ImageIcon background;
 	private FileWriter fileWriter;
@@ -33,48 +37,54 @@ public class Map {
 		this.map.add(this.tileSize);
 		this.mapFile = new int[1000][1000];
 		this.setCurrentFile(new File("cartes/test.txt"));
+		this.chargerCarteActuelle();
 	}
 	
 	public void setCurrentFile(File currentFile) {
 		this.currentFile = currentFile;
 	}
-	public void chargerCarteActuelle(){
+	
+	public void setPanel(PanelChoixObjetsCréateur panelChoixObjetsCréateur){
+		this.panelChoixObjetsCréateur = panelChoixObjetsCréateur;
+	}
+	
+	public void getTileMatrice(int numéro){
 		
-		FileReader fileReader;
-		int i =0;
-		float x =0.0F;
-		int y =0;
+		System.out.println(this.panelChoixObjetsCréateur.onglets.get);
+		
+	}
+	public void chargerCarteActuelle(){
+		// on recrée la matrice avec les chiffres
 		try {
-			fileReader = new FileReader(this.currentFile);
-
-			while ((i = fileReader.read()) != -1){
-				if ( (char) i == '\n'){
+			InputStream is = new FileInputStream(this.currentFile);
+			InputStreamReader isr = new InputStreamReader(is);
+			BufferedReader br = new BufferedReader(isr);
+			
+			try {
+				String ligne;
+				int y = 0;
+				while ((ligne = br.readLine()) != null ){
+					for (int x = 0; x <= ligne.length() -1; x+=3){
+						this.mapFile[x/3][y] = Character.getNumericValue(ligne.charAt(x)) ;
+					}
 					y ++;
-					x = 0.0F;
+					this.tileSize.setX((ligne.length()+1)/3 );
 				}
-				if ((char)i == ' ')
-					x += 0.5F;
-				this.mapFile[(int)x][y] = i;
+				
+				this.tileSize.setY(y);
+				
+			} catch (IOException e) {
+				// TODO Auto-generated catch block
+				e.printStackTrace();
 			}
 		} catch (FileNotFoundException e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
-		} catch (IOException e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
-		}
-		
-		System.out.print("\n" +"***********************" + "\n");
-		for(int y2 = 0; y2 <10 ; y2 ++){
-			for(int x2 = 0; x2 <10; x2 ++){
-				System.out.print(" " + this.mapFile[x2][y2] + " ");
-			}
-			System.out.print("\n");
 		}
 	}
 	
 	public void afficherCarte(Graphics g){
-		this.chargerCarteActuelle();
+		
 		// affichage du background en premier
 		if (this.background != null)
 			g.drawImage(this.background.getImage(), 0, 0,Toolkit.getDefaultToolkit().getScreenSize().width, Toolkit.getDefaultToolkit().getScreenSize().height,  null);
@@ -109,6 +119,7 @@ public class Map {
 					g.drawImage(new ImageIcon("images\\1.utilitaires\\bordureH.jpg").getImage(), x*ObjetIcone.tailleImageJeu, y*ObjetIcone.tailleImageJeu, null);
 			}
 		}
+		this.getTileMatrice(0);
 	}
 	
 	public void gestionClicGauche(int x, int y, ObjetCourant objetCourant){
