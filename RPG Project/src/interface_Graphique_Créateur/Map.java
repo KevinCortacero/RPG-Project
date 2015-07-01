@@ -4,6 +4,8 @@ import java.awt.Graphics;
 import java.awt.Image;
 import java.awt.Toolkit;
 import java.io.File;
+import java.io.FileNotFoundException;
+import java.io.FileReader;
 import java.io.FileWriter;
 import java.io.IOException;
 import java.util.ArrayList;
@@ -23,18 +25,56 @@ public class Map {
 	private int[][] mapFile;
 	private ImageIcon background;
 	private FileWriter fileWriter;
-	private File currentFile;
-	
+	protected File currentFile;
+
 	public Map() throws IOException{
 		this.map = new ArrayList<Tile>();
 		this.tileSize = new Tile(1,1,new ImageIcon("images\\1.utilitaires\\angleMax.jpg"), 1);
 		this.map.add(this.tileSize);
 		this.mapFile = new int[1000][1000];
-		this.currentFile = new File("cartes\\test.txt");
+		this.setCurrentFile(new File("cartes/test.txt"));
+	}
+	
+	public void setCurrentFile(File currentFile) {
+		this.currentFile = currentFile;
+	}
+	public void chargerCarteActuelle(){
+		
+		FileReader fileReader;
+		int i =0;
+		float x =0.0F;
+		int y =0;
+		try {
+			fileReader = new FileReader(this.currentFile);
+
+			while ((i = fileReader.read()) != -1){
+				if ( (char) i == '\n'){
+					y ++;
+					x = 0.0F;
+				}
+				if ((char)i == ' ')
+					x += 0.5F;
+				this.mapFile[(int)x][y] = i;
+			}
+		} catch (FileNotFoundException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		} catch (IOException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+		
+		System.out.print("\n" +"***********************" + "\n");
+		for(int y2 = 0; y2 <10 ; y2 ++){
+			for(int x2 = 0; x2 <10; x2 ++){
+				System.out.print(" " + this.mapFile[x2][y2] + " ");
+			}
+			System.out.print("\n");
+		}
 	}
 	
 	public void afficherCarte(Graphics g){
-		
+		this.chargerCarteActuelle();
 		// affichage du background en premier
 		if (this.background != null)
 			g.drawImage(this.background.getImage(), 0, 0,Toolkit.getDefaultToolkit().getScreenSize().width, Toolkit.getDefaultToolkit().getScreenSize().height,  null);
@@ -51,14 +91,14 @@ public class Map {
 			}
 		}
 		
-		// Test de la matrice
-		System.out.print("\n" +"***********************" + "\n");
-		for(int y = 0; y < this.tileSize.getY() ; y ++){
-			for(int x = 0; x < this.tileSize.getX(); x ++){
-				System.out.print(" " + this.mapFile[x][y] + " ");
-			}
-			System.out.print("\n");
-		}
+//		// Test de la matrice
+//		System.out.print("\n" +"***********************" + "\n");
+//		for(int y = 0; y < this.tileSize.getY() ; y ++){
+//			for(int x = 0; x < this.tileSize.getX(); x ++){
+//				System.out.print(" " + this.mapFile[x][y] + " ");
+//			}
+//			System.out.print("\n");
+//		}
 
 		// affichage des bordures
 		for(int y = 0; y <= this.tileSize.getY() ; y ++){
@@ -98,6 +138,7 @@ public class Map {
 	public void sauvegarder() throws IOException{
 		// on écrase et on resauvegarde
 		this.fileWriter = new FileWriter(this.currentFile);
+
 		// on retranscrie notre matrice
 		for(int y = 0; y < this.tileSize.getY() ; y ++){
 			for(int x = 0; x < this.tileSize.getX() ; x ++){

@@ -8,16 +8,13 @@ public class CréerNiveau {
 		FrameCréateur f = new FrameCréateur();
 		f.setVisible(true);
 		
-		int i = 0;
-		while ( i < 60 ){
+		while ( f.isEnabled() ){
 			f.raffraichir();		
-
 			try {
 			      Thread.sleep(100);
 			    } catch (InterruptedException e) {
 			      e.printStackTrace();
 			    }
-			i++;
 		}
 	}
 }

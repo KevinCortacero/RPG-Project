@@ -46,7 +46,7 @@ public class PanelPrincipalCréateur extends JPanel implements MouseListener{
 		this.y = (int)(e.getY()/ObjetIcone.tailleImageJeu);
 		
 		// clic gauche
-		if (e.getButton() == MouseEvent.BUTTON1){
+		if (e.getButton() == MouseEvent.BUTTON1 && this.objetCourant != null){
 			this.map.gestionClicGauche(this.x, this.y, this.objetCourant);
 		}
 		// clic droit

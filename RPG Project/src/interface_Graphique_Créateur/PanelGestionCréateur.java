@@ -4,6 +4,7 @@ import java.awt.Color;
 import java.awt.Font;
 import java.awt.Toolkit;
 import java.io.File;
+
 import javax.swing.JLabel;
 import javax.swing.JPanel;
 
@@ -15,7 +16,7 @@ public class PanelGestionCréateur extends JPanel {
 	private ModelArbreCarte model;
 	private ButtonsSynchronisation boutons;
 	
-	public PanelGestionCréateur() {
+	public PanelGestionCréateur(Map map) {
 		super();
 		this.setLayout(null);
 		this.setBorder(new BorderGray());
@@ -29,8 +30,12 @@ public class PanelGestionCréateur extends JPanel {
 		this.titre.setBounds(10, 10, 160, 40);
 		this.add(this.titre);
 		this.model = new ModelArbreCarte(new File("cartes"));
-		this.arbre = new ArbreCartes(this.boutons, model );
+		this.arbre = new ArbreCartes(this.boutons, model, map);
 		this.add(this.arbre);
+	}
+	
+	public ArbreCartes getArbre() {
+		return arbre;
 	}
 	
 	public void raffraichir(){
@@ -40,12 +45,8 @@ public class PanelGestionCréateur extends JPanel {
 		}else{
 			coordonésY = 150 ;
 		}
-		
 		this.boutons.repaint();
 		this.boutons.setBounds(5,coordonésY,170, 112);
-		this.arbre.setBounds(5, 50, 170, this.getHeight() - this.boutons.getHeight() - 66);
-		this.model.listRoot();
-
-		
+		this.arbre.setBounds(5, 50, 170, this.getHeight() - this.boutons.getHeight() - 66);	
 	}
 }

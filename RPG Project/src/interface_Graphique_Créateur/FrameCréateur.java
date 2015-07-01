@@ -10,9 +10,11 @@ import javax.swing.JOptionPane;
 
 @SuppressWarnings("serial")
 public class FrameCréateur extends JFrame{
+	
 	PanelChoixObjetsCréateur panelChoixObjetsCréateur; 
 	PanelGestionCréateur panelGestionCréateur;
 	PanelPrincipalCréateur panelPrincipalCréateur;
+	PanelValidationCréateur panelValidationCréateur;
 	
 	public FrameCréateur() throws IOException{
 		super("Création de niveau");
@@ -25,7 +27,7 @@ public class FrameCréateur extends JFrame{
 		this.panelPrincipalCréateur.setBounds(200, 200, this.getWidth() - 230, this.getHeight() - 270);
 		this.getContentPane().add(panelPrincipalCréateur);
 		
-		this.panelGestionCréateur = new PanelGestionCréateur();
+		this.panelGestionCréateur = new PanelGestionCréateur(this.panelPrincipalCréateur.getMap());
 		this.panelGestionCréateur.setBounds(10, 200, 180, this.getHeight() - 270 );
 		this.getContentPane().add(panelGestionCréateur);
 		
@@ -33,8 +35,8 @@ public class FrameCréateur extends JFrame{
 		this.panelChoixObjetsCréateur.setBounds(200, 10 , this.getWidth() - 230, 200 );
 		this.getContentPane().add(panelChoixObjetsCréateur);
 		
-		PanelValidationCréateur panelValidationCréateur =new PanelValidationCréateur(this.panelPrincipalCréateur);
-		this.getContentPane().add(panelValidationCréateur);
+		this.panelValidationCréateur = new PanelValidationCréateur(this.panelPrincipalCréateur.getMap());
+		this.getContentPane().add(this.panelValidationCréateur);
 
 		addWindowListener( new WindowAdapter() {
 			public void windowClosing(WindowEvent e) {
@@ -49,6 +51,7 @@ public class FrameCréateur extends JFrame{
                 JOptionPane.YES_NO_OPTION,
                 JOptionPane.QUESTION_MESSAGE);
 		if(reponse == JOptionPane.YES_OPTION ){
+			this.setEnabled(false);
 			dispose();
 		}
 	}

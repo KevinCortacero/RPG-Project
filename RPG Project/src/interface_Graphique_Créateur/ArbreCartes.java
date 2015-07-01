@@ -16,13 +16,14 @@ public class ArbreCartes extends JTree implements TreeSelectionListener {
 	private ButtonsSynchronisation boutons;
 	protected ModelArbreCarte model;
 	private int[] tableauRow;
-	private File currentFile;
+	private Map map;
 
-	public ArbreCartes(ButtonsSynchronisation boutons, ModelArbreCarte model){
+	public ArbreCartes(ButtonsSynchronisation boutons, ModelArbreCarte model, Map map){
 		super(model);
 		this.model = model;
 		this.boutons = boutons;
 		this.tableauRow = new int[40];
+		this.map = map;
 		this.sauvegarder();
 		this.expandAll();
 		this.addTreeSelectionListener(this);
@@ -103,10 +104,13 @@ public class ArbreCartes extends JTree implements TreeSelectionListener {
 
 		if (this.getLastSelectedPathComponent() != null) {
 			this.sauvegarder();
+			
 			DefaultMutableTreeNode node = (DefaultMutableTreeNode) this.getLastSelectedPathComponent();
-			System.out.println(this.fileName(node, ""));
-			this.currentFile = new File(this.fileName((DefaultMutableTreeNode) node.getParent(), node.toString()));
+			this.map.setCurrentFile(new File(this.fileName((DefaultMutableTreeNode) node.getParent(), node.toString())));
+			System.out.println(this.map.currentFile.getAbsolutePath());
 
+			
+			
 			if (this.boutons.buttonAjoutCarte.isPeutCréerCarte()){
 				if (node.toString().contains(".txt"))
 					JOptionPane.showMessageDialog(null, "Impossible d'ajouter une carte dans un fichier .txt", "Erreur", JOptionPane.ERROR_MESSAGE);
