@@ -107,9 +107,7 @@ public class ArbreCartes extends JTree implements TreeSelectionListener {
 			
 			DefaultMutableTreeNode node = (DefaultMutableTreeNode) this.getLastSelectedPathComponent();
 			this.map.setCurrentFile(new File(this.fileName((DefaultMutableTreeNode) node.getParent(), node.toString())));
-			System.out.println(this.map.currentFile.getAbsolutePath());
-
-			
+			this.map.chargerCarteActuelle();
 			
 			if (this.boutons.buttonAjoutCarte.isPeutCréerCarte()){
 				if (node.toString().contains(".txt"))
