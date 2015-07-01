@@ -50,7 +50,7 @@ public class Map {
 	
 	public void getTileMatrice(int numéro){
 		
-		System.out.println(this.panelChoixObjetsCréateur.onglets.get);
+		//System.out.println(this.panelChoixObjetsCréateur.onglets.get);
 		
 	}
 	public void chargerCarteActuelle(){
