@@ -50,8 +50,8 @@ public class PanelPrincipalCréateur extends JPanel implements MouseListener{
 			this.map.gestionClicGauche(this.x, this.y, this.objetCourant);
 		}
 		// clic droit
-		if (e.getButton() == MouseEvent.BUTTON3 && this.map.getTile(this.x, this.y) != null)
-			this.setObjetCourant(new ObjetCourant(this.map.getTile(this.x, this.y).getImageIcon().getImage(), this.map.getTile(this.x, this.y).getNuméro()));
+		if (e.getButton() == MouseEvent.BUTTON3 && this.map.mapFile.getTile(this.x, this.y) != null)
+			this.setObjetCourant(new ObjetCourant(this.map.mapFile.getTile(this.x, this.y).getImageIcon().getImage(), this.map.mapFile.getTile(this.x, this.y).getNuméro()));
 		this.repaint();
 	}
 
