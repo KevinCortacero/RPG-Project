@@ -33,7 +33,7 @@ public class FrameCréateur extends JFrame{
 		this.getContentPane().add(panelPrincipalCréateur);
 		this.getContentPane().add(panelChoixObjetsCréateur);
 		
-		this.panelGestionCréateur = new PanelGestionCréateur(this.panelPrincipalCréateur.getMap());
+		this.panelGestionCréateur = new PanelGestionCréateur(this.panelPrincipalCréateur);
 		this.panelGestionCréateur.setBounds(10, 200, 180, this.getHeight() - 270 );
 		this.getContentPane().add(panelGestionCréateur);
 		this.panelPrincipalCréateur.getMap().mapFile.chargerCarteActuelle();

@@ -3,20 +3,30 @@ package interface_Graphique_Créateur;
 import java.awt.Graphics;
 import java.awt.Image;
 import java.awt.Toolkit;
+import java.io.File;
+
 import javax.swing.ImageIcon;
+
 import jeu.ObjetCourant;
 
 public class Map {
 
 	protected MapFile mapFile;
 	private ImageIcon background;
+	private PanelChoixObjetsCréateur panelChoixObjetsCréateur;
 
 	public Map() {
-		this.mapFile = new MapFile(this);
+		this.mapFile = new MapFile(this,new File("cartes/test.txt"));
 	}
 
 	public void setPanel(PanelChoixObjetsCréateur panelChoixObjetsCréateur){
 		this.mapFile.panelChoixObjetsCréateur = panelChoixObjetsCréateur;
+		this.panelChoixObjetsCréateur = panelChoixObjetsCréateur;
+	}
+	
+	public void changerMapFile(File fileMap){
+		this.mapFile = new MapFile(this,fileMap);
+		this.mapFile.panelChoixObjetsCréateur = this.panelChoixObjetsCréateur;
 	}
 
 	public void afficherCarte(Graphics g){
