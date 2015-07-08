@@ -23,7 +23,7 @@ public class Map {
 		this.mapFile.panelChoixObjetsCréateur = panelChoixObjetsCréateur;
 		this.panelChoixObjetsCréateur = panelChoixObjetsCréateur;
 	}
-	
+
 	public void changerMapFile(File fileMap){
 		this.mapFile = new MapFile(this,fileMap);
 		this.mapFile.panelChoixObjetsCréateur = this.panelChoixObjetsCréateur;
@@ -32,22 +32,19 @@ public class Map {
 	public void afficherCarte(Graphics g){
 
 		// affichage du background en premier
-		if (this.background != null)
+		if (this.background != null && this.mapFile.backgroundNum != 0)
 			g.drawImage(this.background.getImage(), 0, 0,Toolkit.getDefaultToolkit().getScreenSize().width, Toolkit.getDefaultToolkit().getScreenSize().height,  null);
 
 		// affichage des Tiles
-		if (this.mapFile.map == null)
-			System.out.println("La map est vide");
-		else {
-			if (!this.mapFile.map.isEmpty()){
-				for (Tile tile : this.mapFile.map){
-					if (tile == null)
-						System.out.println("La tile est vide");
-					else
-						if (tile.getNuméro() != 0)
-							g.drawImage(tile.getImageIcon().getImage(),tile.getX()*ObjetIcone.tailleImageJeu,tile.getY()*ObjetIcone.tailleImageJeu,null);
-				}
+		if (!this.mapFile.map.isEmpty()){
+			for (Tile tile : this.mapFile.map){
+				if (tile == null)
+					System.out.println("La tile est vide");
+				else
+					if (tile.getNuméro() != 0)
+						g.drawImage(tile.getImageIcon().getImage(),tile.getX()*ObjetIcone.tailleImageJeu,tile.getY()*ObjetIcone.tailleImageJeu,null);
 			}
+
 		}
 
 		// affichage des bordures
@@ -65,7 +62,7 @@ public class Map {
 
 		// on remplace la Tile
 		if (objetCourant.getNuméro() != this.mapFile.tileSize.getNuméro()){
-			//this.map.remove(this.getTile(x, y));
+			this.mapFile.map.remove(this.mapFile.getTile(x, y));
 			this.mapFile.map.add(new Tile(x, y, objetCourant.getImageIcon(), objetCourant.getNuméro()));
 		}
 
@@ -74,12 +71,15 @@ public class Map {
 			this.mapFile.tileSize.setX(x);
 			this.mapFile.tileSize.setY(y);
 		}
-		
+
 		this.mapFile.remplirMatrice();
 	}
 
 	public void setBackground(Image imageTailleRéelle, int backgroundNum) {
-		this.background = new ImageIcon(imageTailleRéelle);	
+		if (imageTailleRéelle == null)
+			this.background = null;
+		else
+			this.background = new ImageIcon(imageTailleRéelle);	
 		this.mapFile.backgroundNum = backgroundNum;
 	}
 }

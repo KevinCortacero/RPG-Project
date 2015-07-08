@@ -4,9 +4,11 @@ import java.awt.GridBagConstraints;
 import java.awt.GridBagLayout;
 import java.awt.Insets;
 import java.io.File;
+
 import javax.swing.ImageIcon;
 import javax.swing.JPanel;
 
+@SuppressWarnings("serial")
 public class Onglet extends JPanel {
 
 	private GridBagConstraints gridBagConstraints;
@@ -26,7 +28,6 @@ public class Onglet extends JPanel {
 		for (File sousfile : this.file.listFiles()){
 			if (sousfile.isFile()){
 				panelObjets.listeImageNuméro.put(panelObjets.getNbObjets(), new ImageIcon("images" + "\\" + this.file.getName() + "\\" + sousfile.getName()));
-				System.out.println("images" + "\\" + this.file.getName() + "\\" + sousfile.getName() + "   num : " + panelObjets.getNbObjets());
 				this.add(new ObjetIcone(new ImageIcon("images" + "\\" + this.file.getName() + "\\" + sousfile.getName()).getImage(), panelPrincipal, panelObjets.getNbObjets()), this.gridBagConstraints);
 				
 				this.gridBagConstraints.gridx ++;

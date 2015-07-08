@@ -27,8 +27,7 @@ public class ObjetIcone extends JButton implements ActionListener {
 		this.panel = panel;
 		this.imageTailleRéelle = imageTailleRéelle;
 		this.numéro = numéro;
-		this.setIcon(new ImageIcon(this.imageTailleRéelle.getScaledInstance((int)this.getSize().getWidth(),(int) this.getSize().getHeight(),
-				Image.SCALE_SMOOTH)));
+		this.setIcon(new ImageIcon(this.imageTailleRéelle.getScaledInstance((int)this.getSize().getWidth(),(int) this.getSize().getHeight(),Image.SCALE_SMOOTH)));
 		this.addActionListener(this);
 	}
 

@@ -20,7 +20,7 @@ public class MapFile {
 	protected File currentFile;
 	protected int[][] mapFile;
 	protected List<Tile> map;
-	
+
 	protected int backgroundNum;
 	protected Tile tileSize;
 	protected FileWriter fileWriter;
@@ -74,30 +74,34 @@ public class MapFile {
 				String ligne;
 				int y = 0;
 				while ((ligne = br.readLine()) != null ){
-					
+
 					int xMatrice = 0;
 					int x = 0;
-					
+
 					while (x < ligne.length()-1){
 						String numéro = String.valueOf(ligne.charAt(x));
 						while (ligne.charAt(x+1) != ' '){
 							numéro += String.valueOf(ligne.charAt(x+1));	
 							x ++;
 						}
-						this.mapFile[xMatrice][y] = Integer.parseInt(numéro);
-						System.out.println("x matrice : " + xMatrice);
-						System.out.println("num: " + numéro);
-						System.out.println("x : " + x);
+						if (Integer.parseInt(numéro) <= this.panelChoixObjetsCréateur.listeImageNuméro.size())
+							this.mapFile[xMatrice][y] = Integer.parseInt(numéro);
+						else
+							this.mapFile[xMatrice][y] = 0;
 						xMatrice ++;
 						x += 3;
 					}
 					if (y == 0){
 						this.mapFile[xMatrice+1][y] = Integer.parseInt(String.valueOf(ligne.charAt(ligne.length()-1)));
-						this.mapPrincipale.setBackground(this.getTileMatrice( this.mapFile[xMatrice+1][y]).getImage(), this.mapFile[xMatrice+1][y]);
+						if (this.mapFile[xMatrice+1][y] != 0)
+							this.mapPrincipale.setBackground(this.getTileMatrice( this.mapFile[xMatrice+1][y]).getImage(), this.mapFile[xMatrice+1][y]);
+						else
+							this.mapPrincipale.setBackground(null,0);
 					}
-						
+
 					y ++;
-					this.tileSize = new Tile(xMatrice ,1,new ImageIcon("images\\1.utilitaires\\angleMax.jpg"), 1);
+					this.tileSize = new Tile(1,1,new ImageIcon("images\\1.utilitaires\\angleMax.jpg"), 1);
+					this.tileSize.setX(xMatrice);
 				}
 
 				this.tileSize.setY(y);

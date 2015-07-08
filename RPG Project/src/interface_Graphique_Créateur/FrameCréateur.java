@@ -62,7 +62,7 @@ public class FrameCréateur extends JFrame{
 	public void raffraichir(){
 		// permet d'ancrer les composants
 		this.panelGestionCréateur.setBounds(10, 200, 180, this.getHeight() - 270 );
-		this.panelPrincipalCréateur.setBounds(200, 200, this.getWidth() - 230, this.getHeight() - 270 );
+		this.panelPrincipalCréateur.setBounds(200, 200, ((int) ((this.getWidth()-210) / ObjetIcone.tailleImageJeu)) * ObjetIcone.tailleImageJeu, ((int) ((this.getHeight() -220) / ObjetIcone.tailleImageJeu)) * ObjetIcone.tailleImageJeu);
 		this.panelChoixObjetsCréateur.setBounds(200, 10 , this.getWidth() - 230, 180 );
 		this.panelGestionCréateur.raffraichir();
 	}
