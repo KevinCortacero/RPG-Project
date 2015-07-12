@@ -16,7 +16,7 @@ public class PanelGestionCréateur extends JPanel {
 	private ModelArbreCarte model;
 	private ButtonsSynchronisation boutons;
 	
-	public PanelGestionCréateur(Map map) {
+	public PanelGestionCréateur(PanelPrincipalCréateur panel) {
 		super();
 		this.setLayout(null);
 		this.setBorder(new BorderGray());
@@ -30,7 +30,7 @@ public class PanelGestionCréateur extends JPanel {
 		this.titre.setBounds(10, 10, 160, 40);
 		this.add(this.titre);
 		this.model = new ModelArbreCarte(new File("cartes"));
-		this.arbre = new ArbreCartes(this.boutons, model, map);
+		this.arbre = new ArbreCartes(this.boutons, this.model, panel);
 		this.add(this.arbre);
 	}
 	

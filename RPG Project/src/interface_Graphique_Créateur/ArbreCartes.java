@@ -3,6 +3,7 @@ package interface_Graphique_Créateur;
 import java.awt.Color;
 import java.io.File;
 import java.io.IOException;
+
 import javax.swing.JOptionPane;
 import javax.swing.JTree;
 import javax.swing.event.TreeSelectionEvent;
@@ -16,14 +17,14 @@ public class ArbreCartes extends JTree implements TreeSelectionListener {
 	private ButtonsSynchronisation boutons;
 	protected ModelArbreCarte model;
 	private int[] tableauRow;
-	private Map map;
+	private PanelPrincipalCréateur panel;
 
-	public ArbreCartes(ButtonsSynchronisation boutons, ModelArbreCarte model, Map map){
+	public ArbreCartes(ButtonsSynchronisation boutons, ModelArbreCarte model, PanelPrincipalCréateur panel){
 		super(model);
 		this.model = model;
 		this.boutons = boutons;
 		this.tableauRow = new int[40];
-		this.map = map;
+		this.panel = panel;
 		this.sauvegarder();
 		this.expandAll();
 		this.addTreeSelectionListener(this);
@@ -98,17 +99,23 @@ public class ArbreCartes extends JTree implements TreeSelectionListener {
 		}
 	}
 
-
 	@Override
 	public void valueChanged(TreeSelectionEvent e) {
 
 		if (this.getLastSelectedPathComponent() != null) {
 			this.sauvegarder();
-			
+
 			DefaultMutableTreeNode node = (DefaultMutableTreeNode) this.getLastSelectedPathComponent();
-			this.map.setCurrentFile(new File(this.fileName((DefaultMutableTreeNode) node.getParent(), node.toString())));
-			this.map.chargerCarteActuelle();
-			
+
+			if (!this.boutons.buttonAjoutCarte.isPeutCréerCarte() && !this.boutons.buttonAjoutDossier.isPeutCréerDossier() && !this.boutons.buttonSupprimer.isPeutSupprimer()){
+				File fileCarte = new File(this.fileName((DefaultMutableTreeNode) node.getParent(), node.toString()));
+				if (fileCarte.isFile()){
+					this.panel.getMap().changerMapFile(fileCarte);
+					this.panel.getMap().mapFile.chargerCarteActuelle();
+					this.panel.repaint();
+				}
+			}
+
 			if (this.boutons.buttonAjoutCarte.isPeutCréerCarte()){
 				if (node.toString().contains(".txt"))
 					JOptionPane.showMessageDialog(null, "Impossible d'ajouter une carte dans un fichier .txt", "Erreur", JOptionPane.ERROR_MESSAGE);

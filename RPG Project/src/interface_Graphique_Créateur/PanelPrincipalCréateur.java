@@ -26,7 +26,7 @@ public class PanelPrincipalCréateur extends JPanel implements MouseListener{
 		this.map = new Map();
 		this.setBorder(new BorderGray());
 		this.setBackground(new Color(245,245,245));
-		this.setBounds(200,200, Toolkit.getDefaultToolkit().getScreenSize().width - 210 , Toolkit.getDefaultToolkit().getScreenSize().height - 270);
+		this.setBounds(200,300, Toolkit.getDefaultToolkit().getScreenSize().width - 210 , Toolkit.getDefaultToolkit().getScreenSize().height - 270);
 		this.addMouseListener(this);
 	}
 
@@ -50,8 +50,10 @@ public class PanelPrincipalCréateur extends JPanel implements MouseListener{
 			this.map.gestionClicGauche(this.x, this.y, this.objetCourant);
 		}
 		// clic droit
-		if (e.getButton() == MouseEvent.BUTTON3 && this.map.getTile(this.x, this.y) != null)
-			this.setObjetCourant(new ObjetCourant(this.map.getTile(this.x, this.y).getImageIcon().getImage(), this.map.getTile(this.x, this.y).getNuméro()));
+		else if (e.getButton() == MouseEvent.BUTTON3 && this.map.mapFile.getTile(this.x, this.y).getNuméro() != 0)
+			this.setObjetCourant(new ObjetCourant(this.map.mapFile.getTile(this.x, this.y).getImageIcon().getImage(), this.map.mapFile.getTile(this.x, this.y).getNuméro()));
+		else if (this.map.mapFile.getTile(this.x, this.y).getNuméro() == 0)
+			this.setObjetCourant(null);
 		this.repaint();
 	}
 

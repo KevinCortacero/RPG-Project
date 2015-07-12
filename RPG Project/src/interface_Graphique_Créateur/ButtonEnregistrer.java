@@ -20,8 +20,8 @@ public class ButtonEnregistrer extends JButton implements ActionListener {
 	@Override
 	public void actionPerformed(ActionEvent e) {
 		try {
-			System.out.println(this.map.currentFile.getAbsoluteFile() + "*******");
-			this.map.sauvegarder();
+			System.out.println(this.map.mapFile.currentFile.getAbsoluteFile() + "*******");
+			this.map.mapFile.sauvegarder();
 		} catch (IOException e1) {
 			// TODO Auto-generated catch block
 			e1.printStackTrace();
