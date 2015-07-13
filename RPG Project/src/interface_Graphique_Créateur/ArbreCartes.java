@@ -106,8 +106,7 @@ public class ArbreCartes extends JTree implements TreeSelectionListener {
 			this.sauvegarder();
 
 			DefaultMutableTreeNode node = (DefaultMutableTreeNode) this.getLastSelectedPathComponent();
-
-			if (!this.boutons.buttonAjoutCarte.isPeutCréerCarte() && !this.boutons.buttonAjoutDossier.isPeutCréerDossier() && !this.boutons.buttonSupprimer.isPeutSupprimer()){
+			if (!this.boutons.buttonAjoutCarte.isPeutCréerCarte() && !this.boutons.buttonAjoutDossier.isPeutCréerDossier() && !this.boutons.buttonSupprimer.isPeutSupprimer() && this.getLastSelectedPathComponent().toString() != "Liste des cartes" ){
 				File fileCarte = new File(this.fileName((DefaultMutableTreeNode) node.getParent(), node.toString()));
 				if (fileCarte.isFile()){
 					this.panel.getMap().changerMapFile(fileCarte);
@@ -122,6 +121,7 @@ public class ArbreCartes extends JTree implements TreeSelectionListener {
 				else {
 					this.creerCarte(node);
 					this.reconstruireAjoutCarte(this.getRowForPath(e.getPath()));
+					this.mettreAJour();
 				}
 			}
 
@@ -129,6 +129,7 @@ public class ArbreCartes extends JTree implements TreeSelectionListener {
 				if (!node.toString().contains(".txt")){
 					this.creerDossier(node);
 					this.reconstruireAjoutDossier(this.getRowForPath(e.getPath()));
+					this.mettreAJour();
 				}
 				else
 					JOptionPane.showMessageDialog(null, "Impossible d'ajouter un dossier dans un fichier .txt", "Erreur", JOptionPane.ERROR_MESSAGE);;
@@ -136,6 +137,7 @@ public class ArbreCartes extends JTree implements TreeSelectionListener {
 
 			if (this.boutons.buttonSupprimer.isPeutSupprimer()){
 				this.supprimer(node);
+				this.mettreAJour();
 			}
 
 
@@ -143,7 +145,7 @@ public class ArbreCartes extends JTree implements TreeSelectionListener {
 			this.boutons.buttonAjoutDossier.setPeutCréerDossier(false);
 			this.boutons.buttonSupprimer.setPeutSupprimer(false);
 			this.sauvegarder();
-			this.mettreAJour();
+			
 		}
 	}
 
@@ -160,7 +162,7 @@ public class ArbreCartes extends JTree implements TreeSelectionListener {
 	}
 
 	public String fileName(DefaultMutableTreeNode node, String fileName){
-		if (node.toString() == "Liste des cartes ")
+		if (node.toString() == "Liste des cartes")
 			return "cartes" + "\\" + fileName;
 		return fileName((DefaultMutableTreeNode) node.getParent(), node.toString() + "\\" + fileName);
 	}
