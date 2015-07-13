@@ -133,6 +133,7 @@ public class ArbreCartes extends JTree implements TreeSelectionListener {
 				else {
 					this.creerCarte(node);
 					this.reconstruireAjoutCarte(this.getRowForPath(e.getPath()));
+					this.mettreAJour();
 				}
 			}
 
@@ -140,6 +141,7 @@ public class ArbreCartes extends JTree implements TreeSelectionListener {
 				if (!node.toString().contains(".txt")){
 					this.creerDossier(node);
 					this.reconstruireAjoutDossier(this.getRowForPath(e.getPath()));
+					this.mettreAJour();
 				}
 				else
 					JOptionPane.showMessageDialog(null, "Impossible d'ajouter un dossier dans un fichier .txt", "Erreur", JOptionPane.ERROR_MESSAGE);

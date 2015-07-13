@@ -31,8 +31,9 @@ public class PanelGestionCréateur extends JPanel {
 		this.add(this.titre);
 		this.model = new ModelArbreCarte(new File("cartes"));
 		this.arbre = new ArbreCartes(this.boutons, this.model, panel);
-		this.arbre.setCellRenderer(null);
+		this.arbre.setCellRenderer(new MyTreeCellRenderer());
 		this.add(this.arbre);
+		
 	}
 	
 	public ArbreCartes getArbre() {

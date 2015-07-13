@@ -32,9 +32,11 @@ public class Map {
 		this.panelChoixObjetsCréateur = panelChoixObjetsCréateur;
 	}
 
+
 	public void changerMapFile(File fileMap){
 		this.mapFile = new MapFile(this,fileMap);
 		this.mapFile.panelChoixObjetsCréateur = this.panelChoixObjetsCréateur;
+
 	}
 
 	public void afficherCarte(Graphics g){
