@@ -106,13 +106,25 @@ public class ArbreCartes extends JTree implements TreeSelectionListener {
 			this.sauvegarder();
 
 			DefaultMutableTreeNode node = (DefaultMutableTreeNode) this.getLastSelectedPathComponent();
-			if (!this.boutons.buttonAjoutCarte.isPeutCréerCarte() && !this.boutons.buttonAjoutDossier.isPeutCréerDossier() && !this.boutons.buttonSupprimer.isPeutSupprimer() && this.getLastSelectedPathComponent().toString() != "Liste des cartes" ){
-				File fileCarte = new File(this.fileName((DefaultMutableTreeNode) node.getParent(), node.toString()));
-				if (fileCarte.isFile()){
-					this.panel.getMap().changerMapFile(fileCarte);
+
+			if (!this.boutons.buttonAjoutCarte.isPeutCréerCarte() && !this.boutons.buttonAjoutDossier.isPeutCréerDossier() && !this.boutons.buttonSupprimer.isPeutSupprimer() && this.getLastSelectedPathComponent().toString() != "Liste des cartes"){
+				if (!this.panel.getMap().listeMapFile.containsKey(this.fileName((DefaultMutableTreeNode) node.getParent(), node.toString()))){
+					File fileCarte = new File(this.fileName((DefaultMutableTreeNode) node.getParent(), node.toString()));
+					if (fileCarte.isFile()){
+						System.out.println(this.fileName((DefaultMutableTreeNode) node.getParent(), node.toString()));
+						this.panel.getMap().listeMapFile.put(this.fileName((DefaultMutableTreeNode) node.getParent(), node.toString()), new MapFile(this.panel.getMap(),fileCarte));
+						this.panel.getMap().changerMapFile(fileCarte);
+						this.panel.getMap().mapFile.chargerCarteActuelle();
+						this.panel.repaint();
+					}
+				}
+				else {
+					
+					this.panel.getMap().changerMapFile(this.panel.getMap().listeMapFile.get(this.fileName((DefaultMutableTreeNode) node.getParent(), node.toString())).currentFile);
 					this.panel.getMap().mapFile.chargerCarteActuelle();
 					this.panel.repaint();
 				}
+				System.out.println(this.panel.getMap().listeMapFile.size());
 			}
 
 			if (this.boutons.buttonAjoutCarte.isPeutCréerCarte()){
@@ -132,7 +144,7 @@ public class ArbreCartes extends JTree implements TreeSelectionListener {
 					this.mettreAJour();
 				}
 				else
-					JOptionPane.showMessageDialog(null, "Impossible d'ajouter un dossier dans un fichier .txt", "Erreur", JOptionPane.ERROR_MESSAGE);;
+					JOptionPane.showMessageDialog(null, "Impossible d'ajouter un dossier dans un fichier .txt", "Erreur", JOptionPane.ERROR_MESSAGE);
 			}
 
 			if (this.boutons.buttonSupprimer.isPeutSupprimer()){
@@ -145,7 +157,6 @@ public class ArbreCartes extends JTree implements TreeSelectionListener {
 			this.boutons.buttonAjoutDossier.setPeutCréerDossier(false);
 			this.boutons.buttonSupprimer.setPeutSupprimer(false);
 			this.sauvegarder();
-			
 		}
 	}
 
