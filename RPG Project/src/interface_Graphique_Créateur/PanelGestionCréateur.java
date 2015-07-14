@@ -33,7 +33,6 @@ public class PanelGestionCréateur extends JPanel {
 		this.arbre = new ArbreCartes(this.boutons, this.model, panel);
 		this.arbre.setCellRenderer(new MyTreeCellRenderer());
 		this.add(this.arbre);
-		
 	}
 	
 	public ArbreCartes getArbre() {
