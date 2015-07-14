@@ -25,11 +25,8 @@ public class PanelChoixObjetsCréateur extends JPanel{
 		this.nbObjets = 1;
 		this.setBackground(new Color(245, 245, 245));
 		this.setBounds(200, 10, Toolkit.getDefaultToolkit().getScreenSize().width - 210, 180);
-		this.repaint();
-
 		onglets = new JTabbedPane(SwingConstants.TOP);
-		onglets.setPreferredSize(new Dimension((int)this.getSize().getWidth()-20, (int)this.getSize().getHeight()-20));
-
+		onglets.setPreferredSize(new Dimension(this.getWidth()-20, this.getHeight()-20));
 		for (File file : new File("images").listFiles()){
 			if (file.isDirectory())
 				onglets.addTab(file.getName(), new Onglet(panel, file.getName(), this));
@@ -43,5 +40,9 @@ public class PanelChoixObjetsCréateur extends JPanel{
 
 	public void setNbObjets(int nb) {
 		this.nbObjets = nb;	
+	}
+	
+	public void raffraichir(){
+		onglets.setPreferredSize(new Dimension(this.getWidth()-20, this.getHeight()-20));
 	}
 }
