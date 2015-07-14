@@ -111,7 +111,6 @@ public class ArbreCartes extends JTree implements TreeSelectionListener {
 				if (!this.panel.getMap().listeMapFile.containsKey(this.fileName((DefaultMutableTreeNode) node.getParent(), node.toString()))){
 					File fileCarte = new File(this.fileName((DefaultMutableTreeNode) node.getParent(), node.toString()));
 					if (fileCarte.isFile()){
-						System.out.println(this.fileName((DefaultMutableTreeNode) node.getParent(), node.toString()));
 						this.panel.getMap().listeMapFile.put(this.fileName((DefaultMutableTreeNode) node.getParent(), node.toString()), new MapFile(this.panel.getMap(),fileCarte));
 						this.panel.getMap().changerMapFile(fileCarte);
 						this.panel.getMap().mapFile.chargerCarteActuelle();
@@ -124,7 +123,6 @@ public class ArbreCartes extends JTree implements TreeSelectionListener {
 					this.panel.getMap().mapFile.chargerCarteActuelle();
 					this.panel.repaint();
 				}
-				System.out.println(this.panel.getMap().listeMapFile.size());
 			}
 
 			if (this.boutons.buttonAjoutCarte.isPeutCréerCarte()){
@@ -151,8 +149,6 @@ public class ArbreCartes extends JTree implements TreeSelectionListener {
 				this.supprimer(node);
 				this.mettreAJour();
 			}
-
-
 			this.boutons.buttonAjoutCarte.setPeutCréerCarte(false);
 			this.boutons.buttonAjoutDossier.setPeutCréerDossier(false);
 			this.boutons.buttonSupprimer.setPeutSupprimer(false);
