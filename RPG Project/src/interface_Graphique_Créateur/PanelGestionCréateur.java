@@ -3,6 +3,8 @@ package interface_Graphique_Créateur;
 import java.awt.Color;
 import java.awt.Font;
 import java.awt.Toolkit;
+import java.awt.event.MouseEvent;
+import java.awt.event.MouseListener;
 import java.io.File;
 
 import javax.swing.JLabel;
@@ -15,7 +17,7 @@ public class PanelGestionCréateur extends JPanel {
 	private ArbreCartes arbre;
 	private ModelArbreCarte model;
 	private ButtonsSynchronisation boutons;
-	
+
 	public PanelGestionCréateur(PanelPrincipalCréateur panel) {
 		super();
 		this.setLayout(null);
@@ -34,11 +36,11 @@ public class PanelGestionCréateur extends JPanel {
 		this.arbre.setCellRenderer(new MyTreeCellRenderer());
 		this.add(this.arbre);
 	}
-	
+
 	public ArbreCartes getArbre() {
 		return arbre;
 	}
-	
+
 	public void raffraichir(){
 		int coordonésY;
 		if ( (int)this.getSize().getHeight()-120 > 150 ){
