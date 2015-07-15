@@ -4,7 +4,9 @@
 - gérer les couches
 - instancier fichier text                        LG :
 - agrandir la base de donnée des images          LG :
--------------------------------
+- problème sur panel principal, il ne faut 
+  pas bouger la souris pour que le click soit 
+  pris en compte 
 
 - videur curseur objet courant                                           : fini ! 
 - videur boolean bouton                                                  : fini ! 
