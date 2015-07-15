@@ -1,7 +1,10 @@
 package interface_Graphique_Créateur;
 
 import java.awt.Color;
+import java.io.BufferedReader;
 import java.io.File;
+import java.io.FileReader;
+import java.io.FileWriter;
 import java.io.IOException;
 
 import javax.swing.JOptionPane;
@@ -190,9 +193,23 @@ public class ArbreCartes extends JTree implements TreeSelectionListener {
 		else if (!nom.isEmpty() && nom != null) {
 			try {
 				new File(fileName(node, nom + ".txt")).createNewFile();
-			} catch (IOException e) {
-				e.printStackTrace();
-			}
+				 FileWriter writer = new FileWriter(fileName(node, nom + ".txt"));
+		     		   try {
+			                writer.write("0  0");
+
+			            } finally {
+			                writer.close();
+			            }
+				} catch (IOException e) {
+					e.printStackTrace();
+				}
+				try {
+					lireFichierTexte(nom + ".txt");
+				} catch (IOException e) {
+					// TODO Auto-generated catch block
+					e.printStackTrace();
+				}
+			
 		}
 	}
 
@@ -215,8 +232,33 @@ public class ArbreCartes extends JTree implements TreeSelectionListener {
 	public void creerCarteDepuisNouveauDossier(String nom){
 		try {
 			new File(nom + ".txt").createNewFile();
+			 FileWriter writer = new FileWriter(nom + ".txt");
+			   try {
+	                writer.write("0  0");
+
+	            } finally {
+	                writer.close();
+	            }
 		} catch (IOException e) {
 			e.printStackTrace();
 		}
+		try {
+			lireFichierTexte(nom + ".txt");
+		} catch (IOException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+
+	}
+	
+	public void lireFichierTexte(String nom) throws IOException{
+		BufferedReader in = new BufferedReader(new FileReader(nom));
+		String line;
+		while ((line = in.readLine()) != null)
+		{
+			  System.out.println (line);
+		}
+		in.close();
+
 	}
 }
