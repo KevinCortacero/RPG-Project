@@ -22,4 +22,10 @@ public class ButtonsSynchronisation extends JPanel{
 		this.add(this.buttonAjoutDossier);
 		this.add(this.buttonSupprimer);
 	}
+
+	public void setFalse() {
+		this.buttonAjoutCarte.setPeutCréerCarte(false);
+		this.buttonAjoutDossier.setPeutCréerDossier(false);
+		this.buttonSupprimer.setPeutSupprimer(false);
+	}
 }

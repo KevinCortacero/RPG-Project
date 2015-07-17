@@ -1,7 +1,12 @@
 package interface_Graphique_Créateur;
 
 import java.awt.Color;
+
 import java.io.BufferedReader;
+
+import java.awt.event.MouseEvent;
+import java.awt.event.MouseListener;
+
 import java.io.File;
 import java.io.FileReader;
 import java.io.FileWriter;
@@ -15,7 +20,7 @@ import javax.swing.tree.DefaultMutableTreeNode;
 import javax.swing.tree.DefaultTreeModel;
 
 @SuppressWarnings("serial")
-public class ArbreCartes extends JTree implements TreeSelectionListener {
+public class ArbreCartes extends JTree implements TreeSelectionListener, MouseListener {
 
 	private ButtonsSynchronisation boutons;
 	protected ModelArbreCarte model;
@@ -33,6 +38,7 @@ public class ArbreCartes extends JTree implements TreeSelectionListener {
 		this.addTreeSelectionListener(this);
 		this.setBackground(new Color(245, 245, 245));
 		this.setBounds(5,50,170,500);
+		this.addMouseListener(this);
 	}
 
 	public void expandAll() {  
@@ -114,7 +120,6 @@ public class ArbreCartes extends JTree implements TreeSelectionListener {
 				if (!this.panel.getMap().listeMapFile.containsKey(this.fileName((DefaultMutableTreeNode) node.getParent(), node.toString()))){
 					File fileCarte = new File(this.fileName((DefaultMutableTreeNode) node.getParent(), node.toString()));
 					if (fileCarte.isFile()){
-						System.out.println(this.fileName((DefaultMutableTreeNode) node.getParent(), node.toString()));
 						this.panel.getMap().listeMapFile.put(this.fileName((DefaultMutableTreeNode) node.getParent(), node.toString()), new MapFile(this.panel.getMap(),fileCarte));
 						this.panel.getMap().changerMapFile(fileCarte);
 						this.panel.getMap().mapFile.chargerCarteActuelle();
@@ -127,7 +132,6 @@ public class ArbreCartes extends JTree implements TreeSelectionListener {
 					this.panel.getMap().mapFile.chargerCarteActuelle();
 					this.panel.repaint();
 				}
-				System.out.println(this.panel.getMap().listeMapFile.size());
 			}
 
 			if (this.boutons.buttonAjoutCarte.isPeutCréerCarte()){
@@ -154,11 +158,7 @@ public class ArbreCartes extends JTree implements TreeSelectionListener {
 				this.supprimer(node);
 				this.mettreAJour();
 			}
-
-
-			this.boutons.buttonAjoutCarte.setPeutCréerCarte(false);
-			this.boutons.buttonAjoutDossier.setPeutCréerDossier(false);
-			this.boutons.buttonSupprimer.setPeutSupprimer(false);
+			this.boutons.setFalse();
 			this.sauvegarder();
 		}
 	}
@@ -260,5 +260,35 @@ public class ArbreCartes extends JTree implements TreeSelectionListener {
 		}
 		in.close();
 
+	}
+
+	@Override
+	public void mouseClicked(MouseEvent e) {
+		if (e.getButton() == MouseEvent.BUTTON3)
+			this.boutons.setFalse();
+	}
+
+	@Override
+	public void mouseEntered(MouseEvent e) {
+		// TODO Auto-generated method stub
+		
+	}
+
+	@Override
+	public void mouseExited(MouseEvent e) {
+		// TODO Auto-generated method stub
+		
+	}
+
+	@Override
+	public void mousePressed(MouseEvent e) {
+		// TODO Auto-generated method stub
+		
+	}
+
+	@Override
+	public void mouseReleased(MouseEvent e) {
+		// TODO Auto-generated method stub
+		
 	}
 }
