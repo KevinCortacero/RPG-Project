@@ -1,14 +1,10 @@
 package interface_Graphique_Créateur;
 
 import java.awt.Color;
-
-import java.io.BufferedReader;
-
 import java.awt.event.MouseEvent;
 import java.awt.event.MouseListener;
 
 import java.io.File;
-import java.io.FileReader;
 import java.io.FileWriter;
 import java.io.IOException;
 
@@ -203,12 +199,12 @@ public class ArbreCartes extends JTree implements TreeSelectionListener, MouseLi
 				} catch (IOException e) {
 					e.printStackTrace();
 				}
-				try {
-					lireFichierTexte(nom + ".txt");
-				} catch (IOException e) {
-					// TODO Auto-generated catch block
-					e.printStackTrace();
-				}
+//				try {
+//					lireFichierTexte(nom + ".txt");
+//				} catch (IOException e) {
+//					// TODO Auto-generated catch block
+//					e.printStackTrace();
+//				}
 			
 		}
 	}
@@ -242,25 +238,25 @@ public class ArbreCartes extends JTree implements TreeSelectionListener, MouseLi
 		} catch (IOException e) {
 			e.printStackTrace();
 		}
-		try {
-			lireFichierTexte(nom + ".txt");
-		} catch (IOException e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
-		}
+//		try {
+//			lireFichierTexte(nom + ".txt");
+//		} catch (IOException e) {
+//			// TODO Auto-generated catch block
+//			e.printStackTrace();
+//		}
 
 	}
 	
-	public void lireFichierTexte(String nom) throws IOException{
-		BufferedReader in = new BufferedReader(new FileReader(nom));
-		String line;
-		while ((line = in.readLine()) != null)
-		{
-			  System.out.println (line);
-		}
-		in.close();
-
-	}
+//	public void lireFichierTexte(String nom) throws IOException{
+//		BufferedReader in = new BufferedReader(new FileReader(nom));
+//		String line;
+//		while ((line = in.readLine()) != null)
+//		{
+//			  System.out.println (line);
+//		}
+//		in.close();
+//
+//	}
 
 	@Override
 	public void mouseClicked(MouseEvent e) {
