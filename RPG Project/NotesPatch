@@ -1,12 +1,19 @@
+
+FINIES :
+
 - onglet résolution          Pierre                  : fini !     
 - enregistrer et quitter Kévin :                     : fini !
+- instancier fichier text LG                         : fini !
+- videur curseur objet courant                       : fini ! 
+- videur boolean bouton                              : fini ! 
+
+
+EN COURS :
+
+- agrandir la base de donnée des images LG : j'ai aps trouvé de graphiste finalement mais je continue de chercher 
+
+
+A FAIRE :
 
 - décaler le panel
 - gérer les couches
-- instancier fichier text LG : finis
-- agrandir la base de donnée des images LG : j'ai aps trouvé de graphiste finalement mais je continue de chercher 
-
--------------------------------
-
-- videur curseur objet courant                       : fini ! 
-- videur boolean bouton                              : fini ! 
