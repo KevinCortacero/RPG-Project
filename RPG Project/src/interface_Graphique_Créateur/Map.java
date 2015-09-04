@@ -49,7 +49,7 @@ public class Map {
 		if (!this.mapFile.map.isEmpty()){
 			for (Tile tile : this.mapFile.map){
 				if (tile.getNuméro() > 1)
-					g.drawImage(tile.getImageIcon().getImage(),tile.getX()*ObjetIcone.tailleImageJeu,tile.getY()*ObjetIcone.tailleImageJeu,null);
+					g.drawImage(tile.getImageIcon().getImage(),-20 + tile.getX()*ObjetIcone.tailleImageJeu, -20 + tile.getY()*ObjetIcone.tailleImageJeu,null);
 			}
 
 		}
