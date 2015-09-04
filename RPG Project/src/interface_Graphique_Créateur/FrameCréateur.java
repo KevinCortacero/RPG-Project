@@ -1,5 +1,7 @@
 package interface_Graphique_Créateur;
 
+import java.awt.BorderLayout;
+import java.awt.Dimension;
 import java.awt.Toolkit;
 import java.awt.event.WindowAdapter;
 import java.awt.event.WindowEvent;
@@ -7,6 +9,7 @@ import java.io.IOException;
 
 import javax.swing.JFrame;
 import javax.swing.JOptionPane;
+import javax.swing.JScrollPane;
 
 @SuppressWarnings("serial")
 public class FrameCréateur extends JFrame{
@@ -37,6 +40,11 @@ public class FrameCréateur extends JFrame{
 		this.panelGestionCréateur.setBounds(10, 200, 180, this.getHeight() - 270 );
 		this.getContentPane().add(panelGestionCréateur);
 		this.panelPrincipalCréateur.getMap().mapFile.chargerCarteActuelle();
+		
+		//ascenseur
+		/*JScrollPane ascenseurs = new JScrollPane(this.panelPrincipalCréateur);
+		ascenseurs.setPreferredSize(this.panelPrincipalCréateur.getSize());
+		this.add(ascenseurs);*/
 		
 		this.panelValidationCréateur = new PanelValidationCréateur(this.panelPrincipalCréateur.getMap());
 		this.getContentPane().add(this.panelValidationCréateur);
