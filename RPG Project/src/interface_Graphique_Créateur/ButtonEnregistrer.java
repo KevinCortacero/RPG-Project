@@ -12,7 +12,7 @@ public class ButtonEnregistrer extends JButton implements ActionListener {
 	private Map map;
 	
 	public ButtonEnregistrer(Map map){
-		super("Enregistrer");
+		super("Sauvegarder la carte");
 		this.map = map;
 		this.addActionListener(this);
 	}
@@ -20,7 +20,6 @@ public class ButtonEnregistrer extends JButton implements ActionListener {
 	@Override
 	public void actionPerformed(ActionEvent e) {
 		try {
-			System.out.println(this.map.mapFile.currentFile.getAbsoluteFile() + "*******");
 			this.map.mapFile.sauvegarder();
 		} catch (IOException e1) {
 			// TODO Auto-generated catch block
