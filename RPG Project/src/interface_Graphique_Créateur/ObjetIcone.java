@@ -18,7 +18,7 @@ public class ObjetIcone extends JButton implements ActionListener {
 	private PanelPrincipalCréateur panel;
 	private int numéro;
 
-	public static final int tailleImageJeu = 200;
+	public static final int tailleImageJeu = 50;
 	public static final int tailleImageIcone = 46;
 
 	public ObjetIcone(Image imageTailleRéelle, PanelPrincipalCréateur panel, int numéro) {

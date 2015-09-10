@@ -16,11 +16,13 @@ public class Map {
 	private ImageIcon background;
 	private PanelChoixObjetsCréateur panelChoixObjetsCréateur;
 	protected java.util.Map<String, MapFile> listeMapFile; 
+	private Origin origin; 
 
 	public Map() {
 		this.mapFile = new MapFile(this,new File("cartes\\test.txt"));
 		this.listeMapFile = new HashMap<String, MapFile>();
 		this.listeMapFile.put("cartes\\test.txt", this.mapFile);
+		this.origin = Origin.getOrigin();
 	}
 	
 	public void ajouterMapFile(String string,MapFile mapFile){
@@ -36,7 +38,8 @@ public class Map {
 	public void changerMapFile(File fileMap){
 		this.mapFile = new MapFile(this,fileMap);
 		this.mapFile.panelChoixObjetsCréateur = this.panelChoixObjetsCréateur;
-
+		Origin.setX(0);
+		Origin.setY(0);
 	}
 
 	public void afficherCarte(Graphics g){
@@ -49,7 +52,7 @@ public class Map {
 		if (!this.mapFile.map.isEmpty()){
 			for (Tile tile : this.mapFile.map){
 				if (tile.getNuméro() > 1)
-					g.drawImage(tile.getImageIcon().getImage(),tile.getX()*ObjetIcone.tailleImageJeu,tile.getY()*ObjetIcone.tailleImageJeu,null);
+					g.drawImage(tile.getImageIcon().getImage(),(int) Origin.getX() + tile.getX()*ObjetIcone.tailleImageJeu,(int)Origin.getY() + tile.getY()*ObjetIcone.tailleImageJeu,null);
 			}
 
 		}
@@ -58,13 +61,13 @@ public class Map {
 		for(int y = 0; y <= this.mapFile.tileSize.getY() ; y ++){
 			for(int x = 0; x <= this.mapFile.tileSize.getX() ; x ++){
 				if (y == this.mapFile.tileSize.getY() && x != this.mapFile.tileSize.getX() )
-					g.drawImage(new ImageIcon("imagesSpeciales\\bordureV.jpg").getImage(), x*ObjetIcone.tailleImageJeu, y*ObjetIcone.tailleImageJeu, null);
+					g.drawImage(new ImageIcon("imagesSpeciales\\bordureV.jpg").getImage(),(int) Origin.getX() + x*ObjetIcone.tailleImageJeu, (int)Origin.getY() + y*ObjetIcone.tailleImageJeu, null);
 				if (x == this.mapFile.tileSize.getX() && y != this.mapFile.tileSize.getY() )
-					g.drawImage(new ImageIcon("imagesSpeciales\\bordureH.jpg").getImage(), x*ObjetIcone.tailleImageJeu, y*ObjetIcone.tailleImageJeu, null);
+					g.drawImage(new ImageIcon("imagesSpeciales\\bordureH.jpg").getImage(),(int) Origin.getX() + x*ObjetIcone.tailleImageJeu, (int)Origin.getY() + y*ObjetIcone.tailleImageJeu, null);
 			}
 		}
 
-		g.drawImage(this.mapFile.map.get(0).getImageIcon().getImage(),this.mapFile.map.get(0).getX()*ObjetIcone.tailleImageJeu,this.mapFile.map.get(0).getY()*ObjetIcone.tailleImageJeu,null);
+		g.drawImage(this.mapFile.map.get(0).getImageIcon().getImage(),(int) Origin.getX() + this.mapFile.map.get(0).getX()*ObjetIcone.tailleImageJeu,(int) Origin.getY() + this.mapFile.map.get(0).getY()*ObjetIcone.tailleImageJeu,null);
 	}
 
 	public void gestionClicGauche(int x, int y, ObjetCourant objetCourant){
