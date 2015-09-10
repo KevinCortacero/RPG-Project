@@ -76,5 +76,4 @@ public class PanelPrincipalCréateur extends JPanel implements MouseListener{
 	@Override
 	public void mouseExited(MouseEvent e){}
 	
-	
 }

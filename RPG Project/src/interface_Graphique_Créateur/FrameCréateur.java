@@ -49,8 +49,6 @@ public class FrameCréateur extends JFrame implements KeyListener{
 		});
 		this.setFocusable(true);
 		this.addKeyListener(this);
-		//this.panelPrincipalCréateur.setFocusable(true);
-		//this.panelPrincipalCréateur.addKeyListener(this);;
 	}
 
 	private void fermer() {
@@ -73,7 +71,6 @@ public class FrameCréateur extends JFrame implements KeyListener{
 		this.panelChoixObjetsCréateur.raffraichir();
 		this.panelGestionCréateur.raffraichir();
 		this.panelPrincipalCréateur.repaint();
-		System.out.println(this.isFocusable());
 	}
 
 	@Override
@@ -83,7 +80,6 @@ public class FrameCréateur extends JFrame implements KeyListener{
 
 	@Override
 	public void keyPressed(KeyEvent e) {
-		System.out.println(e.getKeyCode());
 		switch (e.getKeyCode()){
 		case KeyEvent.VK_S :
 			Origin.setY(Origin.getY()-3.5F);
@@ -101,14 +97,10 @@ public class FrameCréateur extends JFrame implements KeyListener{
 			break;	
 		}
 		this.raffraichir();
-
-
-
 	}
 
 	@Override
 	public void keyReleased(KeyEvent e) {
-
 
 	}
 }
