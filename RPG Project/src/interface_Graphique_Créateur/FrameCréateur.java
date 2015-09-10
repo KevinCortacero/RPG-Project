@@ -38,11 +38,6 @@ public class FrameCréateur extends JFrame{
 		this.getContentPane().add(panelGestionCréateur);
 		this.panelPrincipalCréateur.getMap().mapFile.chargerCarteActuelle();
 		
-		//ascenseur
-		/*JScrollPane ascenseurs = new JScrollPane(this.panelPrincipalCréateur);
-		ascenseurs.setPreferredSize(this.panelPrincipalCréateur.getSize());
-		this.add(ascenseurs);*/
-		
 		this.panelValidationCréateur = new PanelValidationCréateur(this.panelPrincipalCréateur.getMap());
 		this.getContentPane().add(this.panelValidationCréateur);
 
