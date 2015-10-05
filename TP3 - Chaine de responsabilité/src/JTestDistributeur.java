@@ -2,15 +2,14 @@ import static org.junit.Assert.*;
 
 import java.util.Arrays;
 import java.util.Collection;
-import java.util.LinkedList;
 import java.util.List;
 
 import org.junit.Before;
 import org.junit.Test;
 import org.junit.runner.RunWith;
+import org.junit.runners.Parameterized;
 import org.junit.runners.Parameterized.Parameter;
 import org.junit.runners.Parameterized.Parameters;
-import org.junit.runners.Parameterized;
 
 @RunWith(value = Parameterized.class)
 public class JTestDistributeur {
@@ -79,8 +78,5 @@ public class JTestDistributeur {
 			assertEquals( this.RECHARGE - this.listeTest.get(1).nombreBilletsDélivrés,this.d1.getEtat().getNbDisponible(this.listeTest.get(1).valeurBillet));
 		if (this.couple3 != null)
 			assertEquals( this.RECHARGE - this.listeTest.get(2).nombreBilletsDélivrés,this.d1.getEtat().getNbDisponible(this.listeTest.get(2).valeurBillet));
-
-
-
 	}
 }
