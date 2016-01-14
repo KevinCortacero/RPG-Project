@@ -14,7 +14,6 @@ public class Map {
 
 	protected MapFile mapFile;
 	private ImageIcon background;
-	private PanelChoixObjetsCréateur panelChoixObjetsCréateur;
 	protected java.util.Map<String, MapFile> listeMapFile; 
 
 	public Map() {
@@ -28,15 +27,8 @@ public class Map {
 		this.listeMapFile.put(string, mapFile);
 	}
 
-	public void setPanel(PanelChoixObjetsCréateur panelChoixObjetsCréateur){
-		this.mapFile.panelChoixObjetsCréateur = panelChoixObjetsCréateur;
-		this.panelChoixObjetsCréateur = panelChoixObjetsCréateur;
-	}
-
-
 	public void changerMapFile(File fileMap){
 		this.mapFile = new MapFile(this,fileMap);
-		this.mapFile.panelChoixObjetsCréateur = this.panelChoixObjetsCréateur;
 		Origin.setX(0);
 		Origin.setY(0);
 	}

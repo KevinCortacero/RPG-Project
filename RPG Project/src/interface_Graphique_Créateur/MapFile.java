@@ -24,13 +24,14 @@ public class MapFile {
 	protected int backgroundNum;
 	protected Tile tileSize;
 	protected FileWriter fileWriter;
-	protected PanelChoixObjetsCréateur panelChoixObjetsCréateur;
+	private PanelChoixObjetsCréateur panelChoixObjetsCréateur;
 
 	public MapFile(Map map, File fileMap){
 		this.map = new ArrayList<Tile>();
 		this.mapFile = new int[1000][1000];
 		this.setCurrentFile(fileMap);
 		this.mapPrincipale = map;
+		this.panelChoixObjetsCréateur = PanelChoixObjetsCréateur.getPanel();
 	}
 
 	public void setCurrentFile(File currentFile) {

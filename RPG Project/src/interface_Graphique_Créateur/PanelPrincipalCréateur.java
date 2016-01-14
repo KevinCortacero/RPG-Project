@@ -14,12 +14,24 @@ import jeu.ObjetCourant;
 @SuppressWarnings("serial")
 public class PanelPrincipalCréateur extends JPanel implements MouseListener{
 
+	private static PanelPrincipalCréateur instance;
 	private ObjetCourant objetCourant;
 	private Map map;
 	private int x;	
 	private int y;
 
-	public PanelPrincipalCréateur() throws IOException{
+	public static PanelPrincipalCréateur getPanel(){
+		if (instance == null){
+			try {
+				instance = new PanelPrincipalCréateur();
+			} catch (IOException e) {
+				// TODO Auto-generated catch block
+				e.printStackTrace();
+			}
+		}
+		return instance;
+	}
+	private PanelPrincipalCréateur() throws IOException{
 		super();
 		this.x = 0;
 		this.y = 0;

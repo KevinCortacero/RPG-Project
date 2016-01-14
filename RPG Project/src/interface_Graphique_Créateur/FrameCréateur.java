@@ -13,10 +13,10 @@ import javax.swing.JOptionPane;
 @SuppressWarnings("serial")
 public class FrameCréateur extends JFrame implements KeyListener{
 
-	PanelChoixObjetsCréateur panelChoixObjetsCréateur; 
-	PanelGestionCréateur panelGestionCréateur;
-	PanelPrincipalCréateur panelPrincipalCréateur;
-	PanelValidationCréateur panelValidationCréateur;
+	private PanelChoixObjetsCréateur panelChoixObjetsCréateur; 
+	private PanelGestionCréateur panelGestionCréateur;
+	private PanelPrincipalCréateur panelPrincipalCréateur;
+	private PanelValidationCréateur panelValidationCréateur;
 
 	public FrameCréateur() throws IOException{
 		super("Création de niveau");
@@ -25,13 +25,13 @@ public class FrameCréateur extends JFrame implements KeyListener{
 		this.setDefaultCloseOperation(DO_NOTHING_ON_CLOSE);
 		this.setExtendedState(MAXIMIZED_BOTH);
 
-		this.panelPrincipalCréateur = new PanelPrincipalCréateur();
+		this.panelPrincipalCréateur = PanelPrincipalCréateur.getPanel();
 		this.panelPrincipalCréateur.setBounds(200, 200, this.getWidth() - 230, this.getHeight() - 270);
 
 
-		this.panelChoixObjetsCréateur = new PanelChoixObjetsCréateur(this.panelPrincipalCréateur);
+		this.panelChoixObjetsCréateur = PanelChoixObjetsCréateur.getPanel();
 		this.panelChoixObjetsCréateur.setBounds(200, 10 , this.getWidth() - 230, 200 );
-		this.panelPrincipalCréateur.getMap().setPanel(this.panelChoixObjetsCréateur);
+		
 		this.getContentPane().add(panelPrincipalCréateur);
 		this.getContentPane().add(panelChoixObjetsCréateur);
 
