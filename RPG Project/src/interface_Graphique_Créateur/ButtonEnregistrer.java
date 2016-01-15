@@ -8,19 +8,16 @@ import javax.swing.JButton;
 
 @SuppressWarnings("serial")
 public class ButtonEnregistrer extends JButton implements ActionListener {
-
-	private Map map;
 	
-	public ButtonEnregistrer(Map map){
+	public ButtonEnregistrer(){
 		super("Sauvegarder la carte");
-		this.map = map;
 		this.addActionListener(this);
 	}
 
 	@Override
 	public void actionPerformed(ActionEvent e) {
 		try {
-			this.map.mapFile.sauvegarder();
+			PanelPrincipalCréateur.getPanel().getMap().mapFile.sauvegarder();
 		} catch (IOException e1) {
 			// TODO Auto-generated catch block
 			e1.printStackTrace();

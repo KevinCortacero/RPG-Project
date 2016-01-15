@@ -23,12 +23,12 @@ public class ArbreCartes extends JTree implements TreeSelectionListener, MouseLi
 	private int[] tableauRow;
 	private PanelPrincipalCréateur panel;
 
-	public ArbreCartes(ButtonsSynchronisation boutons, ModelArbreCarte model, PanelPrincipalCréateur panel){
+	public ArbreCartes(ButtonsSynchronisation boutons, ModelArbreCarte model){
 		super(model);
 		this.model = model;
 		this.boutons = boutons;
 		this.tableauRow = new int[40];
-		this.panel = panel;
+		this.panel = PanelPrincipalCréateur.getPanel();
 		this.sauvegarder();
 		this.expandAll();
 		this.addTreeSelectionListener(this);
