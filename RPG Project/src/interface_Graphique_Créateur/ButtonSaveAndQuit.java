@@ -9,13 +9,10 @@ import javax.swing.JOptionPane;
 
 @SuppressWarnings("serial")
 public class ButtonSaveAndQuit extends JButton implements ActionListener {
-
-	private Map map;
 	
-	public ButtonSaveAndQuit(Map map){
+	public ButtonSaveAndQuit(){
 		super("Sauv. la carte et Quitter");
 		this.addActionListener(this);
-		this.map = map;
 	}
 
 	@Override
@@ -28,7 +25,7 @@ public class ButtonSaveAndQuit extends JButton implements ActionListener {
 	                JOptionPane.QUESTION_MESSAGE);
 			if (reponse ==  JOptionPane.YES_NO_OPTION ){
 				try {
-					this.map.mapFile.sauvegarder();
+					PanelPrincipalCréateur.getPanel().getMap().mapFile.sauvegarder();
 				} catch (IOException e1) {
 					// TODO Auto-generated catch block
 					e1.printStackTrace();

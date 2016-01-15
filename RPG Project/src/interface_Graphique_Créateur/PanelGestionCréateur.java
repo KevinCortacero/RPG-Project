@@ -6,17 +6,26 @@ import java.awt.Toolkit;
 import java.io.File;
 
 import javax.swing.JLabel;
-import javax.swing.JPanel;
 
 @SuppressWarnings("serial")
-public class PanelGestionCréateur extends JPanel {
+public class PanelGestionCréateur extends SousPanel {
 
 	private JLabel titre;
 	private ArbreCartes arbre;
 	private ModelArbreCarte model;
 	private ButtonsSynchronisation boutons;
 
-	public PanelGestionCréateur(PanelPrincipalCréateur panel) {
+	private static PanelGestionCréateur instance;
+	
+	public static PanelGestionCréateur getPanel(){
+		if (instance == null){
+			instance = new PanelGestionCréateur();
+			instance.setBounds(10, 200, 180, FrameCréateur.getFrame().getHeight() - 270 );
+		}
+		return instance;
+	}
+	
+	private PanelGestionCréateur() {
 		super();
 		this.setLayout(null);
 		this.setBorder(new BorderGray());
@@ -30,7 +39,7 @@ public class PanelGestionCréateur extends JPanel {
 		this.titre.setBounds(10, 10, 160, 40);
 		this.add(this.titre);
 		this.model = new ModelArbreCarte(new File("cartes"));
-		this.arbre = new ArbreCartes(this.boutons, this.model, panel);
+		this.arbre = new ArbreCartes(this.boutons, this.model);
 		this.arbre.setCellRenderer(new MyTreeCellRenderer());
 		this.add(this.arbre);
 	}
@@ -46,8 +55,10 @@ public class PanelGestionCréateur extends JPanel {
 		}else{
 			coordonésY = 150 ;
 		}
-		this.boutons.repaint();
 		this.boutons.setBounds(5,coordonésY,170, 112);
+		this.boutons.repaint();
+		this.setBounds(10, 200, 180, FrameCréateur.getFrame().getHeight() - 270 );
 		this.arbre.setBounds(5, 50, 170, this.getHeight() - this.boutons.getHeight() - 66);	
+		this.repaint();
 	}
 }

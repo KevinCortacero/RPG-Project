@@ -7,12 +7,10 @@ import java.awt.event.MouseEvent;
 import java.awt.event.MouseListener;
 import java.io.IOException;
 
-import javax.swing.JPanel;
-
 import jeu.ObjetCourant;
 
 @SuppressWarnings("serial")
-public class PanelPrincipalCréateur extends JPanel implements MouseListener{
+public class PanelPrincipalCréateur extends SousPanel implements MouseListener{
 
 	private static PanelPrincipalCréateur instance;
 	private ObjetCourant objetCourant;
@@ -24,6 +22,7 @@ public class PanelPrincipalCréateur extends JPanel implements MouseListener{
 		if (instance == null){
 			try {
 				instance = new PanelPrincipalCréateur();
+				instance.setBounds(200, 200, FrameCréateur.getFrame().getWidth() - 230, FrameCréateur.getFrame().getHeight() - 270);
 			} catch (IOException e) {
 				// TODO Auto-generated catch block
 				e.printStackTrace();
@@ -31,6 +30,7 @@ public class PanelPrincipalCréateur extends JPanel implements MouseListener{
 		}
 		return instance;
 	}
+	
 	private PanelPrincipalCréateur() throws IOException{
 		super();
 		this.x = 0;
@@ -45,7 +45,10 @@ public class PanelPrincipalCréateur extends JPanel implements MouseListener{
 
 	public void paintComponent(Graphics g) {
 		super.paintComponent(g);
-		this.map.afficherCarte(g);
+		if (this.map != null){
+			this.map.afficherCarte(g);
+		}
+		
 	} 
 
 	public void setObjetCourant(ObjetCourant objetCourant){
@@ -87,5 +90,11 @@ public class PanelPrincipalCréateur extends JPanel implements MouseListener{
 
 	@Override
 	public void mouseExited(MouseEvent e){}
+
+	@Override
+	public void raffraichir() {
+		this.setBounds(200, 200, ((int) ((FrameCréateur.getFrame().getWidth()-210) / ObjetIcone.tailleImageJeu)) * ObjetIcone.tailleImageJeu, ((int) ((FrameCréateur.getFrame().getHeight() -220) / ObjetIcone.tailleImageJeu)) * ObjetIcone.tailleImageJeu);
+		this.repaint();
+	}
 	
 }
