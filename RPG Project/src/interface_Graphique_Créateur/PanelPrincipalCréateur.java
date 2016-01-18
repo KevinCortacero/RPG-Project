@@ -49,6 +49,12 @@ public class PanelPrincipalCréateur extends SousPanel implements MouseListener{
 			this.map.afficherCarte(g);
 		}
 		
+		//quadrillage
+		g.setColor(Color.gray);
+		for ( int i = 0 ; i<this.getSize().getWidth(); i += 50){
+				g.drawLine((int)Origin.getOrigin().getX()+i, 0, (int)Origin.getOrigin().getX()+i, (int)this.getSize().getHeight());
+				g.drawLine(0, (int)Origin.getOrigin().getY()+i,(int)this.getSize().getWidth() , (int)Origin.getOrigin().getY()+i);
+		}		
 	} 
 
 	public void setObjetCourant(ObjetCourant objetCourant){
