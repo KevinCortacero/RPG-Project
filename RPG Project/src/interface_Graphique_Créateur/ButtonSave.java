@@ -7,9 +7,9 @@ import java.io.IOException;
 import javax.swing.JButton;
 
 @SuppressWarnings("serial")
-public class ButtonEnregistrer extends JButton implements ActionListener {
+public class ButtonSave extends JButton implements ActionListener {
 	
-	public ButtonEnregistrer(){
+	public ButtonSave(){
 		super("Sauvegarder la carte");
 		this.addActionListener(this);
 	}
