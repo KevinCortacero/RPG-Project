@@ -2,8 +2,10 @@ package interface_Graphique_Créateur;
 
 import javax.swing.JPanel;
 
+
+@SuppressWarnings("serial")
 public abstract class SousPanel extends JPanel{
-	
-	protected abstract void raffraichir();
+
+	public abstract void raffraichir();
 
 }

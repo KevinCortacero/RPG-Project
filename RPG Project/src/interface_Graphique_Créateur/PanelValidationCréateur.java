@@ -17,7 +17,7 @@ public class PanelValidationCréateur extends SousPanel{
 	private PanelValidationCréateur(){
 		super();
 		this.setLayout(new GridLayout(3,1));
-		this.add(new ButtonSave());
+		this.add(new ButtonEnregistrer());
 		this.add(new ButtonSaveAndQuit());
 		this.add( new ButtonQuit());
 		this.setBorder(new BorderGray());
