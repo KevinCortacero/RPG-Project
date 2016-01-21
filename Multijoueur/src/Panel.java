@@ -17,8 +17,8 @@ public class Panel extends JPanel{
 		this.repaint();
 	}
 	
-	public void paint(Graphics g){
-		super.paint(g);
+	public void paintComponent(Graphics g){
+		super.paintComponent(g);
 		g.setColor(Color.GRAY);
 		g.fillRect(0, 0, 600, 600);
 		g.setColor(Color.BLUE);
