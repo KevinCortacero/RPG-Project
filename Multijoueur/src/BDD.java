@@ -21,10 +21,6 @@ public class BDD {
 		try {
 			Connection c = this.datas.getConnection();
 			BDD.createStatement(c);
-			ResultSet result = statement.executeQuery("SELECT * FROM Personnage;");
-			while ( result.next()){
-			    System.out.println("Le personnage " + result.getString("pseudo") +" est en (" + result.getInt("positionX")+";" + result.getInt("positionY") + ")" );	    	
-			}
 		} catch (SQLException e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
@@ -40,24 +36,26 @@ public class BDD {
 	}
 
 	public static int getPositionX(String pseudo) {
+		int positionX = 0;
 		try {
-			ResultSet result = statement.executeQuery("SELECT positionX FROM Personnage WHERE pseudo = " + pseudo + ";");
-			return result.getInt("positionX");
+			ResultSet result = statement.executeQuery("SELECT * FROM Personnage WHERE pseudo = \"" + pseudo + "\";");
+			result.next();
+			positionX = result.getInt(2);
 		} catch (SQLException e) {
-			// TODO Auto-generated catch block
 			e.printStackTrace();
 		}
-		return 0;
+		return positionX;
 	}
 	
 	public static int getPositionY(String pseudo) {
+		int positionY = 0;
 		try {
-			ResultSet result = statement.executeQuery("SELECT positionY FROM Personnage WHERE pseudo = " + pseudo + ";");
-			return result.getInt("positionY");
+			ResultSet result = statement.executeQuery("SELECT * FROM Personnage WHERE pseudo = \"" + pseudo + "\";");
+			result.next();
+			positionY = result.getInt(3);
 		} catch (SQLException e) {
-			// TODO Auto-generated catch block
 			e.printStackTrace();
 		}
-		return 0;
+		return positionY;
 	}
 }

@@ -9,10 +9,15 @@ public class Personnage {
 	
 	public Personnage(String pseudo){
 		this.pseudo = pseudo;
-		this.positionX = BDD.getPositionX(pseudo);
-		this.positionY = BDD.getPositionY(pseudo);
+		this.mettreAJour();
 	}
 	
+	private void mettreAJour() {
+		this.positionX = BDD.getPositionX(this.pseudo);
+		this.positionY = BDD.getPositionY(this.pseudo);
+		System.out.println(this.pseudo + " : (" + this.positionX + ";" + this.positionY + ")");
+	}
+
 	public void afficherPersonnage(Graphics g){
 		g.fillRect(this.positionX, this.positionY, 20, 20);
 	}
