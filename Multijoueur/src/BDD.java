@@ -58,4 +58,13 @@ public class BDD {
 		}
 		return positionY;
 	}
+	
+	public static void mettreAJourPersonnage(Personnage p) {
+		try {
+			statement.executeUpdate("UPDATE Personnage SET positionX = " + p.positionX + ", positionY = " + p.positionY + " WHERE pseudo = \"" + p.pseudo + "\";");
+			System.out.println("Mise à jour de " + p );
+		} catch (SQLException e){
+			e.printStackTrace();
+		}
+	}
 }
