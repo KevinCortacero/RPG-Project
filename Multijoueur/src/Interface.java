@@ -14,17 +14,6 @@ public class Interface extends JFrame{
 	    panel = new Panel();
 	    this.addKeyListener(panel);
 	    this.add(panel);
-	    panel.revalidate();
-	    this.trame();
-	}
-
-	private void trame() {
-		try {
-			Thread.sleep(1000);
-			panel.repaint();
-		} catch (InterruptedException e) {
-			e.printStackTrace();
-		}
-		
+	    panel.revalidate();		
 	}
 }

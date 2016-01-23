@@ -3,6 +3,7 @@ import java.sql.Connection;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.sql.Statement;
+import java.util.Map;
 
 import com.mysql.jdbc.jdbc2.optional.MysqlDataSource;
 
@@ -61,8 +62,19 @@ public class BDD {
 	
 	public static void mettreAJourPersonnage(Personnage p) {
 		try {
-			statement.executeUpdate("UPDATE Personnage SET positionX = " + p.positionX + ", positionY = " + p.positionY + " WHERE pseudo = \"" + p.pseudo + "\";");
+			statement.executeUpdate("UPDATE Personnage SET positionX = " + p.getPositionX() + ", positionY = " + p.getPositionY() + " WHERE pseudo = \"" + p.getPseudo() + "\";");
 			System.out.println("Mise à jour de " + p );
+		} catch (SQLException e){
+			e.printStackTrace();
+		}
+	}
+	
+	public static void ajouterPersonnages(Map<String, Personnage> personnages) {
+		try {
+			ResultSet result = statement.executeQuery("SELECT * FROM Personnage;");
+			while (result.next()){
+				personnages.put(result.getString(1), new Personnage(result.getString(1), result.getInt(2), result.getInt(3)));
+			}
 		} catch (SQLException e){
 			e.printStackTrace();
 		}
