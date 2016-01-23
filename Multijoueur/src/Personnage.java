@@ -33,8 +33,8 @@ public class Personnage {
 	}
 
 	public void mettreAJour() {
-		this.positionX = BDD.getPositionX(this.pseudo);
-		this.positionY = BDD.getPositionY(this.pseudo);
+		this.positionX = BDD.getBDD().getPositionX(this.pseudo);
+		this.positionY = BDD.getBDD().getPositionY(this.pseudo);
 	}
 
 	public void afficherPersonnage(Graphics g){

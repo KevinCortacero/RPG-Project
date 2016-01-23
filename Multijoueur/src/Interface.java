@@ -14,6 +14,13 @@ public class Interface extends JFrame{
 	    panel = new Panel();
 	    this.addKeyListener(panel);
 	    this.add(panel);
-	    panel.revalidate();		
+	    panel.revalidate();
+	    this.trame();
+	}
+
+	private void trame() {
+		while(true){
+			panel.synchronisation(100);
+		}
 	}
 }
