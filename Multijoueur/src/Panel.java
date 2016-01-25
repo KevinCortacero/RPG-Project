@@ -18,7 +18,7 @@ public class Panel extends JPanel implements KeyListener{
 		this.setPreferredSize(new Dimension(600, 600));
 		this.personnages = new HashMap<String, Personnage>();
 		BDD.getBDD().ajouterPersonnages(this.personnages);
-		this.heros = this.personnages.get("Twarz");
+		this.heros = this.personnages.get("Koreuc");
 		this.addKeyListener(this);
 	}
 	
@@ -31,18 +31,7 @@ public class Panel extends JPanel implements KeyListener{
 				this.personnages.get(pseudo).mettreAJour();
 			this.personnages.get(pseudo).afficherPersonnage(g);
 		}
-	}
-	
-	public void synchronisation(int millisecondes){
-		try {
-			Thread.sleep(millisecondes);
-			System.out.println("Mise à jour toutes les 100ms");
-			BDD.getBDD().mettreAJourPersonnage(this.heros);
-			this.repaint();
-			
-		} catch (InterruptedException e) {
-			e.printStackTrace();
-		}
+		BDD.getBDD().mettreAJourPersonnage(this.heros);
 	}
 
 	@Override

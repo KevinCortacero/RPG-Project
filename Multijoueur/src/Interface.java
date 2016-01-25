@@ -10,17 +10,15 @@ public class Interface extends JFrame{
 	    this.setVisible(true);
 	    this.setSize(600,600);
 	    this.setLocationRelativeTo(null);
-	    this.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);      	
+	    this.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+	    this.setResizable(false);
 	    panel = new Panel();
 	    this.addKeyListener(panel);
 	    this.add(panel);
 	    panel.revalidate();
-	    this.trame();
 	}
 
-	private void trame() {
-		while(true){
-			panel.synchronisation(100);
-		}
+	public void render() {
+		panel.repaint();
 	}
 }
