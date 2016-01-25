@@ -29,7 +29,6 @@ public class BDD {
 		try {
 			this.connection = this.datas.getConnection();
 		} catch (SQLException e) {
-			// TODO Auto-generated catch block
 			e.printStackTrace();
 		}
 	}

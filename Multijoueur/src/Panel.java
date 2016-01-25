@@ -21,7 +21,7 @@ public class Panel extends JPanel implements KeyListener{
 		this.heros = this.personnages.get("Koreuc");
 		this.addKeyListener(this);
 	}
-	
+
 	@Override
 	public void paintComponent(Graphics g){
 		g.setColor(Color.WHITE);
