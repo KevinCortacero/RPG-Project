@@ -14,7 +14,7 @@ public class Onglet extends JPanel {
 	private GridBagConstraints gridBagConstraints;
 	private File file;
 
-	public Onglet(PanelPrincipalCréateur panelPrincipal, String fileName, PanelChoixObjetsCréateur panelObjets){
+	public Onglet(String fileName){
 		super();
 		this.setLayout(new GridBagLayout());
 		this.file = new File("images" + "\\" + fileName);
@@ -24,11 +24,12 @@ public class Onglet extends JPanel {
 		this.gridBagConstraints.gridheight = 1;
 		this.gridBagConstraints.gridwidth = 1;
 		this.gridBagConstraints.insets = new Insets(5, 5, 5, 5);
+		PanelChoixObjetsCréateur panelObjets = PanelChoixObjetsCréateur.getPanel();
 		
 		for (File sousfile : this.file.listFiles()){
 			if (sousfile.isFile()){
 				panelObjets.listeImageNuméro.put(panelObjets.getNbObjets(), new ImageIcon("images" + "\\" + this.file.getName() + "\\" + sousfile.getName()));
-				this.add(new ObjetIcone(new ImageIcon("images" + "\\" + this.file.getName() + "\\" + sousfile.getName()).getImage(), panelPrincipal, panelObjets.getNbObjets()), this.gridBagConstraints);
+				this.add(new ObjetIcone(new ImageIcon("images" + "\\" + this.file.getName() + "\\" + sousfile.getName()).getImage(), panelObjets.getNbObjets()), this.gridBagConstraints);
 				
 				this.gridBagConstraints.gridx ++;
 				panelObjets.setNbObjets(panelObjets.getNbObjets() + 1);

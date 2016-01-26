@@ -23,12 +23,12 @@ public class ArbreCartes extends JTree implements TreeSelectionListener, MouseLi
 	private int[] tableauRow;
 	private PanelPrincipalCréateur panel;
 
-	public ArbreCartes(ButtonsSynchronisation boutons, ModelArbreCarte model, PanelPrincipalCréateur panel){
+	public ArbreCartes(ButtonsSynchronisation boutons, ModelArbreCarte model){
 		super(model);
 		this.model = model;
 		this.boutons = boutons;
 		this.tableauRow = new int[40];
-		this.panel = panel;
+		this.panel = PanelPrincipalCréateur.getPanel();
 		this.sauvegarder();
 		this.expandAll();
 		this.addTreeSelectionListener(this);
@@ -189,23 +189,16 @@ public class ArbreCartes extends JTree implements TreeSelectionListener, MouseLi
 		else if (!nom.isEmpty() && nom != null) {
 			try {
 				new File(fileName(node, nom + ".txt")).createNewFile();
-				 FileWriter writer = new FileWriter(fileName(node, nom + ".txt"));
-		     		   try {
-			                writer.write("0  0");
+				FileWriter writer = new FileWriter(fileName(node, nom + ".txt"));
+					try {
+						writer.write("0  0");
 
-			            } finally {
-			                writer.close();
-			            }
-				} catch (IOException e) {
-					e.printStackTrace();
-				}
-//				try {
-//					lireFichierTexte(nom + ".txt");
-//				} catch (IOException e) {
-//					// TODO Auto-generated catch block
-//					e.printStackTrace();
-//				}
-			
+			        } finally {
+			            writer.close();
+			        }
+			}catch (IOException e) {
+				e.printStackTrace();
+			}	
 		}
 	}
 
@@ -238,25 +231,7 @@ public class ArbreCartes extends JTree implements TreeSelectionListener, MouseLi
 		} catch (IOException e) {
 			e.printStackTrace();
 		}
-//		try {
-//			lireFichierTexte(nom + ".txt");
-//		} catch (IOException e) {
-//			// TODO Auto-generated catch block
-//			e.printStackTrace();
-//		}
-
 	}
-	
-//	public void lireFichierTexte(String nom) throws IOException{
-//		BufferedReader in = new BufferedReader(new FileReader(nom));
-//		String line;
-//		while ((line = in.readLine()) != null)
-//		{
-//			  System.out.println (line);
-//		}
-//		in.close();
-//
-//	}
 
 	@Override
 	public void mouseClicked(MouseEvent e) {

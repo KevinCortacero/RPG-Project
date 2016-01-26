@@ -21,10 +21,10 @@ public class ObjetIcone extends JButton implements ActionListener {
 	public static final int tailleImageJeu = 50;
 	public static final int tailleImageIcone = 46;
 
-	public ObjetIcone(Image imageTailleRéelle, PanelPrincipalCréateur panel, int numéro) {
+	public ObjetIcone(Image imageTailleRéelle,  int numéro) {
 		this.setPreferredSize(new Dimension(ObjetIcone.tailleImageIcone,ObjetIcone.tailleImageIcone));
 		this.setSize(ObjetIcone.tailleImageIcone,ObjetIcone.tailleImageIcone);
-		this.panel = panel;
+		this.panel = PanelPrincipalCréateur.getPanel();
 		this.imageTailleRéelle = imageTailleRéelle;
 		this.numéro = numéro;
 		this.setIcon(new ImageIcon(this.imageTailleRéelle.getScaledInstance((int)this.getSize().getWidth(),(int) this.getSize().getHeight(),Image.SCALE_SMOOTH)));

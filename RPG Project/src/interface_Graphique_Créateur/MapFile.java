@@ -24,7 +24,6 @@ public class MapFile {
 	protected int backgroundNum;
 	protected Tile tileSize;
 	protected FileWriter fileWriter;
-	protected PanelChoixObjetsCréateur panelChoixObjetsCréateur;
 
 	public MapFile(Map map, File fileMap){
 		this.map = new ArrayList<Tile>();
@@ -84,7 +83,7 @@ public class MapFile {
 							numéro += String.valueOf(ligne.charAt(x+1));	
 							x ++;
 						}
-						if (Integer.parseInt(numéro) <= this.panelChoixObjetsCréateur.listeImageNuméro.size())
+						if (Integer.parseInt(numéro) <= PanelChoixObjetsCréateur.getPanel().listeImageNuméro.size())
 							this.mapFile[xMatrice][y] = Integer.parseInt(numéro);
 						else
 							this.mapFile[xMatrice][y] = 0;
@@ -134,6 +133,6 @@ public class MapFile {
 	}
 
 	public ImageIcon getTileMatrice(int numéro){
-		return new ImageIcon(this.panelChoixObjetsCréateur.listeImageNuméro.get(numéro).getImage().getScaledInstance(ObjetIcone.tailleImageJeu,ObjetIcone.tailleImageJeu, Image.SCALE_SMOOTH));
+		return new ImageIcon(PanelChoixObjetsCréateur.getPanel().listeImageNuméro.get(numéro).getImage().getScaledInstance(ObjetIcone.tailleImageJeu,ObjetIcone.tailleImageJeu, Image.SCALE_SMOOTH));
 	}
 }

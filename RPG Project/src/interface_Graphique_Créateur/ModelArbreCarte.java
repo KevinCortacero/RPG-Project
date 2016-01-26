@@ -5,7 +5,7 @@ import java.io.File;
 import javax.swing.tree.DefaultMutableTreeNode;
 
 @SuppressWarnings("serial")
-public class ModelArbreCarte extends  DefaultMutableTreeNode{
+public class ModelArbreCarte extends DefaultMutableTreeNode{
 
 	private File carte;
 	

@@ -5,7 +5,7 @@ import java.io.IOException;
 public class CréerNiveau {
 
 	public static void main(String[] args) throws IOException {
-		FrameCréateur f = new FrameCréateur();
+		FrameCréateur f = FrameCréateur.getFrame();
 		f.setVisible(true);
 		
 		while ( f.isEnabled() ){

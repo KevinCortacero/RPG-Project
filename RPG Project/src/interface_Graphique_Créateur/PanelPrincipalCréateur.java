@@ -7,19 +7,31 @@ import java.awt.event.MouseEvent;
 import java.awt.event.MouseListener;
 import java.io.IOException;
 
-import javax.swing.JPanel;
-
 import jeu.ObjetCourant;
 
 @SuppressWarnings("serial")
-public class PanelPrincipalCréateur extends JPanel implements MouseListener{
+public class PanelPrincipalCréateur extends SousPanel implements MouseListener{
 
+	private static PanelPrincipalCréateur instance;
 	private ObjetCourant objetCourant;
 	private Map map;
 	private int x;	
 	private int y;
 
-	public PanelPrincipalCréateur() throws IOException{
+	public static PanelPrincipalCréateur getPanel(){
+		if (instance == null){
+			try {
+				instance = new PanelPrincipalCréateur();
+				instance.setBounds(200, 200, FrameCréateur.getFrame().getWidth() - 230, FrameCréateur.getFrame().getHeight() - 270);
+			} catch (IOException e) {
+				// TODO Auto-generated catch block
+				e.printStackTrace();
+			}
+		}
+		return instance;
+	}
+	
+	private PanelPrincipalCréateur() throws IOException{
 		super();
 		this.x = 0;
 		this.y = 0;
@@ -33,7 +45,16 @@ public class PanelPrincipalCréateur extends JPanel implements MouseListener{
 
 	public void paintComponent(Graphics g) {
 		super.paintComponent(g);
-		this.map.afficherCarte(g);
+		if (this.map != null){
+			this.map.afficherCarte(g);
+		}
+		
+		//quadrillage
+		g.setColor(Color.gray);
+		for ( int i = 0 ; i<this.getSize().getWidth(); i += 50){
+				g.drawLine((int)Origin.getOrigin().getX()+i, 0, (int)Origin.getOrigin().getX()+i, (int)this.getSize().getHeight());
+				g.drawLine(0, (int)Origin.getOrigin().getY()+i,(int)this.getSize().getWidth() , (int)Origin.getOrigin().getY()+i);
+		}		
 	} 
 
 	public void setObjetCourant(ObjetCourant objetCourant){
@@ -75,5 +96,11 @@ public class PanelPrincipalCréateur extends JPanel implements MouseListener{
 
 	@Override
 	public void mouseExited(MouseEvent e){}
+
+	@Override
+	public void raffraichir() {
+		this.setBounds(200, 200, ((int) ((FrameCréateur.getFrame().getWidth()-210) / ObjetIcone.tailleImageJeu)) * ObjetIcone.tailleImageJeu, ((int) ((FrameCréateur.getFrame().getHeight() -220) / ObjetIcone.tailleImageJeu)) * ObjetIcone.tailleImageJeu);
+		this.repaint();
+	}
 	
 }

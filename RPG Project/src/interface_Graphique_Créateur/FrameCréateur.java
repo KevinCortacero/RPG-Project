@@ -5,51 +5,52 @@ import java.awt.event.KeyEvent;
 import java.awt.event.KeyListener;
 import java.awt.event.WindowAdapter;
 import java.awt.event.WindowEvent;
-import java.io.IOException;
+import java.util.ArrayList;
+import java.util.List;
 
 import javax.swing.JFrame;
 import javax.swing.JOptionPane;
+import javax.swing.JPanel;
 
 @SuppressWarnings("serial")
 public class FrameCréateur extends JFrame implements KeyListener{
 
-	PanelChoixObjetsCréateur panelChoixObjetsCréateur; 
-	PanelGestionCréateur panelGestionCréateur;
-	PanelPrincipalCréateur panelPrincipalCréateur;
-	PanelValidationCréateur panelValidationCréateur;
+	private static FrameCréateur instance;
+	private List<SousPanel> liste;
 
-	public FrameCréateur() throws IOException{
+	public static FrameCréateur getFrame(){
+		if (instance == null){
+			instance = new FrameCréateur();
+			instance.ajouterComponents();
+		}
+		return instance;
+	}
+	
+	private FrameCréateur(){
 		super("Création de niveau");
 		this.setLayout(null);
 		this.setSize(Toolkit.getDefaultToolkit().getScreenSize());
 		this.setDefaultCloseOperation(DO_NOTHING_ON_CLOSE);
 		this.setExtendedState(MAXIMIZED_BOTH);
-
-		this.panelPrincipalCréateur = new PanelPrincipalCréateur();
-		this.panelPrincipalCréateur.setBounds(200, 200, this.getWidth() - 230, this.getHeight() - 270);
-
-
-		this.panelChoixObjetsCréateur = new PanelChoixObjetsCréateur(this.panelPrincipalCréateur);
-		this.panelChoixObjetsCréateur.setBounds(200, 10 , this.getWidth() - 230, 200 );
-		this.panelPrincipalCréateur.getMap().setPanel(this.panelChoixObjetsCréateur);
-		this.getContentPane().add(panelPrincipalCréateur);
-		this.getContentPane().add(panelChoixObjetsCréateur);
-
-		this.panelGestionCréateur = new PanelGestionCréateur(this.panelPrincipalCréateur);
-		this.panelGestionCréateur.setBounds(10, 200, 180, this.getHeight() - 270 );
-		this.getContentPane().add(panelGestionCréateur);
-		this.panelPrincipalCréateur.getMap().mapFile.chargerCarteActuelle();
-		this.panelValidationCréateur = new PanelValidationCréateur(this.panelPrincipalCréateur.getMap());
-		this.getContentPane().add(this.panelValidationCréateur);
-
+		this.setFocusable(true);
+		this.addKeyListener(this);
+		this.liste = new ArrayList<SousPanel>();
 		addWindowListener( new WindowAdapter() {
 			public void windowClosing(WindowEvent e) {
 				fermer();
 			}
 		});
-		this.setFocusable(true);
-		this.addKeyListener(this);
 	}
+	
+	private void ajouterComponents(){
+		this.liste.add(PanelPrincipalCréateur.getPanel());
+		this.liste.add(PanelChoixObjetsCréateur.getPanel());
+		this.liste.add(PanelGestionCréateur.getPanel());
+		this.liste.add(PanelValidationCréateur.getPanel());
+		for (JPanel panel : this.liste){
+			this.getContentPane().add(panel);
+		}
+	}	
 
 	private void fermer() {
 		int reponse = JOptionPane.showConfirmDialog(this,
@@ -59,18 +60,14 @@ public class FrameCréateur extends JFrame implements KeyListener{
 				JOptionPane.QUESTION_MESSAGE);
 		if(reponse == JOptionPane.YES_OPTION ){
 			this.setEnabled(false);
-			dispose();
+			this.dispose();
 		}
 	}
 
 	public void raffraichir(){
-		// permet d'ancrer les composants
-		this.panelGestionCréateur.setBounds(10, 200, 180, this.getHeight() - 270 );
-		this.panelPrincipalCréateur.setBounds(200, 200, ((int) ((this.getWidth()-210) / ObjetIcone.tailleImageJeu)) * ObjetIcone.tailleImageJeu, ((int) ((this.getHeight() -220) / ObjetIcone.tailleImageJeu)) * ObjetIcone.tailleImageJeu);
-		this.panelChoixObjetsCréateur.setBounds(200, 10 , this.getWidth() - 230, 180 );
-		this.panelChoixObjetsCréateur.raffraichir();
-		this.panelGestionCréateur.raffraichir();
-		this.panelPrincipalCréateur.repaint();
+		for (SousPanel panel : this.liste){
+			panel.raffraichir();
+		}
 	}
 
 	@Override
