@@ -1,12 +1,13 @@
 package network;
 
+import java.io.IOException;
 import java.net.DatagramPacket;
 import java.net.SocketException;
 
 public class Server implements Runnable{
 
 	private SocketOut socketOut ;
-	private boolean running ;
+	private boolean running;
 	
 	public Server(){
 		try {
@@ -34,7 +35,11 @@ public class Server implements Runnable{
 		while(this.running){
 			byte[] data = new byte[1024];
 			DatagramPacket packet = new DatagramPacket(data, data.length);
-			
+			try {
+				this.socketOut.receive(packet);
+			} catch (IOException e) {
+				e.printStackTrace();
+			}
 		}
 	}
 }
