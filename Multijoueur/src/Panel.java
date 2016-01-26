@@ -18,7 +18,7 @@ public class Panel extends JPanel implements KeyListener{
 		this.setPreferredSize(new Dimension(600, 600));
 		this.personnages = new HashMap<String, Personnage>();
 		BDD.getBDD().ajouterPersonnages(this.personnages);
-		this.heros = this.personnages.get("Twarz");
+		this.heros = this.personnages.get("Koreuc");
 		this.addKeyListener(this);
 	}
 
