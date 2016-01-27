@@ -38,7 +38,7 @@ public class ObjetIcone extends JButton implements ActionListener {
 			this.panel.setObjetCourant(new ObjetCourant(image,this.numéro));
 		}
 		else {
-			this.panel.getMap().setBackground(this.imageTailleRéelle, this.numéro);
+			MapContainer.getMap().setBackground(this.imageTailleRéelle, this.numéro);
 			this.panel.setObjetCourant(null);
 			this.panel.repaint();
 		}

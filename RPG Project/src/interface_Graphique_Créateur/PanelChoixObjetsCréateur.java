@@ -5,6 +5,8 @@ import java.awt.Dimension;
 import java.awt.Toolkit;
 import java.io.File;
 import java.util.HashMap;
+import java.util.List;
+import java.util.Map;
 
 import javax.swing.ImageIcon;
 import javax.swing.JTabbedPane;
@@ -15,8 +17,8 @@ public class PanelChoixObjetsCréateur extends SousPanel{
 
 	private static PanelChoixObjetsCréateur instance;
 	private int nbObjets;
-	protected JTabbedPane onglets;
-	protected java.util.Map<Integer, ImageIcon> listeImageNuméro;
+	private JTabbedPane onglets;
+	private Map<Integer, ImageIcon> listeImageNuméro;
 
 	
 	public static PanelChoixObjetsCréateur getPanel(){
@@ -24,7 +26,7 @@ public class PanelChoixObjetsCréateur extends SousPanel{
 			instance = new PanelChoixObjetsCréateur();
 			instance.setBounds(200, 10 , FrameCréateur.getFrame().getWidth() - 230, 200 );
 			instance.créerOnglets();
-	    	PanelPrincipalCréateur.getPanel().getMap().mapFile.chargerCarteActuelle();
+			MapContainer.getMap().getMapFileCourante().chargerCarteActuelle();
 		}
 		return instance;
 	}
@@ -60,5 +62,9 @@ public class PanelChoixObjetsCréateur extends SousPanel{
 		this.setBounds(200, 10 , FrameCréateur.getFrame().getWidth() - 230, 180 );
 		this.onglets.setPreferredSize(new Dimension(this.getWidth()-20, this.getHeight()-20));
 		this.repaint();
+	}
+
+	public Map<Integer, ImageIcon> getListeImageNuméro() {
+		return this.getListeImageNuméro();
 	}
 }

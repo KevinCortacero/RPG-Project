@@ -21,7 +21,7 @@ public class Origin {
 		Origin.y=0;
 	}
 	
-	public float getX() {
+	public static float getX() {
 		return Origin.x;
 	}
 

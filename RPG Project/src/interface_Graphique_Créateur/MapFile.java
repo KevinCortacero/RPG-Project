@@ -16,24 +16,43 @@ import javax.swing.ImageIcon;
 
 public class MapFile {
 
-	private Map mapPrincipale;
-	protected File currentFile;
-	protected int[][] mapFile;
-	protected List<Tile> map;
+	private File currentFile;
+	private int[][] matrice;
+	private List<Tile> map;
 
-	protected int backgroundNum;
-	protected Tile tileSize;
-	protected FileWriter fileWriter;
+	private int backgroundNum;
+	private Tile tileSize;
+	private FileWriter fileWriter;
 
-	public MapFile(Map map, File fileMap){
+
+	public MapFile(MapContainer map, File fileMap){
 		this.map = new ArrayList<Tile>();
-		this.mapFile = new int[1000][1000];
+		this.matrice = new int[1000][1000];
 		this.setCurrentFile(fileMap);
-		this.mapPrincipale = map;
+	}
+
+	public File getCurrentFile() {
+		return currentFile;
 	}
 
 	public void setCurrentFile(File currentFile) {
 		this.currentFile = currentFile;
+	}
+	
+	public List<Tile> getMap() {
+		return map;
+	}
+	
+	public int getBackgroundNum() {
+		return backgroundNum;
+	}
+
+	public void setBackgroundNum(int backgroundNum) {
+		this.backgroundNum = backgroundNum;
+	}
+
+	public Tile getTileSize() {
+		return tileSize;
 	}
 
 	public void sauvegarder() throws IOException{
@@ -43,7 +62,7 @@ public class MapFile {
 		// on retranscrie notre matrice
 		for(int y = 0; y < this.tileSize.getY() ; y ++){
 			for(int x = 0; x < this.tileSize.getX() ; x ++){
-				this.fileWriter.write(Integer.toString(this.mapFile[x][y]) + "  ");
+				this.fileWriter.write(Integer.toString(this.matrice[x][y]) + "  ");
 			}
 			// si on est sur la première ligne, on rajoute l'information du background
 			if (y == 0)
@@ -57,7 +76,7 @@ public class MapFile {
 		// remplissage de la matrice
 		for(int y = 0; y < this.tileSize.getY() ; y ++){
 			for(int x = 0; x < this.tileSize.getX(); x ++){
-				this.mapFile[x][y] = this.getTile(x,y).getNuméro();
+				this.matrice[x][y] = this.getTile(x,y).getNuméro();
 			}
 		}
 	}
@@ -83,19 +102,19 @@ public class MapFile {
 							numéro += String.valueOf(ligne.charAt(x+1));	
 							x ++;
 						}
-						if (Integer.parseInt(numéro) <= PanelChoixObjetsCréateur.getPanel().listeImageNuméro.size())
-							this.mapFile[xMatrice][y] = Integer.parseInt(numéro);
+						if (Integer.parseInt(numéro) <= PanelChoixObjetsCréateur.getPanel().getListeImageNuméro().size())
+							this.matrice[xMatrice][y] = Integer.parseInt(numéro);
 						else
-							this.mapFile[xMatrice][y] = 0;
+							this.matrice[xMatrice][y] = 0;
 						xMatrice ++;
 						x += 3;
 					}
 					if (y == 0){
-						this.mapFile[xMatrice+1][y] = Integer.parseInt(String.valueOf(ligne.charAt(ligne.length()-1)));
-						if (this.mapFile[xMatrice+1][y] != 0)
-							this.mapPrincipale.setBackground(this.getTileMatrice( this.mapFile[xMatrice+1][y]).getImage(), this.mapFile[xMatrice+1][y]);
+						this.matrice[xMatrice+1][y] = Integer.parseInt(String.valueOf(ligne.charAt(ligne.length()-1)));
+						if (this.matrice[xMatrice+1][y] != 0)
+							MapContainer.getMap().setBackground(this.getTileMatrice( this.matrice[xMatrice+1][y]).getImage(), this.matrice[xMatrice+1][y]);
 						else
-							this.mapPrincipale.setBackground(null,0);
+							MapContainer.getMap().setBackground(null,0);
 					}
 
 					y ++;
@@ -115,8 +134,8 @@ public class MapFile {
 
 		for(int y = 0; y < this.tileSize.getY() ; y ++){
 			for(int x = 0; x < this.tileSize.getX(); x ++){
-				if (this.mapFile[x][y] != 0)
-					this.map.add(new Tile(x,y,this.getTileMatrice(this.mapFile[x][y]), this.mapFile[x][y]));
+				if (this.matrice[x][y] != 0)
+					this.map.add(new Tile(x,y,this.getTileMatrice(this.matrice[x][y]), this.matrice[x][y]));
 			}
 		}
 	}
@@ -133,6 +152,6 @@ public class MapFile {
 	}
 
 	public ImageIcon getTileMatrice(int numéro){
-		return new ImageIcon(PanelChoixObjetsCréateur.getPanel().listeImageNuméro.get(numéro).getImage().getScaledInstance(ObjetIcone.tailleImageJeu,ObjetIcone.tailleImageJeu, Image.SCALE_SMOOTH));
+		return new ImageIcon(PanelChoixObjetsCréateur.getPanel().getListeImageNuméro().get(numéro).getImage().getScaledInstance(ObjetIcone.tailleImageJeu,ObjetIcone.tailleImageJeu, Image.SCALE_SMOOTH));
 	}
 }

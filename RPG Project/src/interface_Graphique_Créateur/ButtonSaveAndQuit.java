@@ -25,7 +25,7 @@ public class ButtonSaveAndQuit extends JButton implements ActionListener {
 	                JOptionPane.QUESTION_MESSAGE);
 			if (reponse ==  JOptionPane.YES_NO_OPTION ){
 				try {
-					PanelPrincipalCréateur.getPanel().getMap().mapFile.sauvegarder();
+					MapContainer.getMap().getMapFileCourante().sauvegarder();
 				} catch (IOException e1) {
 					// TODO Auto-generated catch block
 					e1.printStackTrace();

@@ -3,7 +3,6 @@ package interface_Graphique_Créateur;
 import java.awt.Color;
 import java.awt.event.MouseEvent;
 import java.awt.event.MouseListener;
-
 import java.io.File;
 import java.io.FileWriter;
 import java.io.IOException;
@@ -113,19 +112,19 @@ public class ArbreCartes extends JTree implements TreeSelectionListener, MouseLi
 			DefaultMutableTreeNode node = (DefaultMutableTreeNode) this.getLastSelectedPathComponent();
 
 			if (!this.boutons.buttonAjoutCarte.isPeutCréerCarte() && !this.boutons.buttonAjoutDossier.isPeutCréerDossier() && !this.boutons.buttonSupprimer.isPeutSupprimer() && this.getLastSelectedPathComponent().toString() != "Liste des cartes"){
-				if (!this.panel.getMap().listeMapFile.containsKey(this.fileName((DefaultMutableTreeNode) node.getParent(), node.toString()))){
+				if (!MapContainer.getMap().getListeMapFile().containsKey(this.fileName((DefaultMutableTreeNode) node.getParent(), node.toString()))){
 					File fileCarte = new File(this.fileName((DefaultMutableTreeNode) node.getParent(), node.toString()));
 					if (fileCarte.isFile()){
-						this.panel.getMap().listeMapFile.put(this.fileName((DefaultMutableTreeNode) node.getParent(), node.toString()), new MapFile(this.panel.getMap(),fileCarte));
-						this.panel.getMap().changerMapFile(fileCarte);
-						this.panel.getMap().mapFile.chargerCarteActuelle();
+						MapContainer.getMap().getListeMapFile().put(this.fileName((DefaultMutableTreeNode) node.getParent(), node.toString()), new MapFile(MapContainer.getMap(),fileCarte));
+						MapContainer.getMap().changerMapFileCourante(this.fileName((DefaultMutableTreeNode) node.getParent(), node.toString()));
+						MapContainer.getMap().getMapFileCourante().chargerCarteActuelle();
 						this.panel.repaint();
 					}
 				}
 				else {
 					
-					this.panel.getMap().changerMapFile(this.panel.getMap().listeMapFile.get(this.fileName((DefaultMutableTreeNode) node.getParent(), node.toString())).currentFile);
-					this.panel.getMap().mapFile.chargerCarteActuelle();
+					MapContainer.getMap().changerMapFileCourante(this.fileName((DefaultMutableTreeNode) node.getParent(), node.toString()));
+					MapContainer.getMap().getMapFileCourante().chargerCarteActuelle();
 					this.panel.repaint();
 				}
 			}

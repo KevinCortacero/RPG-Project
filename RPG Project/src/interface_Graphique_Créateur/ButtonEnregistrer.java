@@ -17,7 +17,7 @@ public class ButtonEnregistrer extends JButton implements ActionListener {
 	@Override
 	public void actionPerformed(ActionEvent e) {
 		try {
-			PanelPrincipalCréateur.getPanel().getMap().mapFile.sauvegarder();
+			MapContainer.getMap().getMapFileCourante().sauvegarder();
 		} catch (IOException e1) {
 			// TODO Auto-generated catch block
 			e1.printStackTrace();

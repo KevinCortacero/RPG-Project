@@ -14,7 +14,6 @@ public class PanelPrincipalCréateur extends SousPanel implements MouseListener{
 
 	private static PanelPrincipalCréateur instance;
 	private ObjetCourant objetCourant;
-	private Map map;
 	private int x;	
 	private int y;
 
@@ -35,7 +34,6 @@ public class PanelPrincipalCréateur extends SousPanel implements MouseListener{
 		super();
 		this.x = 0;
 		this.y = 0;
-		this.map = new Map();
 		this.setBorder(new BorderGray());
 		this.setBackground(new Color(245,245,245));
 		this.setBounds(200,300, Toolkit.getDefaultToolkit().getScreenSize().width - 210 , Toolkit.getDefaultToolkit().getScreenSize().height - 270);
@@ -45,15 +43,15 @@ public class PanelPrincipalCréateur extends SousPanel implements MouseListener{
 
 	public void paintComponent(Graphics g) {
 		super.paintComponent(g);
-		if (this.map != null){
-			this.map.afficherCarte(g);
+		if (MapContainer.getMap() != null){
+			MapContainer.getMap().afficherCarte(g);
 		}
 		
 		//quadrillage
 		g.setColor(Color.gray);
 		for ( int i = 0 ; i<this.getSize().getWidth(); i += 50){
-				g.drawLine((int)Origin.getOrigin().getX()+i, 0, (int)Origin.getOrigin().getX()+i, (int)this.getSize().getHeight());
-				g.drawLine(0, (int)Origin.getOrigin().getY()+i,(int)this.getSize().getWidth() , (int)Origin.getOrigin().getY()+i);
+				g.drawLine((int)Origin.getX()+i, 0, (int)Origin.getX()+i, (int)this.getSize().getHeight());
+				g.drawLine(0, (int)Origin.getY()+i,(int)this.getSize().getWidth() , (int)Origin.getY()+i);
 		}		
 	} 
 
@@ -69,21 +67,18 @@ public class PanelPrincipalCréateur extends SousPanel implements MouseListener{
 		
 		// clic gauche
 		if (e.getButton() == MouseEvent.BUTTON1 && this.objetCourant != null){
-			this.map.gestionClicGauche(this.x, this.y, this.objetCourant);
+			MapContainer.getMap().gestionClicGauche(this.x, this.y, this.objetCourant);
 		}
 		else if (e.getButton() == MouseEvent.BUTTON1 && this.objetCourant == null)
-			this.map.mapFile.map.remove(this.map.mapFile.getTile(this.x, this.y));
+			MapContainer.getMap().getMapFileCourante().getMap().remove(MapContainer.getMap().getMapFileCourante().getTile(this.x, this.y));
 		// clic droit
-		else if (e.getButton() == MouseEvent.BUTTON3 && this.map.mapFile.getTile(this.x, this.y).getNuméro() != 0)
-			this.setObjetCourant(new ObjetCourant(this.map.mapFile.getTile(this.x, this.y).getImageIcon().getImage(), this.map.mapFile.getTile(this.x, this.y).getNuméro()));
-		else if (this.map.mapFile.getTile(this.x, this.y).getNuméro() == 0)
+		else if (e.getButton() == MouseEvent.BUTTON3 && MapContainer.getMap().getMapFileCourante().getTile(this.x, this.y).getNuméro() != 0)
+			this.setObjetCourant(new ObjetCourant(MapContainer.getMap().getMapFileCourante().getTile(this.x, this.y).getImageIcon().getImage(), MapContainer.getMap().getMapFileCourante().getTile(this.x, this.y).getNuméro()));
+		else if (MapContainer.getMap().getMapFileCourante().getTile(this.x, this.y).getNuméro() == 0)
 			this.setObjetCourant(null);
 		this.repaint();
 	}
 
-	public Map getMap(){
-		return this.map;
-	}
 
 	@Override
 	public void mousePressed(MouseEvent e) {}
