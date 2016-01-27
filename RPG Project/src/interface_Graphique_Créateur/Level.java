@@ -5,9 +5,7 @@ import java.io.File;
 public class Level {
 
 	public File getFile() {
-		File file = null;
-		file = new File("cartes/Base/Base-2.txt");
-		return file;
+		return new File("cartes/Base/Base-2.txt");
 	}
 
 	public String getName() {
