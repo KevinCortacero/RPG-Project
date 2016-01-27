@@ -2,12 +2,14 @@ package interface_Graphique_Créateur;
 
 import java.io.IOException;
 
+import dataBase.DataBase;
+
 public class CréerNiveau {
 
 	public static void main(String[] args) throws IOException {
 		FrameCréateur f = FrameCréateur.getFrame();
 		f.setVisible(true);
-		
+		DataBase.getBDD().addLevel(new Level());
 		while ( f.isEnabled() ){
 			f.raffraichir();		
 			try {

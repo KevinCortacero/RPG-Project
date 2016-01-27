@@ -83,7 +83,7 @@ public class BDD {
 			while (result.next()){
 				personnages.put(result.getString(1), new Personnage(result.getString(1), result.getInt(2), result.getInt(3)));
 			}
-		} catch (SQLException e){
+		}catch(SQLException e){
 			e.printStackTrace();
 		}
 	}
