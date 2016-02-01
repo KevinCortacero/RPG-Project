@@ -14,7 +14,8 @@ import javax.swing.SwingConstants;
 import application.interface_Graphique_Créateur.BorderGray;
 import application.interface_Graphique_Créateur.FrameCréateur;
 import application.interface_Graphique_Créateur.SousPanel;
-import application.interface_Graphique_Créateur.PanelPrincipal.MapContainer;
+import application.interface_Graphique_Créateur.PanelPrincipal.LevelContainer;
+import application.interface_Graphique_Créateur.PanelPrincipal.PanelPrincipalCréateur;
 
 @SuppressWarnings("serial")
 public class PanelChoixObjetsCréateur extends SousPanel{
@@ -30,7 +31,7 @@ public class PanelChoixObjetsCréateur extends SousPanel{
 			instance = new PanelChoixObjetsCréateur();
 			instance.setBounds(200, 10 , FrameCréateur.getFrame().getWidth() - 230, 200 );
 			instance.créerOnglets();
-			MapContainer.getMap().getMapFileCourante().chargerCarteActuelle();
+			PanelPrincipalCréateur.getPanel().getLevelContainer().getMapFileCourante().chargerCarteActuelle();
 		}
 		return instance;
 	}

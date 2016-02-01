@@ -12,6 +12,7 @@ import javax.swing.JFrame;
 import javax.swing.JOptionPane;
 import javax.swing.JPanel;
 
+import application.fonction.Parametres;
 import application.interface_Graphique_Créateur.PanelObjets.PanelChoixObjetsCréateur;
 import application.interface_Graphique_Créateur.PanelPrincipal.PanelPrincipalCréateur;
 
@@ -82,18 +83,18 @@ public class FrameCréateur extends JFrame implements KeyListener{
 	public void keyPressed(KeyEvent e) {
 		switch (e.getKeyCode()){
 		case KeyEvent.VK_S :
-			Origin.setY(Origin.getY()-3.5F);
+			Origin.setY(Origin.getY()-Parametres.VITESSE_DEPLACEMENT);
 			break;
 		case KeyEvent.VK_Z :
 			if ( Origin.getY()<0)
-			Origin.setY(Origin.getY()+3.5F);
+			Origin.setY(Origin.getY()+Parametres.VITESSE_DEPLACEMENT);
 			break;
 		case KeyEvent.VK_D :
-			Origin.setX(Origin.getX()-3.5F);
+			Origin.setX(Origin.getX()-Parametres.VITESSE_DEPLACEMENT);
 			break;
 		case KeyEvent.VK_Q :
 			if ( Origin.getX()<0)
-			Origin.setX(Origin.getX()+3.5F);
+			Origin.setX(Origin.getX()+Parametres.VITESSE_DEPLACEMENT);
 			break;	
 		}
 		this.raffraichir();

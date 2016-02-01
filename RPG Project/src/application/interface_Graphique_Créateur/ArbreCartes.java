@@ -14,8 +14,8 @@ import javax.swing.event.TreeSelectionListener;
 import javax.swing.tree.DefaultMutableTreeNode;
 import javax.swing.tree.DefaultTreeModel;
 
-import application.interface_Graphique_Créateur.PanelPrincipal.MapContainer;
-import application.interface_Graphique_Créateur.PanelPrincipal.MapFile;
+import application.interface_Graphique_Créateur.PanelPrincipal.LevelContainer;
+import application.interface_Graphique_Créateur.PanelPrincipal.Level;
 import application.interface_Graphique_Créateur.PanelPrincipal.PanelPrincipalCréateur;
 
 @SuppressWarnings("serial")
@@ -116,19 +116,19 @@ public class ArbreCartes extends JTree implements TreeSelectionListener, MouseLi
 			DefaultMutableTreeNode node = (DefaultMutableTreeNode) this.getLastSelectedPathComponent();
 
 			if (!this.boutons.buttonAjoutCarte.isPeutCréerCarte() && !this.boutons.buttonAjoutDossier.isPeutCréerDossier() && !this.boutons.buttonSupprimer.isPeutSupprimer() && this.getLastSelectedPathComponent().toString() != "Liste des cartes"){
-				if (!MapContainer.getMap().getListeMapFile().containsKey(this.fileName((DefaultMutableTreeNode) node.getParent(), node.toString()))){
+				if (!PanelPrincipalCréateur.getPanel().getLevelContainer().getListeMapFile().containsKey(this.fileName((DefaultMutableTreeNode) node.getParent(), node.toString()))){
 					File fileCarte = new File(this.fileName((DefaultMutableTreeNode) node.getParent(), node.toString()));
 					if (fileCarte.isFile()){
-						MapContainer.getMap().getListeMapFile().put(this.fileName((DefaultMutableTreeNode) node.getParent(), node.toString()), new MapFile(MapContainer.getMap(),fileCarte));
-						MapContainer.getMap().changerMapFileCourante(this.fileName((DefaultMutableTreeNode) node.getParent(), node.toString()));
-						MapContainer.getMap().getMapFileCourante().chargerCarteActuelle();
+						PanelPrincipalCréateur.getPanel().getLevelContainer().getListeMapFile().put(this.fileName((DefaultMutableTreeNode) node.getParent(), node.toString()), new Level(PanelPrincipalCréateur.getPanel().getLevelContainer(),fileCarte));
+						PanelPrincipalCréateur.getPanel().getLevelContainer().changerMapFileCourante(this.fileName((DefaultMutableTreeNode) node.getParent(), node.toString()));
+						PanelPrincipalCréateur.getPanel().getLevelContainer().getMapFileCourante().chargerCarteActuelle();
 						this.panel.repaint();
 					}
 				}
 				else {
 					
-					MapContainer.getMap().changerMapFileCourante(this.fileName((DefaultMutableTreeNode) node.getParent(), node.toString()));
-					MapContainer.getMap().getMapFileCourante().chargerCarteActuelle();
+					PanelPrincipalCréateur.getPanel().getLevelContainer().changerMapFileCourante(this.fileName((DefaultMutableTreeNode) node.getParent(), node.toString()));
+					PanelPrincipalCréateur.getPanel().getLevelContainer().getMapFileCourante().chargerCarteActuelle();
 					this.panel.repaint();
 				}
 			}
