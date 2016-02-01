@@ -23,7 +23,7 @@ import application.jeu.ObjetCourant;
 
 public class Level {
 
-	private File currentFile;
+	private File file;
 	private int[][] matrice;
 	private List<Tile> map;
 
@@ -32,18 +32,18 @@ public class Level {
 	private FileWriter fileWriter;
 
 
-	public Level(LevelContainer map, File fileMap){
+	public Level(File fileMap){
 		this.map = new ArrayList<Tile>();
 		this.matrice = new int[1000][1000];
 		this.setCurrentFile(fileMap);
 	}
 
-	public File getCurrentFile() {
-		return currentFile;
+	public File getFile() {
+		return file;
 	}
 
 	public void setCurrentFile(File currentFile) {
-		this.currentFile = currentFile;
+		this.file = currentFile;
 	}
 	
 	public List<Tile> getMap() {
@@ -64,7 +64,7 @@ public class Level {
 
 	public void sauvegarder() throws IOException{
 		// on écrase et on resauvegarde
-		this.fileWriter = new FileWriter(this.currentFile);
+		this.fileWriter = new FileWriter(this.file);
 
 		// on retranscrie notre matrice
 		for(int y = 0; y < this.tileSize.getY() ; y ++){
@@ -91,7 +91,7 @@ public class Level {
 	public void chargerCarteActuelle(){
 		// on recrée la matrice avec les chiffres
 		try {
-			InputStream is = new FileInputStream(this.currentFile);
+			InputStream is = new FileInputStream(this.file);
 			InputStreamReader isr = new InputStreamReader(is);
 			BufferedReader br = new BufferedReader(isr);
 

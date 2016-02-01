@@ -4,22 +4,6 @@ public class Origin {
 
 	private static float x;
 	private static float y;
-	private static Origin instanceOrigin;
-
-	public static Origin getOrigin(){
-		if ( instanceOrigin == null){
-			synchronized (Origin.class){
-				if ( instanceOrigin == null )
-					instanceOrigin = new Origin();
-			}
-		}
-		return instanceOrigin;
-	}
-
-	private Origin(){
-		Origin.x=0;
-		Origin.y=0;
-	}
 	
 	public static float getX() {
 		return Origin.x;
@@ -35,5 +19,10 @@ public class Origin {
 
 	public static void setY(float y) {
 		Origin.y = y;
+	}
+	
+	public static void reset(){
+		Origin.x = 0;
+		Origin.y = 0;
 	}
 }

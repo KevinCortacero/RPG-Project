@@ -40,7 +40,7 @@ public class ObjetIcone extends JButton implements ActionListener {
 			this.panel.setObjetCourant(new ObjetCourant(image,this.numéro));
 		}
 		else {
-			PanelPrincipalCréateur.getPanel().getLevelContainer().getMapFileCourante().setBackgroundNum(this.numéro);
+			PanelPrincipalCréateur.getPanel().getLevelContainer().getLevel().setBackgroundNum(this.numéro);
 			this.panel.setObjetCourant(null);
 			this.panel.repaint();
 		}

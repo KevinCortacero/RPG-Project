@@ -55,8 +55,8 @@ public class PanelPrincipalCréateur extends SousPanel implements MouseListener{
 
 	public void paintComponent(Graphics g) {
 		super.paintComponent(g);
-		if (this.levelContainer.getMapFileCourante() != null){
-			this.levelContainer.getMapFileCourante().afficherCarte(g);
+		if (this.levelContainer.getLevel() != null){
+			this.levelContainer.getLevel().afficherCarte(g);
 		}
 		
 		//quadrillage
@@ -79,14 +79,14 @@ public class PanelPrincipalCréateur extends SousPanel implements MouseListener{
 		
 		// clic gauche
 		if (e.getButton() == MouseEvent.BUTTON1 && this.objetCourant != null){
-			this.levelContainer.getMapFileCourante().gestionClicGauche(this.x, this.y, this.objetCourant);
+			this.levelContainer.getLevel().gestionClicGauche(this.x, this.y, this.objetCourant);
 		}
 		else if (e.getButton() == MouseEvent.BUTTON1 && this.objetCourant == null)
-			this.levelContainer.getMapFileCourante().getMap().remove(this.levelContainer.getMapFileCourante().getTile(this.x, this.y));
+			this.levelContainer.getLevel().getMap().remove(this.levelContainer.getLevel().getTile(this.x, this.y));
 		// clic droit
-		else if (e.getButton() == MouseEvent.BUTTON3 && this.levelContainer.getMapFileCourante().getTile(this.x, this.y).getNuméro() != 0)
-			this.setObjetCourant(new ObjetCourant(this.levelContainer.getMapFileCourante().getTile(this.x, this.y).getImageIcon().getImage(), this.levelContainer.getMapFileCourante().getTile(this.x, this.y).getNuméro()));
-		else if (this.levelContainer.getMapFileCourante().getTile(this.x, this.y).getNuméro() == 0)
+		else if (e.getButton() == MouseEvent.BUTTON3 && this.levelContainer.getLevel().getTile(this.x, this.y).getNuméro() != 0)
+			this.setObjetCourant(new ObjetCourant(this.levelContainer.getLevel().getTile(this.x, this.y).getImageIcon().getImage(), this.levelContainer.getLevel().getTile(this.x, this.y).getNuméro()));
+		else if (this.levelContainer.getLevel().getTile(this.x, this.y).getNuméro() == 0)
 			this.setObjetCourant(null);
 		this.repaint();
 	}

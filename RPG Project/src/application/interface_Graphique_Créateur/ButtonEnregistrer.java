@@ -20,7 +20,7 @@ public class ButtonEnregistrer extends JButton implements ActionListener {
 	@Override
 	public void actionPerformed(ActionEvent e) {
 		try {
-			PanelPrincipalCréateur.getPanel().getLevelContainer().getMapFileCourante().sauvegarder();
+			PanelPrincipalCréateur.getPanel().getLevelContainer().getLevel().sauvegarder();
 		} catch (IOException e1) {
 			// TODO Auto-generated catch block
 			e1.printStackTrace();
