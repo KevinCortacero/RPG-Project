@@ -118,10 +118,10 @@ public class Level {
 					}
 					if (y == 0){
 						this.matrice[xMatrice+1][y] = Integer.parseInt(String.valueOf(ligne.charAt(ligne.length()-1)));
-//						if (this.matrice[xMatrice+1][y] != 0)
-//							this.setBackground(this.getTileMatrice( this.matrice[xMatrice+1][y]).getImage(), this.matrice[xMatrice+1][y]);
-//						else
-//							this.setBackground(null,0);
+					if (this.matrice[xMatrice+1][y] != 0)
+					this.setBackgroundNum(this.matrice[xMatrice+1][y]);
+					else
+						this.setBackgroundNum(0);
 					}
 
 					y ++;
