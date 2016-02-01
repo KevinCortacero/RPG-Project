@@ -31,7 +31,6 @@ public class PanelChoixObjetsCréateur extends SousPanel{
 			instance = new PanelChoixObjetsCréateur();
 			instance.setBounds(200, 10 , FrameCréateur.getFrame().getWidth() - 230, 200 );
 			instance.créerOnglets();
-			PanelPrincipalCréateur.getPanel().getLevelContainer().getLevel().chargerCarteActuelle();
 		}
 		return instance;
 	}

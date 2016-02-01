@@ -26,16 +26,15 @@ public class Level {
 	private File file;
 	private int[][] matrice;
 	private List<Tile> map;
-
 	private int backgroundNum;
 	private Tile tileSize;
 	private FileWriter fileWriter;
 
 
-	public Level(File fileMap){
+	public Level(String path){
 		this.map = new ArrayList<Tile>();
 		this.matrice = new int[1000][1000];
-		this.setCurrentFile(fileMap);
+		this.file = new File(path);
 	}
 
 	public File getFile() {
