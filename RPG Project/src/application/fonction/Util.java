@@ -1,6 +1,5 @@
 package application.fonction;
 
-import application.interface_Graphique_Créateur.Origin;
 import application.interface_Graphique_Créateur.PanelObjets.ObjetIcone;
 
 public class Util {

@@ -12,6 +12,7 @@ import javax.swing.JFrame;
 import javax.swing.JOptionPane;
 import javax.swing.JPanel;
 
+import application.fonction.Origin;
 import application.fonction.Parametres;
 import application.interface_Graphique_Créateur.PanelGestion.PanelGestionCréateur;
 import application.interface_Graphique_Créateur.PanelObjets.PanelChoixObjetsCréateur;
@@ -31,7 +32,7 @@ public class FrameCréateur extends JFrame implements KeyListener{
 		}
 		return instance;
 	}
-	
+
 	private FrameCréateur(){
 		super("Création de niveau");
 		this.setLayout(null);
@@ -47,7 +48,7 @@ public class FrameCréateur extends JFrame implements KeyListener{
 			}
 		});
 	}
-	
+
 	private void ajouterComponents(){
 		this.liste.add(PanelPrincipalCréateur.getPanel());
 		this.liste.add(PanelChoixObjetsCréateur.getPanel());
@@ -77,33 +78,28 @@ public class FrameCréateur extends JFrame implements KeyListener{
 	}
 
 	@Override
-	public void keyTyped(KeyEvent e) {
-
-	}
-
-	@Override
 	public void keyPressed(KeyEvent e) {
+		float vitesse = Parametres.VITESSE_DEPLACEMENT;
 		switch (e.getKeyCode()){
 		case KeyEvent.VK_S :
-			Origin.setY(Origin.getY()-Parametres.VITESSE_DEPLACEMENT);
+			Origin.setY(-vitesse);
 			break;
 		case KeyEvent.VK_Z :
-			if ( Origin.getY()<0)
-			Origin.setY(Origin.getY()+Parametres.VITESSE_DEPLACEMENT);
+			if (Origin.getY() < 0)
+				Origin.setY(vitesse);
 			break;
 		case KeyEvent.VK_D :
-			Origin.setX(Origin.getX()-Parametres.VITESSE_DEPLACEMENT);
+			Origin.setX(-vitesse);
 			break;
 		case KeyEvent.VK_Q :
-			if ( Origin.getX()<0)
-			Origin.setX(Origin.getX()+Parametres.VITESSE_DEPLACEMENT);
+			if (Origin.getX() < 0)
+				Origin.setX(vitesse);
 			break;	
 		}
-		this.raffraichir();
 	}
 
 	@Override
-	public void keyReleased(KeyEvent e) {
-
-	}
+	public void keyReleased(KeyEvent arg0) {}
+	@Override
+	public void keyTyped(KeyEvent arg0) {}	
 }

@@ -1,6 +1,6 @@
-package application.interface_Graphique_Créateur;
+package application.fonction;
 
-public class Origin {
+public final class Origin{
 
 	private static float x;
 	private static float y;
@@ -10,7 +10,7 @@ public class Origin {
 	}
 
 	public static void setX(float x) {
-		Origin.x = x;
+		Origin.x += x;
 	}
 
 	public static float getY() {
@@ -18,7 +18,7 @@ public class Origin {
 	}
 
 	public static void setY(float y) {
-		Origin.y = y;
+		Origin.y += y;
 	}
 	
 	public static void reset(){

@@ -16,7 +16,7 @@ import java.util.List;
 
 import javax.swing.ImageIcon;
 
-import application.interface_Graphique_Créateur.Origin;
+import application.fonction.Origin;
 import application.interface_Graphique_Créateur.PanelObjets.ObjetIcone;
 import application.interface_Graphique_Créateur.PanelObjets.PanelChoixObjetsCréateur;
 import application.jeu.ObjetCourant;
@@ -35,6 +35,7 @@ public class Level {
 		this.map = new ArrayList<Tile>();
 		this.matrice = new int[1000][1000];
 		this.file = new File(path);
+		this.charger();
 	}
 
 	public File getFile() {
