@@ -27,7 +27,10 @@ public class LevelContainer {
 	}
 
 	public void changerLevel(String clé){
-		this.level = this.listeLevel.get(clé);
 		Origin.reset();
+		this.level = this.listeLevel.get(clé);
+		this.level.charger();
 	}
+	
+	
 }

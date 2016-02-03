@@ -87,7 +87,7 @@ public class Level {
 		}
 	}
 
-	public void chargerCarteActuelle(){
+	public void charger(){
 		// on recrée la matrice avec les chiffres
 		try {
 			InputStream is = new FileInputStream(this.file);

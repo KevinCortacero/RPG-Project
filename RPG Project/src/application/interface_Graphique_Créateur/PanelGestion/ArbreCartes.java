@@ -1,4 +1,4 @@
-package application.interface_Graphique_Créateur;
+package application.interface_Graphique_Créateur.PanelGestion;
 
 import java.awt.Color;
 import java.awt.event.MouseEvent;
@@ -122,15 +122,12 @@ public class ArbreCartes extends JTree implements TreeSelectionListener, MouseLi
 					if (fileCarte.isFile()){
 						PanelPrincipalCréateur.getPanel().getLevelContainer().ajouterLevel(path, new Level(path));
 						PanelPrincipalCréateur.getPanel().getLevelContainer().changerLevel(path);
-						PanelPrincipalCréateur.getPanel().getLevelContainer().getLevel().chargerCarteActuelle();
-						this.panel.repaint();
 					}
 				}
 				else {
 					PanelPrincipalCréateur.getPanel().getLevelContainer().changerLevel(path);
-					PanelPrincipalCréateur.getPanel().getLevelContainer().getLevel().chargerCarteActuelle();
-					this.panel.repaint();
 				}
+				this.panel.repaint();
 			}
 
 			if (this.boutons.buttonAjoutCarte.isPeutCréerCarte()){

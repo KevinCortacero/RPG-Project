@@ -13,8 +13,10 @@ import javax.swing.JOptionPane;
 import javax.swing.JPanel;
 
 import application.fonction.Parametres;
+import application.interface_Graphique_Créateur.PanelGestion.PanelGestionCréateur;
 import application.interface_Graphique_Créateur.PanelObjets.PanelChoixObjetsCréateur;
 import application.interface_Graphique_Créateur.PanelPrincipal.PanelPrincipalCréateur;
+import application.interface_Graphique_Créateur.PanelValidation.PanelValidationCréateur;
 
 @SuppressWarnings("serial")
 public class FrameCréateur extends JFrame implements KeyListener{

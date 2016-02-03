@@ -15,7 +15,6 @@ import application.interface_Graphique_Créateur.SousPanel;
 import application.interface_Graphique_Créateur.PanelObjets.ObjetIcone;
 import application.jeu.ObjetCourant;
 
-@SuppressWarnings("serial")
 public class PanelPrincipalCréateur extends SousPanel implements MouseListener{
 
 	private static PanelPrincipalCréateur instance;
@@ -73,22 +72,23 @@ public class PanelPrincipalCréateur extends SousPanel implements MouseListener{
 
 	@Override
 	public void mouseClicked(MouseEvent e) {
-		// on récupère les coordonnées de la case ciblée
-		this.x = Util.getPixelToTileX(e.getX());
-		this.y = Util.getPixelToTileY(e.getY());
-		
-		// clic gauche
-		if (e.getButton() == MouseEvent.BUTTON1 && this.objetCourant != null){
-			this.levelContainer.getLevel().gestionClicGauche(this.x, this.y, this.objetCourant);
+		if (this.levelContainer.getLevel() != null){
+			this.x = Util.getPixelToTileX(e.getX());
+			this.y = Util.getPixelToTileY(e.getY());
+			
+			// clic gauche
+			if (e.getButton() == MouseEvent.BUTTON1 && this.objetCourant != null){
+				this.levelContainer.getLevel().gestionClicGauche(this.x, this.y, this.objetCourant);
+			}
+			else if (e.getButton() == MouseEvent.BUTTON1 && this.objetCourant == null)
+				this.levelContainer.getLevel().getMap().remove(this.levelContainer.getLevel().getTile(this.x, this.y));
+			// clic droit
+			else if (e.getButton() == MouseEvent.BUTTON3 && this.levelContainer.getLevel().getTile(this.x, this.y).getNuméro() != 0)
+				this.setObjetCourant(new ObjetCourant(this.levelContainer.getLevel().getTile(this.x, this.y).getImageIcon().getImage(), this.levelContainer.getLevel().getTile(this.x, this.y).getNuméro()));
+			else if (this.levelContainer.getLevel().getTile(this.x, this.y).getNuméro() == 0)
+				this.setObjetCourant(null);
+			this.repaint();
 		}
-		else if (e.getButton() == MouseEvent.BUTTON1 && this.objetCourant == null)
-			this.levelContainer.getLevel().getMap().remove(this.levelContainer.getLevel().getTile(this.x, this.y));
-		// clic droit
-		else if (e.getButton() == MouseEvent.BUTTON3 && this.levelContainer.getLevel().getTile(this.x, this.y).getNuméro() != 0)
-			this.setObjetCourant(new ObjetCourant(this.levelContainer.getLevel().getTile(this.x, this.y).getImageIcon().getImage(), this.levelContainer.getLevel().getTile(this.x, this.y).getNuméro()));
-		else if (this.levelContainer.getLevel().getTile(this.x, this.y).getNuméro() == 0)
-			this.setObjetCourant(null);
-		this.repaint();
 	}
 
 

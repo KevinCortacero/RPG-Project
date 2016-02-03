@@ -1,4 +1,4 @@
-package application.interface_Graphique_Créateur;
+package application.interface_Graphique_Créateur.PanelGestion;
 
 import java.awt.Color;
 import java.awt.Font;
@@ -6,6 +6,10 @@ import java.awt.Toolkit;
 import java.io.File;
 
 import javax.swing.JLabel;
+
+import application.interface_Graphique_Créateur.BorderGray;
+import application.interface_Graphique_Créateur.FrameCréateur;
+import application.interface_Graphique_Créateur.SousPanel;
 
 @SuppressWarnings("serial")
 public class PanelGestionCréateur extends SousPanel {
