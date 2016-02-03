@@ -2,6 +2,8 @@ package interface_Graphique_Créateur;
 
 import java.io.IOException;
 
+import application.interface_Graphique_Créateur.FrameCréateur;
+
 public class CréerNiveau {
 
 	public static void main(String[] args) throws IOException {
