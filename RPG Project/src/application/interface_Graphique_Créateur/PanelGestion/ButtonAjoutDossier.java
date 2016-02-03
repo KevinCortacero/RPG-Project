@@ -1,4 +1,4 @@
-package application.interface_Graphique_Créateur;
+package application.interface_Graphique_Créateur.PanelGestion;
 
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;

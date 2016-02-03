@@ -1,5 +1,6 @@
-package application.interface_Graphique_Créateur;
+package application.interface_Graphique_Créateur.PanelGestion;
 import java.awt.Toolkit;
+
 import javax.swing.JPanel;
 
 @SuppressWarnings("serial")

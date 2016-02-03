@@ -1,4 +1,4 @@
-package application.interface_Graphique_Créateur;
+package application.interface_Graphique_Créateur.PanelValidation;
 
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
@@ -7,7 +7,8 @@ import java.io.IOException;
 import javax.swing.JButton;
 import javax.swing.JOptionPane;
 
-import application.interface_Graphique_Créateur.PanelPrincipal.MapContainer;
+import application.interface_Graphique_Créateur.PanelPrincipal.LevelContainer;
+import application.interface_Graphique_Créateur.PanelPrincipal.PanelPrincipalCréateur;
 
 @SuppressWarnings("serial")
 public class ButtonSaveAndQuit extends JButton implements ActionListener {
@@ -27,7 +28,7 @@ public class ButtonSaveAndQuit extends JButton implements ActionListener {
 	                JOptionPane.QUESTION_MESSAGE);
 			if (reponse ==  JOptionPane.YES_NO_OPTION ){
 				try {
-					MapContainer.getMap().getMapFileCourante().sauvegarder();
+					PanelPrincipalCréateur.getPanel().getLevelContainer().getLevel().sauvegarder();
 				} catch (IOException e1) {
 					// TODO Auto-generated catch block
 					e1.printStackTrace();

@@ -1,7 +1,10 @@
-package application.interface_Graphique_Créateur;
+package application.interface_Graphique_Créateur.PanelValidation;
 
 import java.awt.Color;
 import java.awt.GridLayout;
+
+import application.interface_Graphique_Créateur.BorderGray;
+import application.interface_Graphique_Créateur.SousPanel;
 
 @SuppressWarnings("serial")
 public class PanelValidationCréateur extends SousPanel{

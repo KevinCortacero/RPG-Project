@@ -9,7 +9,7 @@ import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.sql.Statement;
 
-import application.interface_Graphique_Créateur.PanelPrincipal.Level;
+import application.interface_Graphique_Créateur.PanelPrincipal.Level2;
 
 import com.mysql.jdbc.jdbc2.optional.MysqlDataSource;
 
@@ -72,7 +72,7 @@ public class DataBase {
 		return positionX;
 	}
 	
-	public void addLevel(Level level){
+	public void addLevel(Level2 level){
 		try {
 			String req = "INSERT INTO Carte(fichier, nom, background) VALUES (?,?,?);";
 			PreparedStatement s = this.prepareStatement(req);
@@ -85,7 +85,7 @@ public class DataBase {
 			}
 			s.setBlob(1, inputStream);
 	        s.setString(2, level.getName());
-	        s.setInt(3, level.getBackground());
+	      //  s.setInt(3, level.getBackground());
 
 	        int row = s.executeUpdate();
 	        if (row > 0) {

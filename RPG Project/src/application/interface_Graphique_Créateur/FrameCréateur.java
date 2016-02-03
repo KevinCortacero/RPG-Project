@@ -12,8 +12,12 @@ import javax.swing.JFrame;
 import javax.swing.JOptionPane;
 import javax.swing.JPanel;
 
+import application.fonction.Origin;
+import application.fonction.Parametres;
+import application.interface_Graphique_Créateur.PanelGestion.PanelGestionCréateur;
 import application.interface_Graphique_Créateur.PanelObjets.PanelChoixObjetsCréateur;
 import application.interface_Graphique_Créateur.PanelPrincipal.PanelPrincipalCréateur;
+import application.interface_Graphique_Créateur.PanelValidation.PanelValidationCréateur;
 
 @SuppressWarnings("serial")
 public class FrameCréateur extends JFrame implements KeyListener{
@@ -28,7 +32,7 @@ public class FrameCréateur extends JFrame implements KeyListener{
 		}
 		return instance;
 	}
-	
+
 	private FrameCréateur(){
 		super("Création de niveau");
 		this.setLayout(null);
@@ -44,7 +48,7 @@ public class FrameCréateur extends JFrame implements KeyListener{
 			}
 		});
 	}
-	
+
 	private void ajouterComponents(){
 		this.liste.add(PanelPrincipalCréateur.getPanel());
 		this.liste.add(PanelChoixObjetsCréateur.getPanel());
@@ -74,33 +78,28 @@ public class FrameCréateur extends JFrame implements KeyListener{
 	}
 
 	@Override
-	public void keyTyped(KeyEvent e) {
-
-	}
-
-	@Override
 	public void keyPressed(KeyEvent e) {
+		float vitesse = Parametres.VITESSE_DEPLACEMENT;
 		switch (e.getKeyCode()){
 		case KeyEvent.VK_S :
-			Origin.setY(Origin.getY()-3.5F);
+			Origin.setY(-vitesse);
 			break;
 		case KeyEvent.VK_Z :
-			if ( Origin.getY()<0)
-			Origin.setY(Origin.getY()+3.5F);
+			if (Origin.getY() < 0)
+				Origin.setY(vitesse);
 			break;
 		case KeyEvent.VK_D :
-			Origin.setX(Origin.getX()-3.5F);
+			Origin.setX(-vitesse);
 			break;
 		case KeyEvent.VK_Q :
-			if ( Origin.getX()<0)
-			Origin.setX(Origin.getX()+3.5F);
+			if (Origin.getX() < 0)
+				Origin.setX(vitesse);
 			break;	
 		}
-		this.raffraichir();
 	}
 
 	@Override
-	public void keyReleased(KeyEvent e) {
-
-	}
+	public void keyReleased(KeyEvent arg0) {}
+	@Override
+	public void keyTyped(KeyEvent arg0) {}	
 }

@@ -1,4 +1,4 @@
-package application.interface_Graphique_Créateur;
+package application.interface_Graphique_Créateur.PanelGestion;
 
 import java.awt.Color;
 import java.awt.event.MouseEvent;
@@ -14,8 +14,8 @@ import javax.swing.event.TreeSelectionListener;
 import javax.swing.tree.DefaultMutableTreeNode;
 import javax.swing.tree.DefaultTreeModel;
 
-import application.interface_Graphique_Créateur.PanelPrincipal.MapContainer;
-import application.interface_Graphique_Créateur.PanelPrincipal.MapFile;
+import application.interface_Graphique_Créateur.PanelPrincipal.LevelContainer;
+import application.interface_Graphique_Créateur.PanelPrincipal.Level;
 import application.interface_Graphique_Créateur.PanelPrincipal.PanelPrincipalCréateur;
 
 @SuppressWarnings("serial")
@@ -116,21 +116,18 @@ public class ArbreCartes extends JTree implements TreeSelectionListener, MouseLi
 			DefaultMutableTreeNode node = (DefaultMutableTreeNode) this.getLastSelectedPathComponent();
 
 			if (!this.boutons.buttonAjoutCarte.isPeutCréerCarte() && !this.boutons.buttonAjoutDossier.isPeutCréerDossier() && !this.boutons.buttonSupprimer.isPeutSupprimer() && this.getLastSelectedPathComponent().toString() != "Liste des cartes"){
-				if (!MapContainer.getMap().getListeMapFile().containsKey(this.fileName((DefaultMutableTreeNode) node.getParent(), node.toString()))){
-					File fileCarte = new File(this.fileName((DefaultMutableTreeNode) node.getParent(), node.toString()));
+				String path = this.fileName((DefaultMutableTreeNode) node.getParent(), node.toString());
+				if (!PanelPrincipalCréateur.getPanel().getLevelContainer().getListeLevel().containsKey(path)){
+					File fileCarte = new File(path);
 					if (fileCarte.isFile()){
-						MapContainer.getMap().getListeMapFile().put(this.fileName((DefaultMutableTreeNode) node.getParent(), node.toString()), new MapFile(MapContainer.getMap(),fileCarte));
-						MapContainer.getMap().changerMapFileCourante(this.fileName((DefaultMutableTreeNode) node.getParent(), node.toString()));
-						MapContainer.getMap().getMapFileCourante().chargerCarteActuelle();
-						this.panel.repaint();
+						PanelPrincipalCréateur.getPanel().getLevelContainer().ajouterLevel(path, new Level(path));
+						PanelPrincipalCréateur.getPanel().getLevelContainer().changerLevel(path);
 					}
 				}
 				else {
-					
-					MapContainer.getMap().changerMapFileCourante(this.fileName((DefaultMutableTreeNode) node.getParent(), node.toString()));
-					MapContainer.getMap().getMapFileCourante().chargerCarteActuelle();
-					this.panel.repaint();
+					PanelPrincipalCréateur.getPanel().getLevelContainer().changerLevel(path);
 				}
+				this.panel.repaint();
 			}
 
 			if (this.boutons.buttonAjoutCarte.isPeutCréerCarte()){

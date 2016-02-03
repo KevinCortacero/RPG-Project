@@ -8,7 +8,7 @@ import java.awt.event.ActionListener;
 import javax.swing.ImageIcon;
 import javax.swing.JButton;
 
-import application.interface_Graphique_Créateur.PanelPrincipal.MapContainer;
+import application.interface_Graphique_Créateur.PanelPrincipal.LevelContainer;
 import application.interface_Graphique_Créateur.PanelPrincipal.PanelPrincipalCréateur;
 import application.jeu.ObjetCourant;
 
@@ -40,7 +40,8 @@ public class ObjetIcone extends JButton implements ActionListener {
 			this.panel.setObjetCourant(new ObjetCourant(image,this.numéro));
 		}
 		else {
-			MapContainer.getMap().setBackground(this.imageTailleRéelle, this.numéro);
+			if (PanelPrincipalCréateur.getPanel().getLevelContainer().getLevel() != null)
+				PanelPrincipalCréateur.getPanel().getLevelContainer().getLevel().setBackgroundNum(this.numéro);
 			this.panel.setObjetCourant(null);
 			this.panel.repaint();
 		}
