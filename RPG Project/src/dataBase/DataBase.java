@@ -1,8 +1,5 @@
 package dataBase;
 
-import interface_Graphique_Créateur.Level;
-
-import java.io.File;
 import java.io.FileInputStream;
 import java.io.FileNotFoundException;
 import java.io.InputStream;
@@ -11,6 +8,8 @@ import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.sql.Statement;
+
+import application.interface_Graphique_Créateur.PanelPrincipal.Level;
 
 import com.mysql.jdbc.jdbc2.optional.MysqlDataSource;
 

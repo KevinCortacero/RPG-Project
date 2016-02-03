@@ -36,18 +36,15 @@ public class Server implements Runnable{
 	private void receive() {
 		new Thread("Receive"){
 			public void run(){
-
 				try{
 					while(running){
 						byte[] data = new byte[1024];
 						DatagramPacket packet = new DatagramPacket(data, data.length);
 						socket.receive(packet);
-
 						parsePacket(packet.getData(), packet.getAddress(), packet.getPort());
 					}
 				}catch(IOException e){
 					e.printStackTrace();
-
 				}
 			}
 
@@ -69,9 +66,7 @@ public class Server implements Runnable{
 	private void parsePacket(byte[] data, InetAddress address, int port) {
 		String msg = new String(data);
 		System.out.println(msg);
-		
-		String send = "[SERVER]" + msg;
-		
+		String send = "[SERVER]" + msg;	
 		send(send.getBytes(),address,port);
 	}
 }
