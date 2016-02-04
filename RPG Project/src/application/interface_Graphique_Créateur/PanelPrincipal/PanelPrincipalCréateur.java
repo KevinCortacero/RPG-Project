@@ -3,11 +3,9 @@ package application.interface_Graphique_Créateur.PanelPrincipal;
 import java.awt.Color;
 import java.awt.Graphics;
 import java.awt.Toolkit;
-import java.awt.event.KeyListener;
 import java.awt.event.MouseEvent;
 import java.awt.event.MouseListener;
 
-import application.fonction.Origin;
 import application.fonction.Util;
 import application.interface_Graphique_Créateur.BorderGray;
 import application.interface_Graphique_Créateur.FrameCréateur;
@@ -51,12 +49,12 @@ public class PanelPrincipalCréateur extends SousPanel implements MouseListener{
 			//quadrillage
 			g.setColor(Color.gray);
 			for ( int i = 0 ; i<this.getSize().getWidth() ; i += 50){
-				g.drawLine((int) Origin.getX()+i, 0, (int)Origin.getX()+i, (int)this.getSize().getHeight());
-				g.drawLine(0, (int) Origin.getY()+i,(int)this.getSize().getWidth() , (int)Origin.getY()+i);
+				g.drawLine(i, 0, i, (int)this.getSize().getHeight());
+				g.drawLine(0, i,(int)this.getSize().getWidth() , i);
 			}	
 		}
 		else
-			g.drawString("Veuillez sélectionner un level à éditer", (int) (200 + Origin.getX()), (int) (200 + Origin.getY()));
+			g.drawString("Veuillez sélectionner un level à éditer",200,200);
 	} 
 
 	public void setObjetCourant(ObjetCourant objetCourant){
