@@ -6,11 +6,11 @@ import java.awt.Toolkit;
 import java.awt.event.MouseEvent;
 import java.awt.event.MouseListener;
 
+import application.fonction.Origine;
 import application.fonction.Util;
 import application.interface_Graphique_Créateur.BorderGray;
 import application.interface_Graphique_Créateur.FrameCréateur;
 import application.interface_Graphique_Créateur.SousPanel;
-import application.interface_Graphique_Créateur.PanelObjets.ObjetIcone;
 import application.jeu.ObjetCourant;
 
 @SuppressWarnings("serial")
@@ -54,7 +54,7 @@ public class PanelPrincipalCréateur extends SousPanel implements MouseListener{
 			}	
 		}
 		else
-			g.drawString("Veuillez sélectionner un level à éditer",200,200);
+			g.drawString("Veuillez sélectionner un level à éditer", Origine.getX()+200,Origine.getY()+200);
 	} 
 
 	public void setObjetCourant(ObjetCourant objetCourant){
@@ -94,10 +94,4 @@ public class PanelPrincipalCréateur extends SousPanel implements MouseListener{
 
 	@Override
 	public void mouseExited(MouseEvent e){}
-
-	@Override
-	public void raffraichir() {
-		this.setBounds(200, 200, ((int) ((FrameCréateur.getFrame().getWidth()-210) / ObjetIcone.tailleImageJeu)) * ObjetIcone.tailleImageJeu, ((int) ((FrameCréateur.getFrame().getHeight() -220) / ObjetIcone.tailleImageJeu)) * ObjetIcone.tailleImageJeu);
-		this.repaint();
-	}
 }

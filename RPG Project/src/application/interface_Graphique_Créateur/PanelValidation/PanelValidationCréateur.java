@@ -27,9 +27,4 @@ public class PanelValidationCréateur extends SousPanel{
 		this.setBackground(new Color(245,245,245));
 		this.setBounds(10, 10, 180 , 180);
 	}
-
-	@Override
-	public void raffraichir() {
-		this.repaint();		
-	}
 }

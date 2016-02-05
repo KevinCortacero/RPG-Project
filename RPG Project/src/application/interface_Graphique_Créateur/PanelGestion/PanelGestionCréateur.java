@@ -52,17 +52,5 @@ public class PanelGestionCréateur extends SousPanel {
 		return arbre;
 	}
 
-	public void raffraichir(){
-		int coordonésY;
-		if ( (int)this.getSize().getHeight()-120 > 150 ){
-			coordonésY = (int)this.getSize().getHeight()-120;
-		}else{
-			coordonésY = 150 ;
-		}
-		this.boutons.setBounds(5,coordonésY,170, 112);
-		this.boutons.repaint();
-		this.setBounds(10, 200, 180, FrameCréateur.getFrame().getHeight() - 270 );
-		this.arbre.setBounds(5, 50, 170, this.getHeight() - this.boutons.getHeight() - 66);	
-		this.repaint();
-	}
+	public void raffraichir(){}
 }

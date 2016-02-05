@@ -1,8 +1,8 @@
 package application.interface_Graphique_Créateur;
 
 import java.awt.Toolkit;
-import java.awt.event.KeyEvent;
-import java.awt.event.KeyListener;
+import java.awt.event.FocusEvent;
+import java.awt.event.FocusListener;
 import java.awt.event.WindowAdapter;
 import java.awt.event.WindowEvent;
 import java.util.ArrayList;
@@ -12,14 +12,13 @@ import javax.swing.JFrame;
 import javax.swing.JOptionPane;
 import javax.swing.JPanel;
 
-import application.fonction.Parametres;
 import application.interface_Graphique_Créateur.PanelGestion.PanelGestionCréateur;
 import application.interface_Graphique_Créateur.PanelObjets.PanelChoixObjetsCréateur;
 import application.interface_Graphique_Créateur.PanelPrincipal.PanelPrincipalCréateur;
 import application.interface_Graphique_Créateur.PanelValidation.PanelValidationCréateur;
 
 @SuppressWarnings("serial")
-public class FrameCréateur extends JFrame implements KeyListener{
+public class FrameCréateur extends JFrame implements FocusListener{
 
 	private static FrameCréateur instance;
 	private List<SousPanel> liste;
@@ -28,7 +27,6 @@ public class FrameCréateur extends JFrame implements KeyListener{
 		if (instance == null){
 			instance = new FrameCréateur();
 			instance.ajouterComponents();
-			System.out.println("singleton création");
 		}
 		return instance;
 	}
@@ -40,13 +38,8 @@ public class FrameCréateur extends JFrame implements KeyListener{
 		this.setDefaultCloseOperation(DO_NOTHING_ON_CLOSE);
 		this.setExtendedState(MAXIMIZED_BOTH);
 		this.setFocusable(true);
-		this.addKeyListener(this);
 		this.liste = new ArrayList<SousPanel>();
-		addWindowListener( new WindowAdapter() {
-			public void windowClosing(WindowEvent e) {
-				fermer();
-			}
-		});
+		this.addFocusListener(this);
 	}
 
 	private void ajouterComponents(){
@@ -57,6 +50,12 @@ public class FrameCréateur extends JFrame implements KeyListener{
 		for (JPanel panel : this.liste){
 			this.getContentPane().add(panel);
 		}
+		this.addKeyListener(new KeyBoard());
+		this.addWindowListener( new WindowAdapter() {
+			public void windowClosing(WindowEvent e) {
+				fermer();
+			}
+		});
 	}	
 
 	private void fermer() {
@@ -72,35 +71,17 @@ public class FrameCréateur extends JFrame implements KeyListener{
 	}
 
 	public void raffraichir(){
-		for (SousPanel panel : this.liste){
-			panel.raffraichir();
-		}
+	}
+	
+	public String toString(){
+		return "Fenêtre principal";
 	}
 
 	@Override
-	public void keyPressed(KeyEvent e) {
-		float vitesse = Parametres.VITESSE_DEPLACEMENT;
-		switch (e.getKeyCode()){
-		case KeyEvent.VK_S :
-			// Origin.setY(-vitesse);
-			break;
-		case KeyEvent.VK_Z :
-			if (/*Origin.getY() < 0 */false)
-				//Origin.setY(vitesse);
-			break;
-		case KeyEvent.VK_D :
-			//Origin.setX(-vitesse);
-			break;
-		case KeyEvent.VK_Q :
-			if (/*Origin.getX() < 0*/ false)
-				//Origin.setX(vitesse);
-			break;	
-		}
-		System.out.println("ça passe");
-	}
+	public void focusGained(FocusEvent e) {}
 
 	@Override
-	public void keyReleased(KeyEvent arg0) {}
-	@Override
-	public void keyTyped(KeyEvent arg0) {}	
+	public void focusLost(FocusEvent e) {
+		this.requestFocusInWindow();
+	}
 }

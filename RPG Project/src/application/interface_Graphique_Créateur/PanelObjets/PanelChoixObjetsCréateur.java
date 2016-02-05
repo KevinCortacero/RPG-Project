@@ -14,8 +14,6 @@ import javax.swing.SwingConstants;
 import application.interface_Graphique_Créateur.BorderGray;
 import application.interface_Graphique_Créateur.FrameCréateur;
 import application.interface_Graphique_Créateur.SousPanel;
-import application.interface_Graphique_Créateur.PanelPrincipal.LevelContainer;
-import application.interface_Graphique_Créateur.PanelPrincipal.PanelPrincipalCréateur;
 
 @SuppressWarnings("serial")
 public class PanelChoixObjetsCréateur extends SousPanel{
@@ -64,11 +62,5 @@ public class PanelChoixObjetsCréateur extends SousPanel{
 
 	public void setNbObjets(int nb) {
 		this.nbObjets = nb;	
-	}
-
-	public void raffraichir(){
-		this.setBounds(200, 10 , FrameCréateur.getFrame().getWidth() - 230, 180 );
-		this.onglets.setPreferredSize(new Dimension(this.getWidth()-20, this.getHeight()-20));
-		this.repaint();
 	}
 }

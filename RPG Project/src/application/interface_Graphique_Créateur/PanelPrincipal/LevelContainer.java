@@ -3,6 +3,9 @@ package application.interface_Graphique_Créateur.PanelPrincipal;
 import java.util.HashMap;
 import java.util.Map;
 
+import application.fonction.Origine;
+import application.interface_Graphique_Créateur.FrameCréateur;
+
 public class LevelContainer{
 
 	private Map<String, Level> listeLevel; 
@@ -25,8 +28,9 @@ public class LevelContainer{
 	}
 
 	public void changerLevel(String clé){
-		//Origin.reset();
+		Origine.reset();
 		System.out.println("On change de Level dans le Container");
 		this.level = this.listeLevel.get(clé);
+		System.out.println(FrameCréateur.getFrame().getKeyListeners()[0]);
 	}
 }
