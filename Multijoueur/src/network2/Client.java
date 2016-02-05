@@ -20,7 +20,7 @@ public class Client {
 		Socket socket;
 		ObjectInputStream in;
 		ObjectOutputStream out;
-		Personnage perso = new Personnage("Twarz", 100, 50);
+		Personnage perso = new Personnage("Twarz",100,50);
 		Thread t1 ;
 
 
@@ -31,11 +31,14 @@ public class Client {
 			System.out.println("Demande de connexion");
 
 			// identification
-			for ( int i = 0; i<2 ; i++);{
+			//for ( int i = 0; i<2 ; i++);{
 				out = new ObjectOutputStream(socket.getOutputStream());
 				out.writeObject(perso);
 				out.flush();
-			}
+				out = new ObjectOutputStream(socket.getOutputStream());
+				out.writeObject(perso);
+				out.flush();
+			//}
 
 
 			/* envoyer les coordonés

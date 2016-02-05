@@ -19,8 +19,6 @@ public class CommunicationServer implements Runnable {
 
 	@Override
 	public void run() {
-		int x = 0;
-		int y = 0; 
 		int nbTourBoucleTotal = 1;
 		int nbToutBoucle = 0;
 		while( nbToutBoucle < nbTourBoucleTotal ){
@@ -28,17 +26,19 @@ public class CommunicationServer implements Runnable {
 				try {
 	
 					in = new ObjectInputStream(Connexion.getListeClient().get(key).getSocket().getInputStream());
-					System.out.println("[SERVEUR] Le perso "+key );
 					perso = (Personnage)in.readObject();
-			
-					System.out.println("[SERVEUR]   ---->    X:"+ perso.getPositionX() + "   Y:"+ perso.getPositionY());
 					Connexion.putClient(key, new IdentifiantClient(Connexion.getClient(key).getSocket(),perso));
-
-
+					
 				} catch (IOException e) {
-					e.printStackTrace();
+					//e.printStackTrace();
+					System.err.println("[SERVEUR] le client " + key + " ne s'est pas ré-authentifier ");
 				} catch (ClassNotFoundException e) {
 					e.printStackTrace();
+				} finally{
+					System.out.println("[SERVEUR] Le perso "+key );
+					perso = Connexion.getClient(key).getPers();
+					System.out.println("[SERVEUR]   ---->    X:"+ perso.getPositionX() + "   Y:"+ perso.getPositionY());
+					
 				}
 			}
 			
