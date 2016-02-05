@@ -1,10 +1,14 @@
 package network2;
 
+import java.applet.Applet;
 import java.io.*;
 import java.net.*;
 
 
-public class Server {
+public class Server extends Applet{
+
+	
+	private static final long serialVersionUID = 1L;
 	public static ServerSocket socketServer = null;
 	public static Thread t;
 
