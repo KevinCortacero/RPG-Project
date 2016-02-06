@@ -41,10 +41,10 @@ public class Connexion implements Runnable {
 			try {
 				this.socket = ss.accept();
 				in = new ObjectInputStream(this.socket.getInputStream());
-				System.out.println("[SERVEUR] Quelqu'un vient de se connecter au serveur");
+				Server.getMaFrame().sysout("[SERVEUR] Quelqu'un vient de se connecter au serveur");
 				this.perso = (Personnage)in.readObject();
 				Connexion.putClient(this.perso.getPseudo(), new IdentifiantClient(this.socket,this.perso));
-				System.out.println("[SERVEUR] " + this.perso);
+				Server.getMaFrame().sysout("[SERVEUR] " + this.perso);
 				
 				// communication 
 				Thread t1 = new Thread(new CommunicationServer(this.perso.getPseudo()));
