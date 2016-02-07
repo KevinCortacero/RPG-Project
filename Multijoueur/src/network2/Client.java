@@ -1,11 +1,7 @@
 package network2;
-import java.io.BufferedReader;
-import java.io.FileOutputStream;
 import java.io.IOException;
-import java.io.InputStreamReader;
 import java.io.ObjectInputStream;
 import java.io.ObjectOutputStream;
-import java.io.PrintWriter;
 import java.net.InetAddress;
 import java.net.Socket;
 import java.net.UnknownHostException;
@@ -21,8 +17,6 @@ public class Client {
 		ObjectInputStream in;
 		ObjectOutputStream out;
 		Personnage perso = new Personnage("Twarz",100,50);
-		Thread t1 ;
-
 
 
 		try {
