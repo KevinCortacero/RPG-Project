@@ -1,9 +1,6 @@
 package network2;
 
-import java.io.BufferedReader;
 import java.io.IOException;
-import java.io.InputStream;
-import java.io.InputStreamReader;
 import java.io.ObjectInputStream;
 
 
@@ -31,13 +28,13 @@ public class CommunicationServer implements Runnable {
 					
 				} catch (IOException e) {
 					//e.printStackTrace();
-					System.err.println("[SERVEUR] le client " + key + " ne s'est pas ré-authentifier ");
+					Server.getMaFrame().sysoutErreur("[SERVEUR] le client " + key + " ne s'est pas ré-authentifier ");
 				} catch (ClassNotFoundException e) {
 					e.printStackTrace();
 				} finally{
-					System.out.println("[SERVEUR] Le perso "+key );
+					Server.getMaFrame().sysout("[SERVEUR] Le perso "+key );
 					perso = Connexion.getClient(key).getPers();
-					System.out.println("[SERVEUR]   ---->    X:"+ perso.getPositionX() + "   Y:"+ perso.getPositionY());
+					Server.getMaFrame().sysout("[SERVEUR]   ---->    X:"+ perso.getPositionX() + "   Y:"+ perso.getPositionY());
 					
 				}
 			}
