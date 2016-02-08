@@ -12,7 +12,6 @@ import javax.swing.JFrame;
 import javax.swing.JOptionPane;
 import javax.swing.JPanel;
 
-import application.fonction.Origin;
 import application.fonction.Parametres;
 import application.interface_Graphique_Créateur.PanelGestion.PanelGestionCréateur;
 import application.interface_Graphique_Créateur.PanelObjets.PanelChoixObjetsCréateur;
@@ -29,6 +28,7 @@ public class FrameCréateur extends JFrame implements KeyListener{
 		if (instance == null){
 			instance = new FrameCréateur();
 			instance.ajouterComponents();
+			System.out.println("singleton création");
 		}
 		return instance;
 	}
@@ -82,20 +82,21 @@ public class FrameCréateur extends JFrame implements KeyListener{
 		float vitesse = Parametres.VITESSE_DEPLACEMENT;
 		switch (e.getKeyCode()){
 		case KeyEvent.VK_S :
-			Origin.setY(-vitesse);
+			// Origin.setY(-vitesse);
 			break;
 		case KeyEvent.VK_Z :
-			if (Origin.getY() < 0)
-				Origin.setY(vitesse);
+			if (/*Origin.getY() < 0 */false)
+				//Origin.setY(vitesse);
 			break;
 		case KeyEvent.VK_D :
-			Origin.setX(-vitesse);
+			//Origin.setX(-vitesse);
 			break;
 		case KeyEvent.VK_Q :
-			if (Origin.getX() < 0)
-				Origin.setX(vitesse);
+			if (/*Origin.getX() < 0*/ false)
+				//Origin.setX(vitesse);
 			break;	
 		}
+		System.out.println("ça passe");
 	}
 
 	@Override

@@ -1,12 +1,7 @@
 package application.interface_Graphique_Créateur.PanelPrincipal;
 
-import java.awt.event.KeyAdapter;
-import java.awt.event.KeyEvent;
 import java.util.HashMap;
 import java.util.Map;
-
-import application.fonction.Origin;
-import application.fonction.Parametres;
 
 public class LevelContainer{
 
@@ -30,7 +25,7 @@ public class LevelContainer{
 	}
 
 	public void changerLevel(String clé){
-		Origin.reset();
+		//Origin.reset();
 		System.out.println("On change de Level dans le Container");
 		this.level = this.listeLevel.get(clé);
 	}
