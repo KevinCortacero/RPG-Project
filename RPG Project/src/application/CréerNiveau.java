@@ -11,7 +11,7 @@ public class CréerNiveau {
 		while ( f.isEnabled() ){
 			f.raffraichir();		
 			try {
-				Thread.sleep(100);
+				Thread.sleep(20);
 			} catch (InterruptedException e) {
 				e.printStackTrace();
 			}
