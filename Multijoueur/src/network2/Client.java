@@ -16,7 +16,7 @@ public class Client {
 		Socket socket;
 		ObjectInputStream in;
 		ObjectOutputStream out;
-		Personnage perso = new Personnage("Koreuc",666,50);
+		Personnage perso = new Personnage("Koreuc",69,69);
 
 
 		try {
