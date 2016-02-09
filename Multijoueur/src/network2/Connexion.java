@@ -42,6 +42,7 @@ public class Connexion implements Runnable {
 				this.socket = ss.accept();
 				in = new ObjectInputStream(this.socket.getInputStream());
 				Server.getMaFrame().sysout("[SERVEUR] Quelqu'un vient de se connecter au serveur");
+				Server.getMaFrame().sysout("[SERVEUR] Mon adresse est : " + this.socket.getInetAddress());
 				this.perso = (Personnage)in.readObject();
 				Connexion.putClient(this.perso.getPseudo(), new IdentifiantClient(this.socket,this.perso));
 				Server.getMaFrame().sysout("[SERVEUR] " + this.perso);

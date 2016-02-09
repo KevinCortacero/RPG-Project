@@ -21,7 +21,7 @@ public class Client {
 
 		try {
 			// initialisation 
-			socket = new Socket(InetAddress.getLocalHost(),2009);	
+			socket = new Socket("25.107.181.250",2009);	
 			System.out.println("Demande de connexion");
 
 			// identification
