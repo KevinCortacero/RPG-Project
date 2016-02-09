@@ -16,12 +16,13 @@ public class Client {
 		Socket socket;
 		ObjectInputStream in;
 		ObjectOutputStream out;
-		Personnage perso = new Personnage("Twarz",100,50);
+		Personnage perso = new Personnage("Koreuc",666,50);
 
 
 		try {
 			// initialisation 
-			socket = new Socket("25.107.181.250",2009);	
+
+			socket = new Socket(InetAddress.getByName("83.205.72.80"),26964);	
 			System.out.println("Demande de connexion");
 
 			// identification

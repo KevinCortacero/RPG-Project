@@ -24,8 +24,19 @@ public class Server extends Applet{
 
 
 	public static void main(String[] args) {
-		Server serveur = new Server();
-		serveur.init();
+
+		try {
+			socketServer = new ServerSocket(26964);
+			System.out.println("[SERVEUR] Le serveur est à l'écoute du port "+socketServer.getLocalPort());
+			Server.getMaFrame().sysout("[SERVEUR] Le serveur est à l'écoute du port "+socketServer.getLocalPort());
+			t = new Thread(new Connexion(socketServer));
+			t.start();
+
+		} catch (IOException e) {
+			System.err.println("[SERVEUR] Le port "+socketServer.getLocalPort()+" est déjà utilisé !");
+			Server.getMaFrame().sysoutErreur("[SERVEUR] Le port "+socketServer.getLocalPort()+" est déjà utilisé !");
+		}
+
 	}
 
 	public void init() {
