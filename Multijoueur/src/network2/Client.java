@@ -23,7 +23,7 @@ public class Client {
 			System.out.println("Demande de connexion");
 
 			// identification
-			for ( int i = 0; i<5 ; i++);{
+			for ( int i = 0; i<4 ; i++);{
 				out = new ObjectOutputStream(socket.getOutputStream());
 				out.writeObject(perso);
 				out.flush();

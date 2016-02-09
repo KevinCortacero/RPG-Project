@@ -37,7 +37,7 @@ public class Connexion implements Runnable {
 	@Override
 	public void run() {
 		int nbCo = 0;
-		while(true && nbCo <4){
+		while(true && nbCo <3){
 			try {
 				this.socket = ss.accept();
 				in = new ObjectInputStream(this.socket.getInputStream());

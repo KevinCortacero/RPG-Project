@@ -29,7 +29,7 @@ public class Server extends Applet{
 
 	public void init() {
 		try {
-			socketServer = new ServerSocket(2009);
+			socketServer = new ServerSocket(26964);
 			System.out.println("[SERVEUR] Le serveur est à l'écoute du port "+socketServer.getLocalPort());
 			Server.getMaFrame().sysout("[SERVEUR] Le serveur est à l'écoute du port "+socketServer.getLocalPort());
 			t = new Thread(new Connexion(socketServer));
