@@ -9,17 +9,15 @@ public class Personnage implements Serializable{
 	int positionX;
 	int positionY;
 	
-	public Personnage(String pseudo, int x , int y){
+	public Personnage(String pseudo){
 		this.pseudo = pseudo;
-		this.mettreAJour();
-		this.positionX = x;
-		this.positionY = y;
+		this.initialiser();
 	}
 	
-	private void mettreAJour() {
-		//this.positionX = BDD.getPositionX(this.pseudo);
-		//this.positionY = BDD.getPositionY(this.pseudo);
-		//System.out.println(this.pseudo + " : (" + this.positionX + ";" + this.positionY + ")");
+	private void initialiser(){
+		this.positionX = 20; //BDD.getPositionX(this.pseudo);
+		this.positionY = 20; //BDD.getPositionY(this.pseudo);
+		System.out.println(this.toString() + " : initialisation terminée.");
 	}
 
 	public void afficherPersonnage(Graphics g){
@@ -40,7 +38,6 @@ public class Personnage implements Serializable{
 	
 	@Override
 	public String toString() {
-		return  pseudo + ", X=" + positionX
-				+ ", Y=" + positionY;
+		return  this.pseudo + "X=" + this.positionX	+ "; Y=" + this.positionY;
 	}
 }
