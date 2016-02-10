@@ -7,7 +7,7 @@ import java.net.Socket;
 import java.util.HashMap;
 import java.util.Map;
 
-public class Connexion implements Runnable {
+public class Annuaire implements Runnable {
 
 	private ServerSocket ss;
 	private Socket socket;
@@ -15,35 +15,39 @@ public class Connexion implements Runnable {
 	private static Map<String,IdentifiantClient> listeClient;
 	private Personnage perso;
 
-	public static void putClient(String libelle, IdentifiantClient identifiantClient){
-		Connexion.listeClient.put(libelle, identifiantClient);
+	public static void addClient(String pseudo, IdentifiantClient identifiantClient){
+		Annuaire.listeClient.put(pseudo, identifiantClient);
 	}
 
-	public static IdentifiantClient getClient(String libelle){
-		return Connexion.listeClient.get(libelle);
+	public static IdentifiantClient getClient(String pseudo){
+		return Annuaire.listeClient.get(pseudo);
+	}
+	
+	public static void removeClient(String pseudo){
+		Annuaire.listeClient.remove(pseudo);
 	}
 
 	public static Map<String,IdentifiantClient> getListeClient(){
-		return Connexion.listeClient;
+		return Annuaire.listeClient;
 	}
 
-	public Connexion(ServerSocket ss) {
+	public Annuaire(ServerSocket ss) {
 		this.ss = ss;
-		if (Connexion.listeClient == null) {
-			Connexion.listeClient = new HashMap<String,IdentifiantClient>();
+		if (Annuaire.listeClient == null) {
+			Annuaire.listeClient = new HashMap<String,IdentifiantClient>();
 		}
 	}
 
 	@Override
 	public void run() {
 		int nbCo = 0;
-		while(true && nbCo <3){
+		while(nbCo <3){
 			try {
 				this.socket = ss.accept();
 				in = new ObjectInputStream(this.socket.getInputStream());
 				Server.getMaFrame().sysout("[SERVEUR] Quelqu'un vient de se connecter au serveur");
 				this.perso = (Personnage)in.readObject();
-				Connexion.putClient(this.perso.getPseudo(), new IdentifiantClient(this.socket,this.perso));
+				Annuaire.addClient(this.perso.getPseudo(), new IdentifiantClient(this.socket,this.perso));
 				Server.getMaFrame().sysout("[SERVEUR] " + this.perso);
 
 				// communication 

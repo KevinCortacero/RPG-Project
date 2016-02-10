@@ -38,6 +38,6 @@ public class Personnage implements Serializable{
 	
 	@Override
 	public String toString() {
-		return  this.pseudo + "X=" + this.positionX	+ "; Y=" + this.positionY;
+		return  this.pseudo + " [" + this.positionX	+ ";" + this.positionY + "]";
 	}
 }

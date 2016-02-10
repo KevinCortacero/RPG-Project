@@ -16,24 +16,21 @@ public class CommunicationServer implements Runnable {
 
 	@Override
 	public void run() {
-		int nbTourBoucleTotal = 1;
+		int nbTourBoucleTotal = 5;
 		int nbToutBoucle = 0;
 		while( nbToutBoucle < nbTourBoucleTotal ){
-			for(String key : Connexion.getListeClient().keySet()){
+			for(String key : Annuaire.getListeClient().keySet()){
 				try {
-	
-					in = new ObjectInputStream(Connexion.getListeClient().get(key).getSocket().getInputStream());
+					in = new ObjectInputStream(Annuaire.getListeClient().get(key).getSocket().getInputStream());
 					perso = (Personnage)in.readObject();
-					Connexion.putClient(key, new IdentifiantClient(Connexion.getClient(key).getSocket(),perso));
-					
-				} catch (IOException e) {
-					//e.printStackTrace();
-					Server.getMaFrame().sysoutErreur("[SERVEUR] le client " + key + " ne s'est pas ré-authentifier ");
-				} catch (ClassNotFoundException e) {
+					Annuaire.addClient(key, new IdentifiantClient(Annuaire.getClient(key).getSocket(),perso));
+
+				} catch (IOException e) {}
+				catch (ClassNotFoundException e) {
 					e.printStackTrace();
 				} finally{
 					Server.getMaFrame().sysout("[SERVEUR] Le perso "+key );
-					perso = Connexion.getClient(key).getPers();
+					perso = Annuaire.getClient(key).getPers();
 					Server.getMaFrame().sysout("[SERVEUR]   ---->    X:"+ perso.getPositionX() + "   Y:"+ perso.getPositionY());
 					
 				}

@@ -2,14 +2,12 @@ package network2;
 
 import ihm.MaFrame;
 
-import java.applet.Applet;
-import java.io.*;
-import java.net.*;
+import java.io.IOException;
+import java.net.ServerSocket;
 
 
-public class Server extends Applet{
+public class Server{
 
-	private static final long serialVersionUID = 1L;
 	public static ServerSocket socketServer = null;
 	public static Thread t;
 	private static MaFrame maFrame;
@@ -23,21 +21,14 @@ public class Server extends Applet{
 	}
 
 	public static void main(String[] args) {
-		Server serv = new Server();
-		serv.init();
-	}
-
-	public void init() {
 		try {
 			socketServer = new ServerSocket(26964);
-			System.out.println("[SERVEUR] Le serveur est à l'écoute du port "+socketServer.getLocalPort());
-			Server.getMaFrame().sysout("[SERVEUR] Le serveur est à l'écoute du port "+socketServer.getLocalPort());
-			t = new Thread(new Connexion(socketServer));
+			Server.getMaFrame().sysout("[SERVEUR] Le serveur est à l'écoute du port " + socketServer.getLocalPort());
+			t = new Thread(new Annuaire(socketServer));
 			t.start();
 
 		} catch (IOException e) {
-			System.err.println("[SERVEUR] Le port "+socketServer.getLocalPort()+" est déjà utilisé !");
-			Server.getMaFrame().sysoutErreur("[SERVEUR] Le port "+socketServer.getLocalPort()+" est déjà utilisé !");
+			Server.getMaFrame().sysoutErreur("[SERVEUR] Le port " + socketServer.getLocalPort() + " est déjà utilisé !");
 		}
 	}
 }

@@ -9,8 +9,8 @@ public class IdentifiantClient {
 	private Personnage perso;
 	
 	public IdentifiantClient(Socket socket, Personnage perso) {
-	this.socket = socket;
-	this.perso = perso;
+		this.socket = socket;
+		this.perso = perso;
 	}
 		
 	public Socket getSocket() {
