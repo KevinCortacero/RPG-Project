@@ -13,40 +13,23 @@ public class Client {
 
 	public static void main(String[] zero) {
 
-
 		Socket socket;
 		ObjectInputStream in;
 		ObjectOutputStream out;
 		Personnage perso = new Personnage("Twarz",666,100);
 
-
 		try {
 			// initialisation 
 			System.out.println(InetAddress.getLocalHost());
-			System.out.println(InetAddress.getByName("193.48.172.170"));
-			
-			socket = new Socket(InetAddress.getByName("193.48.172.170"),8228);
+			socket = new Socket(InetAddress.getByName("83.205.72.80"),26964);	
 			System.out.println("Demande de connexion");
 
 			// identification
-			//for ( int i = 0; i<2 ; i++);{
+			for ( int i = 0; i<4 ; i++);{
 				out = new ObjectOutputStream(socket.getOutputStream());
 				out.writeObject(perso);
 				out.flush();
-				out = new ObjectOutputStream(socket.getOutputStream());
-				out.writeObject(perso);
-				out.flush();
-			//}
-
-
-			/* envoyer les coordonés
-			for ( int i = 0; i<2 ; i++);{
-				out.println(perso.getPositionX());
-				out.flush();
-				out.println(perso.getPositionY());
-				out.flush();
-			}*/
-			//fermer connexion
+			}
 			socket.close();
 
 		}catch (UnknownHostException e) {

@@ -37,7 +37,7 @@ public class Connexion implements Runnable {
 	@Override
 	public void run() {
 		int nbCo = 0;
-		while(true && nbCo <2){
+		while(true && nbCo <3){
 			try {
 				this.socket = ss.accept();
 				in = new ObjectInputStream(this.socket.getInputStream());
@@ -45,11 +45,11 @@ public class Connexion implements Runnable {
 				this.perso = (Personnage)in.readObject();
 				Connexion.putClient(this.perso.getPseudo(), new IdentifiantClient(this.socket,this.perso));
 				Server.getMaFrame().sysout("[SERVEUR] " + this.perso);
-				
+
 				// communication 
 				Thread t1 = new Thread(new CommunicationServer(this.perso.getPseudo()));
 				t1.start();
-				
+
 			} catch (IOException e) {
 				e.printStackTrace();
 			} catch (ClassNotFoundException e) {
