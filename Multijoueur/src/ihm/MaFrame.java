@@ -1,6 +1,7 @@
 package ihm;
 
 import java.awt.BorderLayout;
+import java.awt.Color;
 
 import javax.swing.JFrame;
 import javax.swing.JPanel;
@@ -27,6 +28,8 @@ public class MaFrame extends JFrame{
 		this.textArea.setText("[SERVEUR] initialisation\n");
 		this.textArea.setVisible(true);
 		this.textArea.setPreferredSize(this.jp.getSize());
+		this.textArea.setBackground(Color.BLACK);
+		this.textArea.setForeground(Color.WHITE);
 		
 		this.jp.add(this.textArea);
 		
