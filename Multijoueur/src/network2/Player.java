@@ -3,13 +3,13 @@ import java.awt.Graphics;
 import java.io.Serializable;
 
 
-public class Personnage implements Serializable {
+public class Player implements Serializable{
 
 	String pseudo;
 	int positionX;
 	int positionY;
 	
-	public Personnage(String pseudo){
+	public Player(String pseudo){
 		this.pseudo = pseudo;
 		this.initialiser();
 	}

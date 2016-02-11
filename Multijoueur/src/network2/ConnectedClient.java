@@ -3,12 +3,12 @@ package network2;
 import java.net.Socket;
 
 
-public class IdentifiantClient {
+public class ConnectedClient {
 	
 	private Socket socket;
-	private Personnage perso;
+	private Player perso;
 	
-	public IdentifiantClient(Socket socket, Personnage perso) {
+	public ConnectedClient(Socket socket, Player perso) {
 		this.socket = socket;
 		this.perso = perso;
 	}
@@ -21,11 +21,11 @@ public class IdentifiantClient {
 		this.socket = socket;
 	}
 
-	public Personnage getPers() {
+	public Player getPers() {
 		return this.perso;
 	}
 
-	public void setPerso(Personnage perso) {
+	public void setPerso(Player perso) {
 		this.perso = perso;
 	}
 
