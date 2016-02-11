@@ -8,10 +8,24 @@ import java.net.ServerSocket;
 
 public class Server{
 
-	public static ServerSocket socketServer = null;
-	public static Thread t;
+	public ServerSocket socketServer;
+	public Thread t;
 	private static MaFrame maFrame;
 
+	public Server() {
+		this.initialiser();
+	}
+	
+	public void initialiser(){
+		try {
+			this.socketServer = new ServerSocket(26964);
+			Server.getMaFrame().sysout("[SERVEUR] Initialisation sur le port " + this.socketServer.getLocalPort() + "...");
+			this.t = new Thread(new Annuaire(this.socketServer));
+		} catch (IOException e) {
+			Server.getMaFrame().sysoutErreur("[SERVEUR] Le port " + this.socketServer.getLocalPort() + " est déjà utilisé !");
+		}
+	}
+	
 	public static MaFrame getMaFrame(){
 
 		if (Server.maFrame == null){
@@ -20,16 +34,12 @@ public class Server{
 		return Server.maFrame;
 	}
 
+	public void start(){
+		this.t.start();
+	}
 	public static void main(String[] args) {
-		try {
-			socketServer = new ServerSocket(26964);
-			Server.getMaFrame().sysout("[SERVEUR] Le serveur est à l'écoute du port " + socketServer.getLocalPort());
-			t = new Thread(new Annuaire(socketServer));
-			t.start();
-
-		} catch (IOException e) {
-			Server.getMaFrame().sysoutErreur("[SERVEUR] Le port " + socketServer.getLocalPort() + " est déjà utilisé !");
-		}
+		Server serv = new Server();
+		serv.start();
 	}
 }
 

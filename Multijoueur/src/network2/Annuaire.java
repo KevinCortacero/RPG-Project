@@ -15,6 +15,13 @@ public class Annuaire implements Runnable {
 	private static Map<String,IdentifiantClient> listeClient;
 	private Personnage perso;
 
+	public Annuaire(ServerSocket ss) {
+		this.ss = ss;
+		if (Annuaire.listeClient == null) {
+			Annuaire.listeClient = new HashMap<String,IdentifiantClient>();
+		}
+	}
+	
 	public static void addClient(String pseudo, IdentifiantClient identifiantClient){
 		Annuaire.listeClient.put(pseudo, identifiantClient);
 	}
@@ -29,13 +36,6 @@ public class Annuaire implements Runnable {
 
 	public static Map<String,IdentifiantClient> getListeClient(){
 		return Annuaire.listeClient;
-	}
-
-	public Annuaire(ServerSocket ss) {
-		this.ss = ss;
-		if (Annuaire.listeClient == null) {
-			Annuaire.listeClient = new HashMap<String,IdentifiantClient>();
-		}
 	}
 
 	@Override

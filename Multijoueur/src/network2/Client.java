@@ -1,6 +1,7 @@
 package network2;
+import java.io.BufferedReader;
 import java.io.IOException;
-import java.io.ObjectInputStream;
+import java.io.InputStreamReader;
 import java.io.ObjectOutputStream;
 import java.net.UnknownHostException;
 
@@ -9,14 +10,15 @@ import java.net.UnknownHostException;
 public class Client{
 
 	private SocketClient socket;
-	private ObjectInputStream in;
+	private BufferedReader in;
 	private ObjectOutputStream out;
 	private Personnage perso;
 
 	public Client(String pseudo) throws UnknownHostException, IOException{
-		this.socket = new SocketClient("83.205.72.80",26964);
+		this.socket = new SocketClient("0.0.0.0",26964);
 		this.perso = new Personnage(pseudo);
 		this.out = new ObjectOutputStream(this.socket.getOutputStream());
+		this.in = new BufferedReader(new InputStreamReader(this.socket.getInputStream()));
 	}
 
 	public void sendPersonnage(){
@@ -50,11 +52,14 @@ public class Client{
 		try {
 			twarz = new Client("Twarz");
 			twarz.sendPersonnage();
+			twarz.sendPersonnage();
+			String message = twarz.in.readLine();
+			System.out.println(message);
 			twarz.deconnexion();
 		} catch (UnknownHostException e) {
 			System.out.println("Impossible de se connecter, adresse inconnue !");
 		} catch (IOException e) {
-			System.out.println("Connexion non établie");
+			System.out.println("Erreur : déconnexion...");
 		}		
 	}
 }
