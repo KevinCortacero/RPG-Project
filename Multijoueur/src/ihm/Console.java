@@ -8,14 +8,14 @@ import javax.swing.JFrame;
 import javax.swing.JPanel;
 import javax.swing.JTextArea;
 
-public class MaFrame extends JFrame{
+public class Console extends JFrame{
 
 
 	private static final long serialVersionUID = 1L;
 	private JTextArea textArea ;
 	private JPanel jp;
 
-	public MaFrame() {
+	public Console() {
 		this.setTitle("Serveur");
 		this.setDefaultCloseOperation(EXIT_ON_CLOSE);
 		this.setSize(500,500);

@@ -9,6 +9,6 @@ public class SocketClient extends Socket{
 
 	public SocketClient(String host, int port) throws UnknownHostException, IOException {
 		super(InetAddress.getByName(host),port);
-		System.out.println("Connexion établie...");
+		System.out.println("Connexion établie avec le serveur...");
 	}
 }

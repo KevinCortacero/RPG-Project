@@ -2,7 +2,6 @@ package network2;
 
 import java.io.IOException;
 import java.io.ObjectInputStream;
-import java.io.PrintWriter;
 
 
 public class CommunicationServer implements Runnable {
@@ -23,7 +22,6 @@ public class CommunicationServer implements Runnable {
 				try {
 					ObjectInputStream in = new ObjectInputStream(Connexion.getListeClient().get(key).getSocket().getInputStream());
 					perso = (Personnage)in.readObject();
-					
 					Connexion.addClient(key, new IdentifiantClient(Connexion.getClient(key).getSocket(),perso));
 				} catch (IOException e) {}
 				catch (ClassNotFoundException e) {

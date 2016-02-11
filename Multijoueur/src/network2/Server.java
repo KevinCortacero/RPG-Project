@@ -1,6 +1,6 @@
 package network2;
 
-import ihm.MaFrame;
+import ihm.Console;
 
 import java.io.IOException;
 import java.net.ServerSocket;
@@ -8,45 +8,52 @@ import java.net.ServerSocket;
 
 public class Server{
 
-	public ServerSocket socketServer;
-	public Thread t;
-	private static MaFrame maFrame;
+	private ServerSocket socketServer;
+	private Thread t;
+	private Console out;
 	private Connexion connexion;
-
-	public Server() {
+	private static Server instance;
+	
+	public static Server getInstance(){
+		if (Server.instance == null)
+			Server.instance = new Server();
+		return Server.instance;
+	}
+	
+	private Server() {
 		this.initialiser();
 	}
 	
-	public void initialiser(){
+	private void initialiser(){
 		try {
 			this.socketServer = new ServerSocket(26964);
-			Server.getMaFrame().sysout(" [SERVEUR] Initialisation sur le port " + this.socketServer.getLocalPort() + "...");
-			this.connexion = new Connexion(this.socketServer);
-			this.t = new Thread(this.connexion);
+			this.out = new Console();
+			this.out.sysout(" [SERVEUR] Initialisation sur le port " + this.socketServer.getLocalPort() + "...");
+			this.t = new Thread(new Connexion());
 		} catch (IOException e) {
-			Server.getMaFrame().sysoutErreur(" [SERVEUR] Le port " + this.socketServer.getLocalPort() + " est déjà utilisé !");
+			this.out.sysoutErreur(" [SERVEUR] Le port " + this.socketServer.getLocalPort() + " est déjà utilisé !");
 		}
 	}
 	
-	public Connexion getAnnuaire(){
+	public void start(){
+		this.t.start();
+		this.out.sysout(" [SERVEUR] Démarrage du serveur...");
+	}
+	public static void main(String[] args){
+		Server serv = Server.getInstance();
+		serv.start();
+	}
+	
+	public Connexion getConnexion(){
 		return this.connexion;
 	}
 
-	public static MaFrame getMaFrame(){
-
-		if (Server.maFrame == null){
-			Server.maFrame = new MaFrame();
-		}
-		return Server.maFrame;
+	public Console getConsole() {
+		return this.out;
 	}
 
-	public void start(){
-		this.t.start();
-		Server.getMaFrame().sysout(" [SERVEUR] Démarrage du serveur...");
-	}
-	public static void main(String[] args) {
-		Server serv = new Server();
-		serv.start();
+	public ServerSocket getSocketServer() {
+		return this.socketServer;
 	}
 }
 

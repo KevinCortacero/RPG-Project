@@ -1,6 +1,6 @@
 package networkRMI;
 
-import ihm.MaFrame;
+import ihm.Console;
 
 import java.applet.Applet;
 import java.io.*;
@@ -12,12 +12,12 @@ public class Server extends Applet{
 	private static final long serialVersionUID = 1L;
 	public static ServerSocket socketServer = null;
 	public static Thread t;
-	private static MaFrame maFrame;
+	private static Console maFrame;
 
-	public static MaFrame getMaFrame(){
+	public static Console getMaFrame(){
 
 		if (Server.maFrame == null){
-			Server.maFrame = new MaFrame();
+			Server.maFrame = new Console();
 		}
 		return Server.maFrame;
 	}
