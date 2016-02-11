@@ -2,6 +2,7 @@ package ihm;
 
 import java.awt.BorderLayout;
 import java.awt.Color;
+import java.awt.TextArea;
 
 import javax.swing.JFrame;
 import javax.swing.JPanel;
@@ -25,7 +26,7 @@ public class MaFrame extends JFrame{
 		this.jp.setSize(this.getWidth()-20,this.getHeight()-20);
 		
 		this.textArea = new JTextArea();
-		this.textArea.setText("[SERVEUR] initialisation\n");
+		this.textArea.setText("\tOUVERTURE DE LA CONSOLE SERVEUR\n\n");
 		this.textArea.setVisible(true);
 		this.textArea.setPreferredSize(this.jp.getSize());
 		this.textArea.setBackground(Color.BLACK);
@@ -43,7 +44,8 @@ public class MaFrame extends JFrame{
 	
 	
 	public void sysoutErreur(String message){
-		message = this.textArea.getText() +"---> ERREUR "+ message +"\n";
+		TextArea erreur = new TextArea("---> ERREUR "+ message +"\n");
+		message = this.textArea.getText() + erreur;
 		this.textArea.setText(message);
 	}
 }
