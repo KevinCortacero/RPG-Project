@@ -3,7 +3,7 @@ import java.awt.Graphics;
 import java.io.Serializable;
 
 
-public class Personnage implements Serializable{
+public class Personnage implements Serializable {
 
 	String pseudo;
 	int positionX;
@@ -17,7 +17,7 @@ public class Personnage implements Serializable{
 	private void initialiser(){
 		this.positionX = 20; //BDD.getPositionX(this.pseudo);
 		this.positionY = 20; //BDD.getPositionY(this.pseudo);
-		System.out.println(this.toString() + " : initialisation terminée.");
+		System.out.println(this.toString() + " : Initialisation terminée...");
 	}
 
 	public void afficherPersonnage(Graphics g){
@@ -38,6 +38,6 @@ public class Personnage implements Serializable{
 	
 	@Override
 	public String toString() {
-		return  this.pseudo + " [" + this.positionX	+ ";" + this.positionY + "]";
+		return  this.pseudo + " (" + this.positionX	+ ";" + this.positionY + ")";
 	}
 }

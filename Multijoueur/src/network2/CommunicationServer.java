@@ -7,13 +7,10 @@ import java.io.PrintWriter;
 
 public class CommunicationServer implements Runnable {
 
-	private ObjectInputStream in = null;
-	private String libelle;
 	private Personnage perso;
-	private PrintWriter out;
 
-	public CommunicationServer(String libelle) {
-		this.libelle = libelle;
+	public CommunicationServer(Personnage perso) {
+		this.perso = perso;
 	}
 
 	@Override
@@ -21,33 +18,19 @@ public class CommunicationServer implements Runnable {
 		int nbTourBoucleTotal = 5;
 		int nbToutBoucle = 0;
 		while( nbToutBoucle < nbTourBoucleTotal ){
-			for(String key : Annuaire.getListeClient().keySet()){
+			for(String key : Connexion.getListeClient().keySet()){
+				Personnage perso = null;
 				try {
-					in = new ObjectInputStream(Annuaire.getListeClient().get(key).getSocket().getInputStream());
+					ObjectInputStream in = new ObjectInputStream(Connexion.getListeClient().get(key).getSocket().getInputStream());
 					perso = (Personnage)in.readObject();
-					Annuaire.addClient(key, new IdentifiantClient(Annuaire.getClient(key).getSocket(),perso));
+					
+					Connexion.addClient(key, new IdentifiantClient(Connexion.getClient(key).getSocket(),perso));
 				} catch (IOException e) {}
 				catch (ClassNotFoundException e) {
 					e.printStackTrace();
-				} finally{
-					perso = Annuaire.getClient(key).getPers();
-					Server.getMaFrame().sysout("[SERVEUR] : Bienvenue " + perso);
-
-					Server.getMaFrame().sysout("[SERVEUR]   ---->    X:"+ perso.getPositionX() + "   Y:"+ perso.getPositionY());				
 				}
-
-				try {
-					this.out = new PrintWriter(Annuaire.getListeClient().get(key).getSocket().getOutputStream());
-				} catch (IOException e) {
-					// TODO Auto-generated catch block
-					e.printStackTrace();
-				}
-				System.out.println("[SERVEUR] : 1");
-				this.out.println("[SERVEUR] : Bienvenue !!");
-				this.out.flush();
 			}
-
-
+			System.out.println("ça marche");
 			try {
 				Thread.sleep(1000);
 			} catch (InterruptedException e) {

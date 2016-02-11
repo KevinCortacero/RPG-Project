@@ -52,7 +52,6 @@ public class Client{
 		try {
 			twarz = new Client("Twarz");
 			twarz.sendPersonnage();
-			twarz.sendPersonnage();
 			String message = twarz.in.readLine();
 			System.out.println(message);
 			twarz.deconnexion();
