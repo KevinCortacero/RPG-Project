@@ -1,6 +1,4 @@
 package network2;
-import ihm.ClientFrame;
-
 import java.io.BufferedReader;
 import java.io.IOException;
 import java.io.InputStreamReader;
@@ -15,14 +13,12 @@ public class Client{
 	private BufferedReader in;
 	private ObjectOutputStream out;
 	private Player perso;
-	private ClientFrame clientFrame;
 
 	public Client(String pseudo) throws UnknownHostException, IOException{
-		this.socket = new SocketClient("83.205.72.80",26964);
+		this.socket = new SocketClient("0.0.0.0",26964);
 		this.perso = new Player(pseudo);
 		this.out = new ObjectOutputStream(this.socket.getOutputStream());
 		this.in = new BufferedReader(new InputStreamReader(this.socket.getInputStream()));
-		this.clientFrame = new ClientFrame(pseudo);
 	}
 
 	public void sendPersonnage(){
@@ -30,16 +26,17 @@ public class Client{
 			this.out.writeObject(this.perso);
 			this.out.flush();
 		} catch (IOException e) {
+			// TODO Auto-generated catch block
 			e.printStackTrace();
 		}
 	}
 
 	public void deconnexion(){
 		try {
-			this.out.writeObject(Command.DISCONECT);
 			this.socket.close();
-			System.out.println("Déconnexion... ");
+			System.out.println("Déconnexion...");
 		} catch (IOException e) {
+			// TODO Auto-generated catch block
 			e.printStackTrace();
 		}
 	}
@@ -51,8 +48,9 @@ public class Client{
 	
 	public static void main(String[] arg0){
 
+		Client twarz;
 		try {
-			Client twarz = new Client("Twarz");
+			twarz = new Client("Twarz");
 			twarz.sendPersonnage();
 			String message = twarz.in.readLine();
 			System.out.println(message);
@@ -62,13 +60,5 @@ public class Client{
 		} catch (IOException e) {
 			System.out.println("Erreur : déconnexion...");
 		}		
-	}
-
-	public String getPseudo() {
-		return this.perso.pseudo;
-	}
-
-	public SocketClient getSocket() {
-		return this.socket;
 	}
 }

@@ -4,7 +4,7 @@ import java.rmi.RemoteException;
 import java.rmi.server.UnicastRemoteObject;
 
 
-public class PersonnageImpl extends UnicastRemoteObject implements Personnage {
+public class PersonnageImpl extends UnicastRemoteObject implements Player {
 
 	String pseudo;
 	int positionX;

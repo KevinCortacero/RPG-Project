@@ -4,7 +4,7 @@ import java.awt.Graphics;
 import java.rmi.Remote;
 import java.rmi.RemoteException;
 
-public interface Personnage extends Remote {
+public interface Player extends Remote {
 
 	public void mettreAJour()throws RemoteException;
 	public void afficherPersonnage(Graphics g)throws RemoteException;

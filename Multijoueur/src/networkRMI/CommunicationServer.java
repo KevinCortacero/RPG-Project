@@ -9,7 +9,7 @@ public class CommunicationServer implements Runnable {
 
 	private ObjectInputStream in = null;
 	private String libelle;
-	private Personnage perso;
+	private Player perso;
 
 	public CommunicationServer(String libelle) {
 		this.libelle = libelle;

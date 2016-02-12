@@ -14,7 +14,7 @@ public class PersonnageServer {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
 		}
-		Personnage twarz = null;
+		Player twarz = null;
 		try {
 			twarz = new PersonnageImpl("Twarz", 666, 666);
 			Naming.rebind("rmi://localhost:9999/Twarz", twarz);
@@ -25,7 +25,7 @@ public class PersonnageServer {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
 		}
-		Personnage koreuc = null;
+		Player koreuc = null;
 		try {
 			koreuc = new PersonnageImpl("Koreuc", 0, 0);
 			Naming.rebind("rmi://localhost:9999/Koreuc", koreuc);

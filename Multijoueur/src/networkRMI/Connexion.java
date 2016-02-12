@@ -32,10 +32,10 @@ public class Connexion implements Runnable {
 		}
 	}
 
-	public static Personnage getPersonnage(String name){
-		Personnage perso = null;
+	public static Player getPersonnage(String name){
+		Player perso = null;
 		try {
-			perso = (Personnage) Naming.lookup(name);
+			perso = (Player) Naming.lookup(name);
 		} catch (MalformedURLException e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
