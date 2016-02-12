@@ -2,14 +2,16 @@ package network2;
 
 import java.net.Socket;
 
+import network2.client.SocketClient;
+
 
 public class ConnectedClient {
 	
 	private Socket socket;
 	private Player perso;
 	
-	public ConnectedClient(Socket socket, Player perso) {
-		this.socket = socket;
+	public ConnectedClient(Socket socketPlayer, Player perso) {
+		this.socket = socketPlayer;
 		this.perso = perso;
 	}
 		

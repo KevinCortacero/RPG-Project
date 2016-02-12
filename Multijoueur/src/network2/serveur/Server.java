@@ -1,4 +1,4 @@
-package network2;
+package network2.serveur;
 
 import ihm.Console;
 

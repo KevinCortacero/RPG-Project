@@ -1,4 +1,4 @@
-package network2;
+package network2.client;
 
 import java.io.IOException;
 import java.net.InetAddress;

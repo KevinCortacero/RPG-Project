@@ -5,9 +5,9 @@ import java.io.Serializable;
 
 public class Player implements Serializable{
 
-	String pseudo;
-	int positionX;
-	int positionY;
+	private String pseudo;
+	private int positionX;
+	private int positionY;
 	
 	public Player(String pseudo){
 		this.pseudo = pseudo;
@@ -17,7 +17,7 @@ public class Player implements Serializable{
 	private void initialiser(){
 		this.positionX = 20; //BDD.getPositionX(this.pseudo);
 		this.positionY = 20; //BDD.getPositionY(this.pseudo);
-		System.out.println(this.toString() + " : Initialisation terminée...");
+		System.out.println("Création de " + this);
 	}
 
 	public void afficherPersonnage(Graphics g){
