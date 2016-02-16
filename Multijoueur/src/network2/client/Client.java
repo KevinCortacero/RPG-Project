@@ -19,7 +19,7 @@ public class Client{
 
 	public Client(String pseudo) {
 		try {
-			this.socket = new SocketClient("0.0.0.0",26964);
+			this.socket = new SocketClient("90.5.58.98",26964);
 			this.perso = new Player(pseudo);
 			this.out = new ObjectOutputStream(this.socket.getOutputStream());
 			this.in = new BufferedReader(new InputStreamReader(this.socket.getInputStream()));
@@ -29,7 +29,6 @@ public class Client{
 		} catch (IOException e) {
 			e.printStackTrace();
 		}
-
 	}
 
 	public void sendPersonnage(){
