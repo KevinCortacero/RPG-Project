@@ -1,28 +1,29 @@
 '''
-Created on 16 f�vr. 2016
+Created on 16 fevr. 2016
 
 @author: MSI
 '''
 
-
-def Fermat(x,p,n):
-    print("Calcul de l'inverse de {0} par Fermat, dans Z/{1}".format(x, n))
-    print("On cherche donc x^(p-2) = {0}^({1})".format(x,p))
-    mod = p
-    valeur = x
-    compteur = inverse = 1
-    while(mod != 0) :
-        print (mod % 2)
-        print("{0}^{1} = {2} ({3})".format(x,compteur,valeur,n))
-        if (mod % 2 == 1):
-            inverse *= valeur % (n)
-        mod = int(mod/2)
-        valeur = (valeur**2) % (n)
-        compteur *= 2
-    print("{0}^-1 = {1} dans Z/{2}".format(x,inverse % (p),p))  
-    print(x**(p) % n)
+def exponentiation(x,modulo,exposant):
+    
+    print("Calcul de l'inverse de {0} par Fermat, dans Z/{1}".format(x, modulo))
+    print("On cherche donc x^(p-2) = {0}^({1})".format(x,exposant))
+    
+    result = 1
+    binaire = 0
+    valeur = x % modulo
+    
+    while(exposant != 0) :
+        print ("{0}^{1} = {2} mod {3}".format(x, 2**binaire, valeur, modulo))
+        if (exposant % 2 == 1):
+            result = (result * valeur) % modulo
+        exposant = int(exposant/2)
+        binaire +=1
+        valeur = (valeur**2) % modulo
+        
+    print("\n{0}^-1 = {1} dans Z/{2}".format(x,result,modulo))  
     
 if __name__ == '__main__':
-    Fermat(12044, 2, 23449)
+    exponentiation(12044, 23449, 3)
 
 
