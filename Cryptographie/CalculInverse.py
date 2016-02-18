@@ -4,7 +4,6 @@ Created on 16 fevr. 2016
 @author: MSI
 '''
 
-
 def exponentiation(x,modulo,exposant):
     
     print("Calcul de l'inverse de {0} par Fermat, dans Z/{1}".format(x, modulo))
@@ -25,6 +24,6 @@ def exponentiation(x,modulo,exposant):
     print("\n{0}^-1 = {1} dans Z/{2}".format(x,result,modulo))  
     
 if __name__ == '__main__':
-    exponentiation(12044, 23449, 3)
+    exponentiation(111, 455, 77)
 
 
