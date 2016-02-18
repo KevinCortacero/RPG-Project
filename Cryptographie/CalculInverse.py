@@ -24,6 +24,6 @@ def exponentiation(x,modulo,exposant):
     print("\n{0}^-1 = {1} dans Z/{2}".format(x,result,modulo))  
     
 if __name__ == '__main__':
-    exponentiation(12044, 23449, 3)
+    exponentiation(111, 455, 77)
 
 
