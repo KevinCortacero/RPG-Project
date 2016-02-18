@@ -16,6 +16,7 @@ import java.util.List;
 
 import javax.swing.ImageIcon;
 
+import application.fonction.Origine;
 import application.interface_Graphique_Créateur.PanelObjets.ObjetIcone;
 import application.interface_Graphique_Créateur.PanelObjets.PanelChoixObjetsCréateur;
 import application.jeu.ObjetCourant;
@@ -171,7 +172,7 @@ public class Level {
 		if (!this.getMap().isEmpty()){
 			for (Tile tile : this.getMap()){
 				if (tile.getNuméro() > 1)
-			g.drawImage(tile.getImageIcon().getImage(),tile.getX()*ObjetIcone.tailleImageJeu,tile.getY()*ObjetIcone.tailleImageJeu,null);
+			g.drawImage(tile.getImageIcon().getImage(),Origine.getX()+tile.getX()*ObjetIcone.tailleImageJeu,Origine.getY()+tile.getY()*ObjetIcone.tailleImageJeu,null);
 
 			}
 		}
@@ -180,14 +181,14 @@ public class Level {
 		for(int y = 0; y <= this.getTileSize().getY() ; y ++){
 			for(int x = 0; x <= this.getTileSize().getX() ; x ++){
 				if (y == this.getTileSize().getY() && x != this.getTileSize().getX() )
-					g.drawImage(new ImageIcon("imagesSpeciales\\bordureV.jpg").getImage(),x*ObjetIcone.tailleImageJeu,y*ObjetIcone.tailleImageJeu, null);
+					g.drawImage(new ImageIcon("imagesSpeciales\\bordureV.jpg").getImage(),Origine.getX()+x*ObjetIcone.tailleImageJeu,Origine.getY()+y*ObjetIcone.tailleImageJeu, null);
 
 				if (x == this.getTileSize().getX() && y != this.getTileSize().getY() )
-					g.drawImage(new ImageIcon("imagesSpeciales\\bordureH.jpg").getImage(),x*ObjetIcone.tailleImageJeu,y*ObjetIcone.tailleImageJeu, null);
+					g.drawImage(new ImageIcon("imagesSpeciales\\bordureH.jpg").getImage(),Origine.getX()+x*ObjetIcone.tailleImageJeu,Origine.getY()+y*ObjetIcone.tailleImageJeu, null);
 			}
 		}
 		
-		g.drawImage(this.getMap().get(0).getImageIcon().getImage(),this.getMap().get(0).getX()*ObjetIcone.tailleImageJeu,this.getMap().get(0).getY()*ObjetIcone.tailleImageJeu,null);
+		g.drawImage(this.getMap().get(0).getImageIcon().getImage(),Origine.getX()+this.getMap().get(0).getX()*ObjetIcone.tailleImageJeu,Origine.getY()+this.getMap().get(0).getY()*ObjetIcone.tailleImageJeu,null);
 	}
 	
 	public void gestionClicGauche(int x, int y, ObjetCourant objetCourant){

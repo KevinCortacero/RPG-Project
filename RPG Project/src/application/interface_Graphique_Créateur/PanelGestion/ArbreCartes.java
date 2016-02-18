@@ -14,7 +14,8 @@ import javax.swing.event.TreeSelectionListener;
 import javax.swing.tree.DefaultMutableTreeNode;
 import javax.swing.tree.DefaultTreeModel;
 
-import application.interface_Graphique_Créateur.PanelPrincipal.LevelContainer;
+import application.interface_Graphique_Créateur.FrameCréateur;
+import application.interface_Graphique_Créateur.KeyBoard;
 import application.interface_Graphique_Créateur.PanelPrincipal.Level;
 import application.interface_Graphique_Créateur.PanelPrincipal.PanelPrincipalCréateur;
 
@@ -156,6 +157,7 @@ public class ArbreCartes extends JTree implements TreeSelectionListener, MouseLi
 			}
 			this.boutons.setFalse();
 			this.sauvegarder();
+			System.out.println("état de la frame : " + FrameCréateur.getFrame());
 		}
 	}
 

@@ -1,14 +1,14 @@
-package network2;
+package networkRMI;
 
 import java.net.Socket;
 
 
-public class IdentifiantClient {
+public class ConnectedClient {
 	
 	private Socket socket;
-	private Personnage perso;
+	private PersonnageImpl perso;
 	
-	public IdentifiantClient(Socket socket, Personnage perso) {
+	public ConnectedClient(Socket socket, PersonnageImpl perso) {
 	this.socket = socket;
 	this.perso = perso;
 	}
@@ -21,11 +21,11 @@ public class IdentifiantClient {
 		this.socket = socket;
 	}
 
-	public Personnage getPers() {
+	public PersonnageImpl getPers() {
 		return this.perso;
 	}
 
-	public void setPerso(Personnage perso) {
+	public void setPerso(PersonnageImpl perso) {
 		this.perso = perso;
 	}
 

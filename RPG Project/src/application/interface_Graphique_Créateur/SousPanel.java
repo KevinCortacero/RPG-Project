@@ -4,8 +4,4 @@ import javax.swing.JPanel;
 
 
 @SuppressWarnings("serial")
-public abstract class SousPanel extends JPanel{
-
-	public abstract void raffraichir();
-
-}
+public abstract class SousPanel extends JPanel{}

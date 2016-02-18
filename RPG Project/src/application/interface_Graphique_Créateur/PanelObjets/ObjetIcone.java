@@ -43,7 +43,6 @@ public class ObjetIcone extends JButton implements ActionListener {
 			if (PanelPrincipalCréateur.getPanel().getLevelContainer().getLevel() != null)
 				PanelPrincipalCréateur.getPanel().getLevelContainer().getLevel().setBackgroundNum(this.numéro);
 			this.panel.setObjetCourant(null);
-			this.panel.repaint();
 		}
 	}
 }

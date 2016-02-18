@@ -1,14 +1,15 @@
-package network2;
+package networkRMI;
 
 import java.io.IOException;
 import java.io.ObjectInputStream;
+import java.rmi.RemoteException;
 
 
 public class CommunicationServer implements Runnable {
 
 	private ObjectInputStream in = null;
 	private String libelle;
-	private Personnage perso;
+	private Player perso;
 
 	public CommunicationServer(String libelle) {
 		this.libelle = libelle;
@@ -22,9 +23,9 @@ public class CommunicationServer implements Runnable {
 			for(String key : Connexion.getListeClient().keySet()){
 				try {
 	
-					in = new ObjectInputStream(Connexion.getListeClient().get(key).getSocket().getInputStream());
-					perso = (Personnage)in.readObject();
-					Connexion.putClient(key, new IdentifiantClient(Connexion.getClient(key).getSocket(),perso));
+					this.in = new ObjectInputStream(Connexion.getListeClient().get(key).getSocket().getInputStream());
+					this.perso = (PersonnageImpl)in.readObject();
+					//Connexion.putClient(key, new IdentifiantClient(Connexion.getPersonnage(key).getSocket(),perso));
 					
 				} catch (IOException e) {
 					//e.printStackTrace();
@@ -33,8 +34,13 @@ public class CommunicationServer implements Runnable {
 					e.printStackTrace();
 				} finally{
 					Server.getMaFrame().sysout("[SERVEUR] Le perso "+key );
-					perso = Connexion.getClient(key).getPers();
-					Server.getMaFrame().sysout("[SERVEUR]   ---->    X:"+ perso.getPositionX() + "   Y:"+ perso.getPositionY());
+					this.perso = Connexion.getPersonnage(key);
+					try {
+						Server.getMaFrame().sysout("[SERVEUR]   ---->    X:"+ perso.getPositionX() + "   Y:"+ perso.getPositionY());
+					} catch (RemoteException e) {
+						// TODO Auto-generated catch block
+						e.printStackTrace();
+					}
 					
 				}
 			}

@@ -1,6 +1,6 @@
-package network2;
+package networkRMI;
 
-import ihm.MaFrame;
+import ihm.Console;
 
 import java.applet.Applet;
 import java.io.*;
@@ -12,21 +12,20 @@ public class Server extends Applet{
 	private static final long serialVersionUID = 1L;
 	public static ServerSocket socketServer = null;
 	public static Thread t;
-	private static MaFrame maFrame;
+	private static Console maFrame;
 
-	public static MaFrame getMaFrame(){
+	public static Console getMaFrame(){
 
 		if (Server.maFrame == null){
-			Server.maFrame = new MaFrame();
+			Server.maFrame = new Console();
 		}
 		return Server.maFrame;
 	}
 
 
 	public static void main(String[] args) {
-
 		try {
-			socketServer = new ServerSocket(26964);
+			socketServer = new ServerSocket(2009);
 			System.out.println("[SERVEUR] Le serveur est à l'écoute du port "+socketServer.getLocalPort());
 			Server.getMaFrame().sysout("[SERVEUR] Le serveur est à l'écoute du port "+socketServer.getLocalPort());
 			t = new Thread(new Connexion(socketServer));
@@ -36,14 +35,12 @@ public class Server extends Applet{
 			System.err.println("[SERVEUR] Le port "+socketServer.getLocalPort()+" est déjà utilisé !");
 			Server.getMaFrame().sysoutErreur("[SERVEUR] Le port "+socketServer.getLocalPort()+" est déjà utilisé !");
 		}
-
 	}
 
 	public void init() {
 		try {
 			socketServer = new ServerSocket(2009);
 			System.out.println("[SERVEUR] Le serveur est à l'écoute du port "+socketServer.getLocalPort());
-			System.out.println("[SERVEUR] IP : "+socketServer.getInetAddress().getHostAddress());
 			Server.getMaFrame().sysout("[SERVEUR] Le serveur est à l'écoute du port "+socketServer.getLocalPort());
 			t = new Thread(new Connexion(socketServer));
 			t.start();
