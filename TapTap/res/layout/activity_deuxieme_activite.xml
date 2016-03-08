@@ -9,22 +9,16 @@
     android:scrollbars="none"
     tools:context="com.example.taptap.Authentification" >
 
-    <RadioButton
-        android:id="@+id/RadioButton01"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_alignBaseline="@+id/radioButton1"
-        android:layout_alignBottom="@+id/radioButton1"
-        android:layout_alignLeft="@+id/textView1"
-        android:layout_marginLeft="50dp"
-        android:text="Rond" />
-
     <ListView
         android:id="@+id/listView1"
         android:layout_width="match_parent"
         android:layout_height="210dp"
         android:layout_alignParentBottom="true"
-        android:layout_centerHorizontal="true" >
+        android:layout_centerHorizontal="true"
+        android:clickable="false"
+        android:focusable="true"
+        android:longClickable="false" >
+
     </ListView>
 
     <TextView
@@ -39,14 +33,30 @@
         android:text="Pseudo"
         android:textAppearance="?android:attr/textAppearanceLarge" />
 
-    <RadioButton
-        android:id="@+id/radioButton1"
+    <RadioGroup
+        android:id="@+id/radioGroup1"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_below="@+id/textView1"
-        android:layout_marginTop="60dp"
-        android:layout_toLeftOf="@+id/RadioButton01"
-        android:text="Carré" />
+        android:layout_above="@+id/listView1"
+        android:layout_centerHorizontal="true"
+        android:layout_marginBottom="19dp"
+        android:orientation="horizontal" >
+
+        <RadioButton
+            android:id="@+id/RadioButton01"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginRight="51dp"
+            android:checked="true"
+            android:text="Rond" />
+
+        <RadioButton
+            android:id="@+id/RadioButton02"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginBottom="54dp"
+            android:text="Carré" />
+
+    </RadioGroup>
 
 </RelativeLayout>
-

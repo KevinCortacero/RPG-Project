@@ -4,6 +4,8 @@ import android.app.Activity;
 import android.os.Bundle;
 import android.view.Menu;
 import android.view.MenuItem;
+import android.widget.ArrayAdapter;
+import android.widget.ListView;
 
 public class Deuxieme_activite extends Activity {
 
@@ -11,13 +13,19 @@ public class Deuxieme_activite extends Activity {
 	protected void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
 		setContentView(R.layout.activity_deuxieme_activite);
+		
+		ListView liste = (ListView) findViewById(R.id.listView1);
 	
+		String[] couleurs = { " Bleu", "Rouge"/*, "Vert", "Jaune"*/};
+		ArrayAdapter<String> adapter = new ArrayAdapter<String>(this, android.R.layout.simple_list_item_1, couleurs);
+		
+		liste.setAdapter(adapter);
 	}
 
-	@Override
+	/*@Override
 	public boolean onCreateOptionsMenu(Menu menu) {
 		// Inflate the menu; this adds items to the action bar if it is present.
-		getMenuInflater().inflate(R.menu.deuxieme_activite, menu);
+		//getMenuInflater().inflate(R.menu.authentification, menu);
 		return true;
 	}
 
@@ -31,6 +39,6 @@ public class Deuxieme_activite extends Activity {
 			return true;
 		}
 		return super.onOptionsItemSelected(item);
-	}
+	}*/
 
 }
