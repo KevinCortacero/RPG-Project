@@ -3,12 +3,12 @@ package networkRMI;
 import java.net.Socket;
 
 
-public class IdentifiantClient {
+public class ConnectedClient {
 	
 	private Socket socket;
 	private PersonnageImpl perso;
 	
-	public IdentifiantClient(Socket socket, PersonnageImpl perso) {
+	public ConnectedClient(Socket socket, PersonnageImpl perso) {
 	this.socket = socket;
 	this.perso = perso;
 	}

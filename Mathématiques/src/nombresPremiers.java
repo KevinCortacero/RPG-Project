@@ -1,12 +1,16 @@
+import java.util.HashMap;
+import java.util.Map;
+
 
 public class nombresPremiers {
 
 	public static void main(String[] args) {
-		int nombres[] = new int[100];
+		int taille = 1000;
+		int nombres[] = new int[taille];
 		int nombre = 3;
 		nombres[0] = 2;
 		int compteurNBPremier = 1;
-		
+		Map<Integer, Integer> tabDernierChiffre = new HashMap<Integer, Integer>();
 		while(compteurNBPremier < nombres.length){
 			if (testerNombre(nombres, nombre, compteurNBPremier)){
 				nombres[compteurNBPremier] = nombre;
@@ -16,12 +20,15 @@ public class nombresPremiers {
 		}
 		int save = 0;
 		for (int i = 0; i < nombres.length; i ++ ){
-			int nb = 0;
-			if (i < nombres.length-1){
-				nb = nombres[i] + (nombres[i+1] - nombres[i])/2;
-				System.out.println("[" + (i+2) + "] --> " + nombres[i] + " | BLEU : "  +  nb + " | ECART : "  +  (nb-save)) ;
-			}
-			save = nb;
+			String nbs = String.valueOf(nombres[i]);
+			String cs = String.valueOf(nbs.charAt(nbs.length()-1));
+			int c = Integer.valueOf(cs);
+		//	System.out.println("[" + (i+1) + "] --> " + nbs + " | " + c + " | " + (nombres[i]%c) + " | ");
+			tabDernierChiffre.put(c,(tabDernierChiffre.get(c) == null ? 1 : tabDernierChiffre.get(c)+1));
+		}
+		
+		for ( int indice : tabDernierChiffre.keySet()){
+			System.out.println(indice +" : "+ tabDernierChiffre.get(indice));
 		}
 	}
 	

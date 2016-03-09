@@ -16,10 +16,10 @@ public class Connexion implements Runnable {
 	private ServerSocket ss;
 	private Socket socket;
 	private ObjectInputStream in = null;
-	private static Map<String,IdentifiantClient> listeClient;
+	private static Map<String,ConnectedClient> listeClient;
 	private PersonnageImpl perso;
 
-	public static void putClient(String libelle, IdentifiantClient identifiantClient){
+	public static void putClient(String libelle, ConnectedClient identifiantClient){
 		Connexion.listeClient.put(libelle, identifiantClient);
 		try {
 			Naming.rebind(identifiantClient.getPers().pseudo, identifiantClient.getPers());
@@ -49,14 +49,14 @@ public class Connexion implements Runnable {
 		return perso;
 	}
 
-	public static Map<String,IdentifiantClient> getListeClient(){
+	public static Map<String,ConnectedClient> getListeClient(){
 		return Connexion.listeClient;
 	}
 
 	public Connexion(ServerSocket ss) {
 		this.ss = ss;
 		if (Connexion.listeClient == null) {
-			Connexion.listeClient = new HashMap<String,IdentifiantClient>();
+			Connexion.listeClient = new HashMap<String,ConnectedClient>();
 		}
 	}
 
@@ -69,7 +69,7 @@ public class Connexion implements Runnable {
 				in = new ObjectInputStream(this.socket.getInputStream());
 				Server.getMaFrame().sysout("[SERVEUR] Quelqu'un vient de se connecter au serveur");
 				this.perso = (PersonnageImpl)in.readObject();
-				Connexion.putClient(this.perso.getPseudo(), new IdentifiantClient(this.socket,this.perso));
+				Connexion.putClient(this.perso.getPseudo(), new ConnectedClient(this.socket,this.perso));
 				Server.getMaFrame().sysout("[SERVEUR] " + this.perso);
 				
 				// communication 
