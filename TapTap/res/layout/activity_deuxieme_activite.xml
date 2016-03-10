@@ -9,37 +9,36 @@
     android:scrollbars="none"
     tools:context="com.example.taptap.Authentification" >
 
-    <ListView
-        android:id="@+id/listView1"
-        android:layout_width="match_parent"
-        android:layout_height="210dp"
-        android:layout_alignParentBottom="true"
-        android:layout_centerHorizontal="true"
-        android:clickable="false"
-        android:focusable="true"
-        android:longClickable="false" >
-
-    </ListView>
-
     <TextView
         android:id="@+id/textView1"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_alignParentTop="true"
         android:layout_centerHorizontal="true"
-        android:layout_marginTop="27dp"
         android:clickable="false"
         android:longClickable="false"
         android:text="Pseudo"
-        android:textAppearance="?android:attr/textAppearanceLarge" />
+        android:textAppearance="?android:attr/textAppearanceLarge"
+        android:textSize="50dp" />
+
+    <ListView
+        android:id="@+id/listView1"
+        android:layout_width="match_parent"
+        android:layout_height="210dp"
+        android:layout_alignParentBottom="true"
+        android:layout_marginBottom="18dp"
+        android:clickable="false"
+        android:focusable="false"
+        android:longClickable="false" >
+    </ListView>
 
     <RadioGroup
         android:id="@+id/radioGroup1"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_above="@+id/listView1"
+        android:layout_alignBottom="@+id/listView1"
         android:layout_centerHorizontal="true"
-        android:layout_marginBottom="19dp"
+        android:layout_marginBottom="34dp"
         android:orientation="horizontal" >
 
         <RadioButton
@@ -53,10 +52,17 @@
         <RadioButton
             android:id="@+id/RadioButton02"
             android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
+            android:layout_height="50dp"
             android:layout_marginBottom="54dp"
             android:text="Carré" />
-
     </RadioGroup>
+
+    <SurfaceView
+        android:id="@+id/surfaceView1"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_above="@+id/listView1"
+        android:layout_centerHorizontal="true"
+        android:layout_marginBottom="40dp" />
 
 </RelativeLayout>
