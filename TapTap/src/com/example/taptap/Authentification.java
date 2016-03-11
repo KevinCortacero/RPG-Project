@@ -64,7 +64,7 @@ public class Authentification extends Activity {
 				Toast.makeText(Authentification.this,"mot de passe manquant", Toast.LENGTH_SHORT).show();
 			}
 			else{
-				if (!pseudo.equals("Twarz") || !mdp.equals("123")){
+				if (!(pseudo.equals("Twarz") || pseudo.equals("Koreuc"))  || !mdp.equals("123")){
 					Toast.makeText(Authentification.this,"pseudo ou mot de passe incorrect", Toast.LENGTH_LONG).show();
 				}
 				else{
@@ -77,6 +77,5 @@ public class Authentification extends Activity {
 			}
 			
 		}
-
 	}
 }
