@@ -18,6 +18,7 @@ public class nombresPremiers {
 			}
 			nombre +=2;
 		}
+		int save = 0;
 		for (int i = 0; i < nombres.length; i ++ ){
 			String nbs = String.valueOf(nombres[i]);
 			String cs = String.valueOf(nbs.charAt(nbs.length()-1));

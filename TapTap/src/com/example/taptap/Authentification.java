@@ -1,8 +1,8 @@
 package com.example.taptap;
 
 import android.app.Activity;
+import android.content.Intent;
 import android.os.Bundle;
-
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
@@ -69,6 +69,10 @@ public class Authentification extends Activity {
 				}
 				else{
 					Toast.makeText(Authentification.this,"Connexion", Toast.LENGTH_LONG).show();
+					Intent i = new Intent(Authentification.this, Deuxieme_activite.class);
+					i.putExtra("Pseudo", pseudo);
+					Authentification.this.startActivity(i);
+					Authentification.this.finish();
 				}
 			}
 			
