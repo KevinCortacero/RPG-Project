@@ -1,6 +1,7 @@
 package com.example.taptap;
 
 import android.app.Activity;
+import android.graphics.Color;
 import android.os.Bundle;
 import android.widget.ArrayAdapter;
 import android.widget.ListView;
@@ -8,6 +9,9 @@ import android.widget.TextView;
 
 public class Deuxieme_activite extends Activity {
 
+	public static int color;
+	public static Form form;
+	
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
@@ -21,7 +25,8 @@ public class Deuxieme_activite extends Activity {
 		String[] couleurs = { "Bleu", "Rouge", "Vert", "Jaune"};
 		ArrayAdapter<String> adapter = new ArrayAdapter<String>(this, android.R.layout.simple_list_item_1, couleurs);
 		liste.setAdapter(adapter);
-		
+		Deuxieme_activite.color = Color.RED;
+		Deuxieme_activite.form = Form.CARRE;
 	}
 
 	/*@Override
