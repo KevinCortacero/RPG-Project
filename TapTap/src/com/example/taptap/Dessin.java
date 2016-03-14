@@ -4,6 +4,7 @@ import android.content.Context;
 import android.graphics.Canvas;
 import android.graphics.Color;
 import android.graphics.Paint;
+import android.graphics.Rect;
 import android.util.AttributeSet;
 import android.view.View;
 
@@ -13,10 +14,8 @@ public class Dessin extends View{
 
 	public Dessin(Context context) {
 		this(context, null, 0);
-	
-
 	}
-	
+
 	public Dessin(Context context, AttributeSet attrs) {
 		this(context, attrs, 0);
 	}
@@ -31,13 +30,17 @@ public class Dessin extends View{
 		int x = getWidth();
 		int y = getHeight();
 		int radius;
-		radius = 30;
+		radius = 50;
 		p.setStyle(Paint.Style.FILL);
 		p.setColor(Color.WHITE);
 		canvas.drawPaint(p);
 		// Use Color.parseColor to define HTML colors
-		p.setColor(Color.parseColor("#CD5C5C"));
-		canvas.drawCircle(x / 2, y / 2, radius, p);
+		p.setColor(Deuxieme_activite.color);
+		if (Deuxieme_activite.form == Form.CARRE){
+			Rect r = new Rect(x/2 - radius, y/2 - radius, x/2 + radius, y/2 + radius);
+			canvas.drawRect(r, p);
+		}
+		else
+			canvas.drawCircle(x / 2, y / 2, radius, p);
 	}
-
 }
