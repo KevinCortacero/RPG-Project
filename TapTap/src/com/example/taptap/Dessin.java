@@ -5,6 +5,7 @@ import android.graphics.Canvas;
 import android.graphics.Color;
 import android.graphics.Paint;
 import android.graphics.Rect;
+import android.graphics.RectF;
 import android.util.AttributeSet;
 import android.view.View;
 
@@ -30,7 +31,7 @@ public class Dessin extends View{
 		int x = getWidth();
 		int y = getHeight();
 		int radius;
-		radius = 50;
+		radius = 100;
 		p.setStyle(Paint.Style.FILL);
 		p.setColor(Color.WHITE);
 		canvas.drawPaint(p);
@@ -42,5 +43,13 @@ public class Dessin extends View{
 		}
 		else
 			canvas.drawCircle(x / 2, y / 2, radius, p);
+		
+		p.setColor(Color.WHITE);
+		canvas.drawOval(new RectF(x/2 - (radius/3)*2, y/2 - (radius/3)*2, x/2 - radius/3, y/2 - radius/4), p);
+		canvas.drawOval(new RectF(x/2 + (radius/3), y/2 - (radius/3)*2, x/2 + (radius/3)*2, y/2 - radius/4), p);
+		p.setColor(Color.BLACK);
+		canvas.drawOval(new RectF(x/2 - (radius/3)*1.6F, y/2 - (radius/3)*1.6F, x/2 - radius/3, y/2 - (radius/3)), p);
+		canvas.drawOval(new RectF(x/2 + (radius/3)*1.6F, y/2 - (radius/3)*1.6F, x/2 + (radius/3)*2, y/2 - (radius/3)), p);
 	}
+	
 }
