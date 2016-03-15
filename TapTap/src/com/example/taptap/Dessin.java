@@ -31,7 +31,7 @@ public class Dessin extends View{
 		int x = getWidth();
 		int y = getHeight();
 		int radius;
-		radius = 100;
+		radius = 60;
 		p.setStyle(Paint.Style.FILL);
 		p.setColor(Color.WHITE);
 		canvas.drawPaint(p);
@@ -49,7 +49,8 @@ public class Dessin extends View{
 		canvas.drawOval(new RectF(x/2 + (radius/3), y/2 - (radius/3)*2, x/2 + (radius/3)*2, y/2 - radius/4), p);
 		p.setColor(Color.BLACK);
 		canvas.drawOval(new RectF(x/2 - (radius/3)*1.6F, y/2 - (radius/3)*1.6F, x/2 - radius/3, y/2 - (radius/3)), p);
-		canvas.drawOval(new RectF(x/2 + (radius/3)*1.6F, y/2 - (radius/3)*1.6F, x/2 + (radius/3)*2, y/2 - (radius/3)), p);
+		canvas.drawOval(new RectF(x/2 + (radius/3)*1.45F, y/2 - (radius/3)*1.6F, x/2 + (radius/3)*2, y/2 - (radius/3)), p);
+		canvas.drawText("Zzz", x/2 + (radius*1.2F), y/2 + (radius*1.2F), p);
 	}
 	
 }
