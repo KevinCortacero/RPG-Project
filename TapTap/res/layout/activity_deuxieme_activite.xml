@@ -21,23 +21,29 @@
         android:textAppearance="?android:attr/textAppearanceLarge"
         android:textSize="50dp" />
 
-    <ListView
-        android:id="@+id/listView1"
-        android:layout_width="match_parent"
-        android:layout_height="210dp"
-        android:layout_alignParentBottom="true"
-        android:layout_marginBottom="18dp"
-        android:clickable="false"
-        android:focusable="false"
-        android:longClickable="false" >
-    </ListView>
+    <com.example.taptap.Dessin
+        android:id="@+id/dessin1"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_above="@+id/radioGroup1"
+        android:layout_alignParentLeft="true"
+        android:layout_below="@+id/textView1" />
+
+    <TextView
+        android:id="@+id/textView2"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignLeft="@+id/dessin1"
+        android:layout_centerVertical="true"
+        android:text="Choisir une forme"
+        android:textAppearance="?android:attr/textAppearanceMedium" />
 
     <RadioGroup
         android:id="@+id/radioGroup1"
         android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_centerHorizontal="true"
-        android:layout_centerVertical="true"
+        android:layout_height="50dp"
+        android:layout_alignLeft="@+id/dessin1"
+        android:layout_below="@+id/textView2"
         android:orientation="horizontal" >
 
         <RadioButton
@@ -56,12 +62,28 @@
             android:text="Carré" />
     </RadioGroup>
 
-    <com.example.taptap.Dessin
-        android:id="@+id/dessin1"
+    <TextView
+        android:id="@+id/textView3"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_above="@+id/radioGroup1"
         android:layout_alignParentLeft="true"
-        android:layout_below="@+id/textView1" />
+        android:layout_below="@+id/radioGroup1"
+        android:text="Choisir une couleur"
+        android:textAppearance="?android:attr/textAppearanceMedium" />
+
+    <Spinner
+        android:id="@+id/spinner1"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignLeft="@+id/textView3"
+        android:layout_below="@+id/textView3" />
+
+    <Button
+        android:id="@+id/button1"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignParentBottom="true"
+        android:layout_centerHorizontal="true"
+        android:text="Valider" />
 
 </RelativeLayout>

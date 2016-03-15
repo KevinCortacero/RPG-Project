@@ -1,17 +1,27 @@
 package com.example.taptap;
 
 import android.app.Activity;
+import android.content.Intent;
 import android.graphics.Color;
 import android.os.Bundle;
+import android.view.View;
+import android.view.View.OnClickListener;
+import android.widget.AdapterView;
+import android.widget.AdapterView.OnItemSelectedListener;
 import android.widget.ArrayAdapter;
-import android.widget.ListView;
+import android.widget.Button;
+import android.widget.CheckedTextView;
+import android.widget.RadioButton;
+import android.widget.RadioGroup;
+import android.widget.RadioGroup.OnCheckedChangeListener;
+import android.widget.Spinner;
 import android.widget.TextView;
 
 public class Deuxieme_activite extends Activity {
 
 	public static int color;
 	public static Form form;
-	
+
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
@@ -20,32 +30,66 @@ public class Deuxieme_activite extends Activity {
 			((TextView)this.findViewById(R.id.textView1)).setText(this.getIntent().getExtras().getString("Pseudo"));
 		else 
 			((TextView)this.findViewById(R.id.textView1)).setText("Pseudo");
-		
-		ListView liste = (ListView) findViewById(R.id.listView1);
+
+		RadioGroup radioGroup = (RadioGroup)this.findViewById(R.id.radioGroup1);
+		radioGroup.setOnCheckedChangeListener(new OnCheckedChangeListener() {
+
+			@Override
+			public void onCheckedChanged(RadioGroup group, int checkedId) {
+				System.out.println(checkedId);
+				RadioButton bouton = (RadioButton)Deuxieme_activite.this.findViewById(checkedId);
+				String textBouton = (String)bouton.getText();
+				if ( textBouton.equals("Carré")){
+					Deuxieme_activite.form = Form.CARRE;
+				}else{ 
+					Deuxieme_activite.form = Form.ROND;
+				}
+				View v = Deuxieme_activite.this.findViewById(R.id.dessin1);
+				v.invalidate();
+			}
+		});
+
+		Spinner liste = (Spinner) findViewById(R.id.spinner1);
 		String[] couleurs = { "Bleu", "Rouge", "Vert", "Jaune"};
-		ArrayAdapter<String> adapter = new ArrayAdapter<String>(this, android.R.layout.simple_list_item_1, couleurs);
+		ArrayAdapter<String> adapter = new ArrayAdapter<String>(this, android.R.layout.simple_spinner_dropdown_item, couleurs);
 		liste.setAdapter(adapter);
-		Deuxieme_activite.color = Color.RED;
-		Deuxieme_activite.form = Form.CARRE;
-	}
+		
+		liste.setOnItemSelectedListener(new OnItemSelectedListener() {
 
-	/*@Override
-	public boolean onCreateOptionsMenu(Menu menu) {
-		// Inflate the menu; this adds items to the action bar if it is present.
-		//getMenuInflater().inflate(R.menu.authentification, menu);
-		return true;
-	}
+			@Override
+			public void onItemSelected(AdapterView<?> parent, View view,int position, long id) {
+				String couleur = ((CheckedTextView)view).getText().toString();
+				if (couleur.equals("Bleu")){
+					Deuxieme_activite.color = Color.BLUE;
+				}
+				else if (couleur.equals("Rouge")){
+					Deuxieme_activite.color = Color.RED;
+				}
+				else if (couleur.equals("Vert")){
+					Deuxieme_activite.color = Color.GREEN;
+				}
+				else if (couleur.equals("Jaune")){
+					Deuxieme_activite.color = Color.YELLOW;
+				}
+				View v = Deuxieme_activite.this.findViewById(R.id.dessin1);
+				v.invalidate();
+			}
 
-	@Override
-	public boolean onOptionsItemSelected(MenuItem item) {
-		// Handle action bar item clicks here. The action bar will
-		// automatically handle clicks on the Home/Up button, so long
-		// as you specify a parent activity in AndroidManifest.xml.
-		int id = item.getItemId();
-		if (id == R.id.action_settings) {
-			return true;
-		}
-		return super.onOptionsItemSelected(item);
-	}*/
-	
+			@Override
+			public void onNothingSelected(AdapterView<?> parent) {
+				Deuxieme_activite.color = Color.BLUE;
+			}
+		});
+		
+		Button valider = (Button) findViewById(R.id.button1);
+		valider.setOnClickListener(new OnClickListener() {
+			
+			@Override
+			public void onClick(View v) {
+				Intent i = new Intent(Deuxieme_activite.this, Game.class);
+				Deuxieme_activite.this.startActivity(i);
+				Deuxieme_activite.this.finish();
+			}
+		});
+	}
 }

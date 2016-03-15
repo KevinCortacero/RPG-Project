@@ -25,11 +25,15 @@
         <activity
             android:name=".Deuxieme_activite"
             android:label="@string/title_activity_deuxieme_activite" >
-             <intent-filter>
+            <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
 
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
+        </activity>
+        <activity
+            android:name=".Game"
+            android:label="@string/title_activity_game" >
         </activity>
     </application>
 
