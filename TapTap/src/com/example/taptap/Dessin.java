@@ -50,7 +50,7 @@ public class Dessin extends View{
 		p.setColor(Color.BLACK);
 		canvas.drawOval(new RectF(x/2 - (radius/3)*1.6F, y/2 - (radius/3)*1.6F, x/2 - radius/3, y/2 - (radius/3)), p);
 		canvas.drawOval(new RectF(x/2 + (radius/3)*1.45F, y/2 - (radius/3)*1.6F, x/2 + (radius/3)*2, y/2 - (radius/3)), p);
-		canvas.drawText("Zzz", x/2 + (radius*1.2F), y/2 + (radius*1.2F), p);
+		canvas.drawText("Zzz", x/2 + (radius*1.2F), y/2 - (radius*1.2F), p);
 	}
 	
 }
