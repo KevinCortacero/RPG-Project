@@ -16,6 +16,7 @@ import android.widget.RadioGroup;
 import android.widget.RadioGroup.OnCheckedChangeListener;
 import android.widget.Spinner;
 import android.widget.TextView;
+import android.widget.Toast;
 
 public class Deuxieme_activite extends Activity {
 
@@ -53,7 +54,7 @@ public class Deuxieme_activite extends Activity {
 		String[] couleurs = { "Bleu", "Rouge", "Vert", "Jaune"};
 		ArrayAdapter<String> adapter = new ArrayAdapter<String>(this, android.R.layout.simple_spinner_dropdown_item, couleurs);
 		liste.setAdapter(adapter);
-		
+
 		liste.setOnItemSelectedListener(new OnItemSelectedListener() {
 
 			@Override
@@ -80,16 +81,20 @@ public class Deuxieme_activite extends Activity {
 				Deuxieme_activite.color = Color.BLUE;
 			}
 		});
-		
+
 		Button valider = (Button) findViewById(R.id.button1);
 		valider.setOnClickListener(new OnClickListener() {
-			
+
 			@Override
 			public void onClick(View v) {
 				Intent i = new Intent(Deuxieme_activite.this, Game.class);
-				Deuxieme_activite.this.startActivity(i);
-				Deuxieme_activite.this.finish();
+				Deuxieme_activite.this.startActivityForResult(i, 1);
 			}
 		});
+	}
+
+	@Override
+	protected void onActivityResult(int requestCode, int resultCode, Intent data) {
+		Toast.makeText(this, "Score retour page : " + resultCode, Toast.LENGTH_LONG).show();
 	}
 }
