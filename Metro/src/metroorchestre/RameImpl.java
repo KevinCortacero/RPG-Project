@@ -11,7 +11,7 @@ public class RameImpl extends UnicastRemoteObject implements Rame{
 	
 	public RameImpl(int numero) throws RemoteException{
 		this.etat = ETAT.RAME_ARRETEE;
-		this.feuVert = false;
+		this.feuVert = true;
 		this.numero = numero;
 	}
 	

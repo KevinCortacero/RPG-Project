@@ -16,6 +16,8 @@ public class StationImpl extends UnicastRemoteObject implements Station {
 	public StationImpl(String nom, String url, int port, String stationSuivante, int voieSuivante) throws RemoteException {
 		this.voies = new ArrayList<Voie>();
 		this.nom = nom;
+		this.voies.add(new Voie(2));
+		this.voies.add(new Voie(2));
 	}
 	
 	@Override
@@ -29,9 +31,10 @@ public class StationImpl extends UnicastRemoteObject implements Station {
 	}
 
 	@Override
-	public void ajouterStationSuivante(String machine, int port, int numeroVoieDepart, String stationSuivante,
+	public void ajouterStationSuivante(String url, int port, int numeroVoieDepart, String stationSuivante,
 			int voieSuivante) throws RemoteException, NotBoundException, MalformedURLException {
-		this.voies.get(numeroVoieDepart).ajouterStationSuivante(machine, port, stationSuivante);
+		System.out.println(this.afficher() + " ----> " + stationSuivante);
+		this.voies.get(numeroVoieDepart).ajouterStationSuivante(url, port, this.nom, stationSuivante);
 	}
 
 	@Override
@@ -42,18 +45,13 @@ public class StationImpl extends UnicastRemoteObject implements Station {
 	@Override
 	public void demarrerRame(int numeroVoie) throws RemoteException {
 		try {
+			System.out.println("DEPART !!!");
 			this.voies.get(numeroVoie).getRame().DepartImminent();
 		} catch (InterruptedException e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
 		}
-		try {
-			Superviseur sup = (Superviseur) Naming.lookup("rmi://localhost:9000/sup");
-			sup.ihm.modifierAffichage(this.nom, 1, this.nomStationSuivante(1), 1, "1");
-		} catch (MalformedURLException | NotBoundException e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
-		}
+			System.out.println("On change interface !");
 	}
 
 	@Override
@@ -78,6 +76,11 @@ public class StationImpl extends UnicastRemoteObject implements Station {
 
 	@Override
 	public int getNumeroVoie(Rame rame) throws RemoteException {
-		return rame.getNumero();
+		for (Voie v : this.voies){
+			if (v.estRamePresente(rame)){
+				return v.getNumeroVoieSuivante();
+			}
+		}
+		return -1;
 	}
 }

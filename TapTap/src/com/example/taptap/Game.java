@@ -6,19 +6,22 @@ import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
 import android.view.View.OnClickListener;
+import android.widget.Button;
 import android.widget.TextView;
 import android.widget.Toast;
 
 public class Game extends Activity {
 
+
+	int compteur = 0;
+
 	public enum Etat{
 		SLEEP,
 		AWAKE
 	}
-	
+
 	public Etat etat;
 	public Dessin dessin;
-	
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
@@ -26,12 +29,14 @@ public class Game extends Activity {
 		this.etat = Etat.AWAKE;
 		this.dessin = (Dessin)findViewById(R.id.Dessin2);
 		this.dessin.setOnClickListener(new OnClickListener() {
-		
+
 			@Override
 			public void onClick(View v) {
 				TextView score = (TextView)Game.this.findViewById(R.id.textView3);
+
 				if (Game.this.etat == Etat.AWAKE){
 					score.setText(""+(Integer.parseInt(score.getText().toString())+1));
+					Game.this.compteur++;
 					double chance = Math.random();
 					if (chance <= 0.05){
 						Game.this.dormir();
@@ -39,8 +44,21 @@ public class Game extends Activity {
 				}
 				else if (Game.this.etat == Etat.SLEEP){
 					score.setText(""+(Integer.parseInt(score.getText().toString())-1));
+					Game.this.compteur--;
+
+					score.invalidate();
 				}
-				score.invalidate();
+			}
+		});
+
+		Button boutonRetour = (Button) findViewById(R.id.buttonRetour);
+		boutonRetour.setOnClickListener(new OnClickListener() {
+
+			@Override
+			public void onClick(View v) {
+				Game.this.setResult(Game.this.compteur);
+				Toast.makeText(Game.this, "Score : " + compteur, Toast.LENGTH_LONG).show();
+				Game.this.finish();
 			}
 		});
 	}

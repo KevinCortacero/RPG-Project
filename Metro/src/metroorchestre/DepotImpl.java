@@ -16,8 +16,9 @@ public class DepotImpl extends StationImpl {
 	
 	public void demarrerRame(){
 		Rame r = this.rames.get(0);
+		System.out.println("On se pose sur la voie du dépot ma gueule !");
 		try {
-			this.setRame(0, r);
+			this.voies.get(0).setRame(r);
 			this.demarrerRame(0);
 			this.rames.remove(0);
 		} catch (RemoteException e) {
@@ -25,14 +26,7 @@ public class DepotImpl extends StationImpl {
 		}
 	}
 	
-	// NULL / 20
-	/*public int getNumeroVoie(){
-		if (this.voies.get(0).estRamePresente(this.rames.get(0))){
-			
-		}
-	}*/
-
-	public void setRame(Rame r){
+	public void addRame(Rame r){
 		this.rames.add(r);
 	}
 	

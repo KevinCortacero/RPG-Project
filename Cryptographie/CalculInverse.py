@@ -73,8 +73,7 @@ def pollard2(n, x0, y0, b):
     print ("L'inverse est ", int(n/pgcd))
     
         
-if __name__ == '__main__':
-    pollard2(81061,65541,65541,13612)
-    exponentiation(2, 347, 173)
+if __name__ == '__main__' :
+    exponentiation(38, 41, 28)
     
 

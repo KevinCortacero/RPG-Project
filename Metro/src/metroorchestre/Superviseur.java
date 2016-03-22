@@ -22,34 +22,33 @@ public class Superviseur extends UnicastRemoteObject{
 		this.etatLigne = EtatLigne.FIN_DE_SERVICE;
 		this.rames = new ArrayList<Rame>();
 		this.stations = new ArrayList<Station>();
-		
+
 		try {
 			this.stations.add((Station)Naming.lookup("rmi://localhost:9000/station-Depot"));
-			System.out.println("On récupère le depot");
 		} catch (MalformedURLException | RemoteException | NotBoundException e1) {
 			e1.printStackTrace();
 		}
-		
 
 		try {
 			for (int i = 0; i < StationServer.STATIONS.length; i++){
 				this.stations.add((Station) Naming.lookup("rmi://localhost:9000/station-"+StationServer.STATIONS[i]));
-				System.out.println(this.stations.get(i).afficher());
 			}
 			for (int i = 1; i <= StationServer.NB_RAMES; i++){
 				Rame r = (Rame) Naming.lookup("rmi://localhost:9000/rame-"+i);
 				this.rames.add(r);
 			}
-			System.out.println(this.stations.size());
-			for (int i = 0; i < StationServer.STATIONS.length-1; i++){
-				System.out.println("station suivante : " + StationServer.STATIONS[i]);
-				this.stations.get(0).ajouterStationSuivante("localhost", 9000, 0, StationServer.STATIONS[i], 0);
+			for (int i = 0; i < StationServer.STATIONS.length; i++){
+				System.out.println(this.stations.get(i).afficher() + " ----> " + StationServer.STATIONS[i]);
+				this.stations.get(i).ajouterStationSuivante("localhost", 9000, 0, StationServer.STATIONS[i], 0);
+			}
+			for (int i = StationServer.STATIONS.length-1; i >0; i--){
+				System.out.println(this.stations.get(i+1).afficher() + " ----> " + StationServer.STATIONS[i-1]);
+				this.stations.get(i+1).ajouterStationSuivante("localhost", 9000, 1, StationServer.STATIONS[i-1], 1);
 			}
 			//this.stations.get(StationServer.STATIONS.length-1).ajouterStationSuivante("localhost", 9000, 0, StationServer.STATIONS[StationServer.STATIONS.length-1], 1);
 		} catch (MalformedURLException | RemoteException | NotBoundException e){
 			e.printStackTrace();
 		}
-		
 		this.initialiserIHM();
 	}
 
@@ -89,6 +88,7 @@ public class Superviseur extends UnicastRemoteObject{
 				javax.swing.JButton bt = (javax.swing.JButton) ae.getSource() ;
 				bt.setEnabled(false) ;
 				Superviseur.this.gererLigne();
+				System.out.println("Démarrage de la ligne");
 			}
 			else
 			{
@@ -101,6 +101,7 @@ public class Superviseur extends UnicastRemoteObject{
 
 	public static Station rechercherStation(String url, int port, String nom){
 		try {
+			System.out.println("On cherche la station " + nom);
 			return (Station) Naming.lookup("rmi://" + url + ":" + port + "/station-" + nom);
 		} catch (MalformedURLException | RemoteException | NotBoundException e) {
 			e.printStackTrace();
@@ -110,6 +111,7 @@ public class Superviseur extends UnicastRemoteObject{
 
 	public static Rame rechercherRame(String url, int port, int num){
 		try {
+			System.out.println("On cherche la rame num " + num);
 			return (Rame) Naming.lookup("rmi://" + url + ":" + port + "/rame-" + num);
 		} catch (MalformedURLException | RemoteException | NotBoundException e) {
 			e.printStackTrace();
@@ -129,22 +131,19 @@ public class Superviseur extends UnicastRemoteObject{
 	}
 
 	public boolean estDepotVide(){
-		try {
-			DepotImpl depot = (DepotImpl)Naming.lookup("rmi://localhost:9000/station-Depot");
-			return (depot.rames.size() == 0);
-		} catch (MalformedURLException | RemoteException | NotBoundException e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
-		}
 		return false;
 	}
 
 	public Station rechercherStationRame(Rame r){
 		for (Station s : this.stations){
-			for (Voie v : ((StationImpl)s).voies){
-				if (v.estRamePresente(r)){
+			try {
+				System.out.println("On cherche rame : " + r.getNumero());
+				if (s.getNumeroVoie(r) != -1)
 					return s;
-				}
+				else
+					System.out.println("Rame " + r.getNumero() + " pas trouvé dans " + s.afficher());
+			} catch (RemoteException e) {
+				e.printStackTrace();
 			}
 		}
 		return null;
@@ -156,7 +155,6 @@ public class Superviseur extends UnicastRemoteObject{
 		 * Connexion aux diffÃ©rentes stations
 		 */
 		Superviseur sup = new Superviseur();  
-		Naming.rebind("rmi://localhost:9000/sup", sup);
 	}
 
 	class GestionLigne extends Thread{
@@ -167,27 +165,34 @@ public class Superviseur extends UnicastRemoteObject{
 			while (Superviseur.this.etatLigne != EtatLigne.FIN_DE_SERVICE){
 				for (Rame r : Superviseur.this.rames){
 					try {
-						if (r.estRamePreteAPartir() && Superviseur.this.etatLigne != EtatLigne.FIN_DE_SERVICE && ((DepotImpl)Superviseur.this.stations.get(0)).rames.contains(r)){
-							Station suivante = Superviseur.rechercherStation("localhost", 9000, Superviseur.this.rechercherStationRame(r).nomStationSuivante(0));
+						if (r.estRamePreteAPartir() && Superviseur.this.etatLigne != EtatLigne.FIN_DE_SERVICE/* && Superviseur.this.stations.get(0)).rames.contains(r)*/){
+							System.out.println(" ---! départ iminant de la rame " + r.getNumero());
+							Station actuelle = Superviseur.this.rechercherStationRame(r);
+							if (actuelle == null){
+								actuelle = Superviseur.this.rechercherStation("localhost", 9000, "Depot");
+							}
+							actuelle.setRame(0, r);
+							Station suivante = Superviseur.rechercherStation("localhost", 9000,actuelle.nomStationSuivante(0));
+							System.out.println("Station suivante : " + suivante.getNom());
 							if (suivante.estFeuVert(0)){
-								r.DepartImminent();
+								actuelle.demarrerRame(0);
+								Superviseur.this.ihm.modifierAffichage("Depot", 1, suivante.getNom(),1, "?");
 							}
 							if (Superviseur.this.etatLigne == EtatLigne.DEMARRAGE_METRO){
-								if (Superviseur.this.estDepotVide()){
-									Superviseur.this.etatLigne = EtatLigne.EN_SERVICE;
-								}
-								else if (Superviseur.this.etatLigne == EtatLigne.FIN_DE_SERVICE){
-									// Superviseur.this.sontToutesLesRamesAuDepot();
-									// CHELOU
-								}
-									
+								Superviseur.this.etatLigne = EtatLigne.EN_SERVICE;
+							}
+							else if (Superviseur.this.etatLigne == EtatLigne.FIN_DE_SERVICE){
+								Superviseur.this.sontToutesLesRamesAuDepot();
 							}
 						}
-					} catch (RemoteException | InterruptedException e) {
+					}
+					catch (RemoteException e) {
+						// TODO Auto-generated catch block
 						e.printStackTrace();
 					}
-				}
+				} 
 			}
 		}
 	}
 }
+

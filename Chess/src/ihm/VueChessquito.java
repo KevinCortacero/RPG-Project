@@ -16,7 +16,7 @@ public class VueChessquito extends JPanel{
 	public static final int NB_CASES = 4;
 	
 	private JTextArea messages;
-	private JPanel panneauJeu;
+	public JPanel panneauJeu;
 	
 	public VueChessquito() {
 		super();
@@ -29,7 +29,7 @@ public class VueChessquito extends JPanel{
 			}
 		}
 		JPanel panneauMessage = new JPanel();
-		this.messages = new JTextArea(4, 40);        
+		this.messages = new JTextArea(4, 40);
 		this.messages.setEditable(false);
 		panneauMessage.add(new JScrollPane(this.messages));
 		this.add(this.panneauJeu);
@@ -52,7 +52,7 @@ public class VueChessquito extends JPanel{
 	
 	 public void afficherMessage(String message) {
 		 this.messages.append(message);
-		 this.messages.setSelectionEnd(this.messages.getText().length());     
+		 this.messages.setSelectionEnd(this.messages.getText().length());
 	} 
 	
 	public static void main(String[] args) {

@@ -11,10 +11,6 @@ public class StationServer{
 	protected final static int NB_RAMES = 7;
 	protected final static String[] STATIONS= {"Ramonville", "UPS", "Pharmacie", "Rangueil", "Saouzelong", "Saint-Agne"};
 
-	public StationServer() {
-		
-	}
-
 	public static void main(String[] args) {
 		DepotImpl depot;
 		try {
@@ -41,6 +37,5 @@ public class StationServer{
 		} catch (MalformedURLException | RemoteException e) {
 			e.printStackTrace();
 		}
-		
 	}
 }

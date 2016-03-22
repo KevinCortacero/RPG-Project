@@ -12,6 +12,10 @@ public class PieceIHM {
 		this.typeImage = typeImage;
 	}
 
+	public void setTypeImage(String typeImage) {
+		this.typeImage = typeImage;
+	}
+
 	public String getCouleur() {
 		return couleur;
 	}
