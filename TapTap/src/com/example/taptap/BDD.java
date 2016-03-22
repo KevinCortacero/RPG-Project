@@ -1,5 +1,6 @@
 package com.example.taptap;
 
+import android.content.ContentValues;
 import android.content.Context;
 import android.database.sqlite.SQLiteDatabase;
 import android.database.sqlite.SQLiteOpenHelper;
@@ -22,8 +23,19 @@ public class BDD extends SQLiteOpenHelper{
 	@Override
 	public void onCreate(SQLiteDatabase db){
 		db.execSQL(DATABASE_CREATE);
-		Toast.makeText(this.context, "Création de " + this.getDatabaseName(), Toast.LENGTH_LONG).show();
+		Toast.makeText(this.context, "Initialisation de la base de donnée", Toast.LENGTH_LONG).show();
+		db.insert("Joueurs", null, this.creerJoueur("Twarz", "123"));
+		db.insert("Joueurs", null, this.creerJoueur("Koreuc", "abc"));
+		db.insert("Joueurs", null, this.creerJoueur("Info", "$info123"));
 	}
+	private ContentValues creerJoueur(String pseudo, String mdp) {
+		ContentValues joueur = new ContentValues();
+		joueur.put("pseudo", pseudo);
+		joueur.put("mdp", mdp);
+		joueur.put("score", 0);
+		return joueur;
+	}
+	
 	@Override
 	public void onUpgrade(SQLiteDatabase db, int arg1, int arg2) {
 		db.execSQL(DATABASE_DELETE);

@@ -18,6 +18,7 @@ public class Dessin extends View{
 
 	public Dessin(Context context) {
 		this(context, null, 0);
+		this.etat = Etat.AWAKE;
 	}
 
 	public Dessin(Context context, AttributeSet attrs) {
@@ -47,15 +48,16 @@ public class Dessin extends View{
 		else{
 			canvas.drawCircle(x / 2, y / 2, radius, p);
 		}
-
-		p.setColor(Color.WHITE);
-		canvas.drawOval(new RectF(x/2 - (radius/3)*2, y/2 - (radius/3)*2, x/2 - radius/3, y/2 - radius/4), p);
-		canvas.drawOval(new RectF(x/2 + (radius/3), y/2 - (radius/3)*2, x/2 + (radius/3)*2, y/2 - radius/4), p);
-		p.setColor(Color.BLACK);
-		canvas.drawOval(new RectF(x/2 - (radius/3)*1.6F, y/2 - (radius/3)*1.6F, x/2 - radius/3, y/2 - (radius/3)), p);
-		canvas.drawOval(new RectF(x/2 + (radius/3)*1.45F, y/2 - (radius/3)*1.6F, x/2 + (radius/3)*2, y/2 - (radius/3)), p);
-		if (this.etat == null || this.etat == Etat.SLEEP){
+		if (this.etat == Etat.SLEEP){
 			canvas.drawText("Zzz", x/2 + (radius*1.2F), y/2 - (radius*1.2F), p);
+		}
+		else {
+			p.setColor(Color.WHITE);
+			canvas.drawOval(new RectF(x/2 - (radius/3)*2, y/2 - (radius/3)*2, x/2 - radius/3, y/2 - radius/4), p);
+			canvas.drawOval(new RectF(x/2 + (radius/3), y/2 - (radius/3)*2, x/2 + (radius/3)*2, y/2 - radius/4), p);
+			p.setColor(Color.BLACK);
+			canvas.drawOval(new RectF(x/2 - (radius/3)*1.6F, y/2 - (radius/3)*1.6F, x/2 - radius/3, y/2 - (radius/3)), p);
+			canvas.drawOval(new RectF(x/2 + (radius/3)*1.45F, y/2 - (radius/3)*1.6F, x/2 + (radius/3)*2, y/2 - (radius/3)), p);
 		}
 	}
 
