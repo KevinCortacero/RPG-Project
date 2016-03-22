@@ -10,31 +10,43 @@
     tools:context="com.example.taptap.Authentification" >
 
     <TextView
-        android:id="@+id/textView1"
+        android:id="@+id/textView3"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_alignParentTop="true"
+        android:layout_alignParentLeft="true"
+        android:layout_below="@+id/radioGroup1"
+        android:text="Choisir une couleur"
+        android:textAppearance="?android:attr/textAppearanceMedium" />
+
+    <Spinner
+        android:id="@+id/spinner1"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignLeft="@+id/textView3"
+        android:layout_below="@+id/textView3"
+        android:layout_toLeftOf="@+id/button1" />
+
+    <Button
+        android:id="@+id/button1"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignParentBottom="true"
         android:layout_centerHorizontal="true"
-        android:clickable="false"
-        android:longClickable="false"
-        android:text="Pseudo"
-        android:textAppearance="?android:attr/textAppearanceLarge"
-        android:textSize="50dp" />
+        android:text="Valider" />
 
     <com.example.taptap.Dessin
         android:id="@+id/dessin1"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_above="@+id/radioGroup1"
-        android:layout_alignParentLeft="true"
-        android:layout_below="@+id/textView1" />
+        android:layout_width="200dp"
+        android:layout_height="180dp"
+        android:layout_alignParentBottom="true"
+        android:layout_alignParentRight="true" />
 
     <TextView
         android:id="@+id/textView2"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_alignLeft="@+id/dessin1"
-        android:layout_centerVertical="true"
+        android:layout_alignParentLeft="true"
+        android:layout_below="@+id/textView1"
         android:text="Choisir une forme"
         android:textAppearance="?android:attr/textAppearanceMedium" />
 
@@ -42,7 +54,7 @@
         android:id="@+id/radioGroup1"
         android:layout_width="wrap_content"
         android:layout_height="50dp"
-        android:layout_alignLeft="@+id/dessin1"
+        android:layout_alignLeft="@+id/textView3"
         android:layout_below="@+id/textView2"
         android:orientation="horizontal" >
 
@@ -63,27 +75,15 @@
     </RadioGroup>
 
     <TextView
-        android:id="@+id/textView3"
+        android:id="@+id/textView1"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_alignParentLeft="true"
-        android:layout_below="@+id/radioGroup1"
-        android:text="Choisir une couleur"
-        android:textAppearance="?android:attr/textAppearanceMedium" />
-
-    <Spinner
-        android:id="@+id/spinner1"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_alignLeft="@+id/textView3"
-        android:layout_below="@+id/textView3" />
-
-    <Button
-        android:id="@+id/button1"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_alignParentBottom="true"
+        android:layout_alignParentTop="true"
         android:layout_centerHorizontal="true"
-        android:text="Valider" />
+        android:clickable="false"
+        android:longClickable="false"
+        android:text="Pseudo"
+        android:textAppearance="?android:attr/textAppearanceLarge"
+        android:textSize="50dp" />
 
 </RelativeLayout>

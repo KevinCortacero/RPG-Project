@@ -28,6 +28,7 @@
         android:contentDescription="pseudo"
         android:ems="10"
         android:inputType="textCapWords"/>
+    <requestFocus />
 
     <TextView
         android:id="@+id/textView2"
@@ -47,8 +48,6 @@
         android:contentDescription="mot de passe"
         android:ems="10"
         android:inputType="textPassword" >
-
-        <requestFocus />
     </EditText>
 
     <Button
@@ -59,5 +58,15 @@
         android:layout_centerHorizontal="true"
         android:layout_marginTop="54dp"
         android:text="Connexion" />
+
+    <TextView
+        android:id="@+id/textView3"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignParentTop="true"
+        android:layout_centerHorizontal="true"
+        android:text="Authentification"
+        android:textAppearance="?android:attr/textAppearanceLarge"
+        android:textSize="30sp" />
 
 </RelativeLayout>

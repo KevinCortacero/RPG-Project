@@ -11,8 +11,7 @@ import android.widget.TextView;
 import android.widget.Toast;
 
 public class Game extends Activity {
-
-
+	
 	int compteur = 0;
 
 	public enum Etat{
@@ -42,10 +41,9 @@ public class Game extends Activity {
 						Game.this.dormir();
 					}
 				}
-				else if (Game.this.etat == Etat.SLEEP){
+				else{
 					score.setText(""+(Integer.parseInt(score.getText().toString())-1));
 					Game.this.compteur--;
-
 					score.invalidate();
 				}
 			}
