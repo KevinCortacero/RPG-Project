@@ -27,7 +27,7 @@
         android:layout_centerHorizontal="true"
         android:contentDescription="pseudo"
         android:ems="10"
-        android:inputType="textCapWords" />
+        android:inputType="textCapWords"/>
 
     <TextView
         android:id="@+id/textView2"
