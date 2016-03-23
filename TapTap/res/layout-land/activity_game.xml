@@ -9,7 +9,7 @@
     tools:context="com.example.taptap.Game" >
 
     <Button
-        android:id="@+id/buttonRetour"
+        android:id="@+id/buttonReveil"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_alignParentBottom="true"
@@ -23,7 +23,7 @@
         android:layout_alignParentTop="true"
         android:layout_marginRight="27dp"
         android:layout_marginTop="19dp"
-        android:layout_toLeftOf="@+id/buttonRetour"
+        android:layout_toLeftOf="@+id/buttonReveil"
         android:text="Pseudo"
         android:textAppearance="?android:attr/textAppearanceLarge"
         android:textSize="50dp" />
@@ -32,7 +32,7 @@
         android:id="@+id/Dessin2"
         android:layout_width="wrap_content"
         android:layout_height="200dp"
-        android:layout_above="@+id/buttonRetour"
+        android:layout_above="@+id/buttonReveil"
         android:layout_toRightOf="@+id/textView1"
         class="com.example.taptap.Dessin" />
 

@@ -22,15 +22,17 @@ public class Deuxieme_activite extends Activity {
 
 	public static int color;
 	public static Form form;
+	private String pseudo;
 
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
 		this.setContentView(R.layout.activity_deuxieme_activite);
 		if (this.getIntent().hasExtra("Pseudo"))
-			((TextView)this.findViewById(R.id.textView1)).setText(this.getIntent().getExtras().getString("Pseudo"));
+			this.pseudo = this.getIntent().getExtras().getString("Pseudo");
 		else 
-			((TextView)this.findViewById(R.id.textView1)).setText("Pseudo");
+			this.pseudo = "Pseudo";
+		((TextView)this.findViewById(R.id.textView1)).setText(this.pseudo);
 
 		RadioGroup radioGroup = (RadioGroup)this.findViewById(R.id.radioGroup1);
 		radioGroup.setOnCheckedChangeListener(new OnCheckedChangeListener() {
@@ -88,6 +90,7 @@ public class Deuxieme_activite extends Activity {
 			@Override
 			public void onClick(View v) {
 				Intent i = new Intent(Deuxieme_activite.this, Game.class);
+				i.putExtra("Pseudo", Deuxieme_activite.this.pseudo);
 				Deuxieme_activite.this.startActivityForResult(i, 1);
 			}
 		});

@@ -66,6 +66,7 @@ public class GestionnaireAuthentification implements OnClickListener {
 			this.afficher("Pseudo non enregistré !");
 		}
 		dataR.close();
+		bdd.close();
 	}
 
 	private void connexion(String pseudo) {
