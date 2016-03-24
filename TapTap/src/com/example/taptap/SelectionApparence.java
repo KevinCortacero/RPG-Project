@@ -2,6 +2,8 @@ package com.example.taptap;
 
 import android.app.Activity;
 import android.content.Intent;
+import android.database.Cursor;
+import android.database.sqlite.SQLiteDatabase;
 import android.graphics.Color;
 import android.os.Bundle;
 import android.view.View;
@@ -16,38 +18,35 @@ import android.widget.RadioGroup;
 import android.widget.RadioGroup.OnCheckedChangeListener;
 import android.widget.Spinner;
 import android.widget.TextView;
-import android.widget.Toast;
 
-public class Deuxieme_activite extends Activity {
+public class SelectionApparence extends Activity {
 
 	public static int color;
 	public static Form form;
 	private String pseudo;
+	private int score;
 
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
-		this.setContentView(R.layout.activity_deuxieme_activite);
-		if (this.getIntent().hasExtra("Pseudo"))
-			this.pseudo = this.getIntent().getExtras().getString("Pseudo");
-		else 
-			this.pseudo = "Pseudo";
+		this.setContentView(R.layout.activity_selection_apparence);
+		this.pseudo = this.getIntent().getExtras().getString("Pseudo");
 		((TextView)this.findViewById(R.id.textView1)).setText(this.pseudo);
 
 		RadioGroup radioGroup = (RadioGroup)this.findViewById(R.id.radioGroup1);
-		radioGroup.setOnCheckedChangeListener(new OnCheckedChangeListener() {
+		radioGroup.setOnCheckedChangeListener(new OnCheckedChangeListener(){
 
 			@Override
 			public void onCheckedChanged(RadioGroup group, int checkedId) {
 				System.out.println(checkedId);
-				RadioButton bouton = (RadioButton)Deuxieme_activite.this.findViewById(checkedId);
+				RadioButton bouton = (RadioButton)SelectionApparence.this.findViewById(checkedId);
 				String textBouton = (String)bouton.getText();
 				if ( textBouton.equals("Carré")){
-					Deuxieme_activite.form = Form.CARRE;
+					SelectionApparence.form = Form.CARRE;
 				}else{ 
-					Deuxieme_activite.form = Form.ROND;
+					SelectionApparence.form = Form.ROND;
 				}
-				View v = Deuxieme_activite.this.findViewById(R.id.dessin1);
+				View v = SelectionApparence.this.findViewById(R.id.dessin1);
 				v.invalidate();
 			}
 		});
@@ -63,41 +62,63 @@ public class Deuxieme_activite extends Activity {
 			public void onItemSelected(AdapterView<?> parent, View view,int position, long id) {
 				String couleur = ((CheckedTextView)view).getText().toString();
 				if (couleur.equals("Bleu")){
-					Deuxieme_activite.color = Color.BLUE;
+					SelectionApparence.color = Color.BLUE;
 				}
 				else if (couleur.equals("Rouge")){
-					Deuxieme_activite.color = Color.RED;
+					SelectionApparence.color = Color.RED;
 				}
 				else if (couleur.equals("Vert")){
-					Deuxieme_activite.color = Color.GREEN;
+					SelectionApparence.color = Color.GREEN;
 				}
 				else if (couleur.equals("Jaune")){
-					Deuxieme_activite.color = Color.YELLOW;
+					SelectionApparence.color = Color.YELLOW;
 				}
-				View v = Deuxieme_activite.this.findViewById(R.id.dessin1);
+				View v = SelectionApparence.this.findViewById(R.id.dessin1);
 				v.invalidate();
 			}
 
 			@Override
 			public void onNothingSelected(AdapterView<?> parent) {
-				Deuxieme_activite.color = Color.BLUE;
+				SelectionApparence.color = Color.BLUE;
 			}
 		});
+		this.mettreAJourScore();
+		this.activerBoutonJouer();
+	}
 
-		Button valider = (Button) findViewById(R.id.button1);
+	private void mettreAJourScore() {
+		String select[] = {"score"};
+		BDD bdd = new BDD(this);
+		SQLiteDatabase dataR = bdd.getReadableDatabase();
+		Cursor curseur = dataR.query("Joueurs", select, "pseudo=\"" + this.pseudo + "\"", null, null, null, null);
+		if (curseur.moveToFirst()){
+			this.score = curseur.getInt(curseur.getColumnIndexOrThrow("score"));
+			TextView totalScore = (TextView) findViewById(R.id.textView5);
+			totalScore.setText("Score total : " + this.score);
+		}
+		dataR.close();
+		bdd.close();
+	}
+	
+	private void activerBoutonJouer(){
+		Button valider = (Button) findViewById(R.id.boutonJouer);
 		valider.setOnClickListener(new OnClickListener() {
 
 			@Override
 			public void onClick(View v) {
-				Intent i = new Intent(Deuxieme_activite.this, Game.class);
-				i.putExtra("Pseudo", Deuxieme_activite.this.pseudo);
-				Deuxieme_activite.this.startActivityForResult(i, 1);
+				Intent i = new Intent(SelectionApparence.this, Game.class);
+				i.putExtra("Pseudo", SelectionApparence.this.pseudo);
+				i.putExtra("Score", SelectionApparence.this.score);
+				SelectionApparence.this.startActivityForResult(i, 1);
 			}
 		});
 	}
 
 	@Override
 	protected void onActivityResult(int requestCode, int resultCode, Intent data) {
-		Toast.makeText(this, "Score retour page : " + resultCode, Toast.LENGTH_LONG).show();
+		TextView lastScore = (TextView) findViewById(R.id.textView4);
+		lastScore.setText("Dernier score : " + resultCode);
+		this.mettreAJourScore();
+
 	}
 }

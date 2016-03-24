@@ -10,7 +10,7 @@ public class Authentification extends Activity {
 	protected void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
 		setContentView(R.layout.activity_authentification);
-		((Button)findViewById(R.id.button1)).setOnClickListener(new GestionnaireAuthentification(this));
+		((Button)findViewById(R.id.boutonConnexion)).setOnClickListener(new GestionnaireAuthentification(this));
 	}
 }
 

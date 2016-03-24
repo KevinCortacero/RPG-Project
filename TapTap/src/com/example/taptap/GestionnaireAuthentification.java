@@ -71,7 +71,7 @@ public class GestionnaireAuthentification implements OnClickListener {
 
 	private void connexion(String pseudo) {
 		this.afficher("Connexion...");
-		Intent i = new Intent(this.activite, Deuxieme_activite.class);
+		Intent i = new Intent(this.activite, SelectionApparence.class);
 		i.putExtra("Pseudo", pseudo);
 		this.activite.startActivity(i);
 		this.activite.finish();

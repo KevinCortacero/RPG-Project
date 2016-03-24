@@ -10,7 +10,7 @@
     tools:context="com.example.taptap.Authentification" >
 
     <Button
-        android:id="@+id/button1"
+        android:id="@+id/boutonConnexion"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_alignParentBottom="true"
@@ -65,7 +65,7 @@
         android:layout_height="wrap_content"
         android:layout_alignBaseline="@+id/textView1"
         android:layout_alignBottom="@+id/textView1"
-        android:layout_toRightOf="@+id/button1"
+        android:layout_toRightOf="@+id/boutonConnexion"
         android:text="Mot de passe"
         android:textAppearance="?android:attr/textAppearanceLarge" />
 

@@ -8,51 +8,49 @@
     android:paddingTop="@dimen/activity_vertical_margin"
     tools:context="com.example.taptap.Game" >
 
-    <Button
-        android:id="@+id/buttonReveil"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_alignParentBottom="true"
-        android:layout_centerHorizontal="true"
-        android:text="Retour" />
-
     <TextView
         android:id="@+id/textView1"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_alignParentTop="true"
-        android:layout_marginRight="27dp"
-        android:layout_marginTop="19dp"
-        android:layout_toLeftOf="@+id/buttonReveil"
+        android:layout_centerHorizontal="true"
         android:text="Pseudo"
         android:textAppearance="?android:attr/textAppearanceLarge"
         android:textSize="50dp" />
 
-    <view
-        android:id="@+id/Dessin2"
+    <ListView
+        android:id="@+id/listView1"
+        android:layout_width="match_parent"
+        android:layout_height="150dp"
+        android:layout_alignParentRight="true"
+        android:layout_below="@+id/textView1"
+        android:layout_toRightOf="@+id/textView1" >
+
+    </ListView>
+
+    <Button
+        android:id="@+id/buttonReveil"
         android:layout_width="wrap_content"
-        android:layout_height="200dp"
-        android:layout_above="@+id/buttonReveil"
-        android:layout_toRightOf="@+id/textView1"
-        class="com.example.taptap.Dessin" />
+        android:layout_height="wrap_content"
+        android:layout_alignBottom="@+id/listView1"
+        android:layout_centerHorizontal="true"
+        android:text="Réveiller !" />
 
     <TextView
         android:id="@+id/textView2"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_alignBottom="@+id/Dessin2"
-        android:layout_alignLeft="@+id/textView1"
-        android:layout_marginBottom="25dp"
+        android:layout_alignLeft="@+id/buttonReveil"
+        android:layout_centerVertical="true"
         android:text="Score :"
         android:textAppearance="?android:attr/textAppearanceMedium" />
 
-    <TextView
-        android:id="@+id/textView3"
+    <view
+        android:id="@+id/Dessin2"
         android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_alignBottom="@+id/textView2"
-        android:layout_marginLeft="18dp"
-        android:layout_toRightOf="@+id/textView2"
-        android:text="0" />
+        android:layout_height="150dp"
+        android:layout_alignParentBottom="true"
+        android:layout_toLeftOf="@+id/textView1"
+        class="com.example.taptap.Dessin" />
 
 </RelativeLayout>
