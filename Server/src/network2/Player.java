@@ -15,13 +15,13 @@ public class Player implements Serializable{
 	}
 	
 	private void initialize(){
-		this.positionX = 20;
-		this.positionY = 20;
+		this.positionX = 100;
+		this.positionY = 100;
 		System.out.println("Création de " + this);
 	}
 
 	public void drawPlayer(Graphics g){
-		g.fillRect(this.positionX, this.positionY, 20, 20);
+		g.fillRect(this.positionX, this.positionY, 100, 100);
 	}
 
 	public String getPseudo() {
@@ -34,6 +34,14 @@ public class Player implements Serializable{
 	
 	public int getPositionX() {
 		return this.positionX;
+	}
+	
+	public void setPositionX(int positionX) {
+		this.positionX = positionX;
+	}
+
+	public void setPositionY(int positionY) {
+		this.positionY = positionY;
 	}
 	
 	@Override

@@ -1,4 +1,6 @@
 package network2.client;
+import java.awt.event.KeyEvent;
+import java.awt.event.KeyListener;
 import java.io.BufferedReader;
 import java.io.IOException;
 import java.io.InputStreamReader;
@@ -24,6 +26,7 @@ public class Client{
 			this.writter = new ObjectOutputStream(this.socket.getOutputStream());
 			this.reader = new BufferedReader(new InputStreamReader(this.socket.getInputStream()));
 			this.frame = new ClientFrame(pseudo);
+			this.addListener();
 		} catch (UnknownHostException e) {
 			e.printStackTrace();
 		} catch (IOException e) {
@@ -33,6 +36,7 @@ public class Client{
 
 	public void sendPersonnage(){
 		try {
+			System.out.println(this.player);
 			this.writter.writeObject(this.player);
 			this.writter.flush();
 		} catch (IOException e) {
@@ -57,29 +61,55 @@ public class Client{
 
 	public static void main(String[] arg0){
 
-		Client twarz;
+		Client koreuc;
 		try {
-			twarz = new Client("Twarz");
-			twarz.sendPersonnage();
-			String message = twarz.reader.readLine();
+			koreuc = new Client("Koreuc");
+			koreuc.sendPersonnage();
+			String message = koreuc.reader.readLine();
 			System.out.println(message);
 
-			// UpdatePlayer
-			new Thread(){
-				public void run(){
-					int nb = 0 ; // nombre de fois que j'envoie mon player
-					while(nb < 2 ){
-						twarz.sendPersonnage();				
-						//try {this.sleep(1000);} catch (InterruptedException e) {e.printStackTrace();} // dodo
-						nb++;
-					}
-				}
-			};
-			twarz.deconnexion();
 		} catch (UnknownHostException e) {
 			System.out.println("Impossible de se connecter, adresse inconnue !");
 		} catch (IOException e) {
 			System.out.println("Erreur : déconnexion...");
 		}		
+	}
+
+	public void addListener(){
+		this.frame.addKeyListener(new KeyListener() {
+
+			@Override
+			public void keyTyped(KeyEvent e) {
+				// TODO Auto-generated method stub
+
+			}
+
+			@Override
+			public void keyReleased(KeyEvent e) {
+				// TODO Auto-generated method stub
+
+			}
+
+			@Override
+			public void keyPressed(KeyEvent e) {
+				int keyCode = e.getKeyCode();
+				switch(keyCode){
+				case 90 : Client.this.player.setPositionY(Client.this.player.getPositionY()-1);
+				break;
+				case 68 : Client.this.player.setPositionX(Client.this.player.getPositionX()+1);;
+				break;
+				case 83 : Client.this.player.setPositionY(Client.this.player.getPositionY()+1);;
+				break;
+				case 81 : Client.this.player.setPositionX(Client.this.player.getPositionX()-1);;
+				break;
+				}
+				System.out.println("mis a jour : " + Client.this.player.getPositionY());
+				Client.this.sendPersonnage();
+			}
+		});
+	}
+
+	public void read(){
+
 	}
 }
