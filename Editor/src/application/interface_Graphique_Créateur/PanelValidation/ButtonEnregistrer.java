@@ -6,7 +6,6 @@ import java.io.IOException;
 
 import javax.swing.JButton;
 
-import application.interface_Graphique_Créateur.PanelPrincipal.LevelContainer;
 import application.interface_Graphique_Créateur.PanelPrincipal.PanelPrincipalCréateur;
 
 @SuppressWarnings("serial")

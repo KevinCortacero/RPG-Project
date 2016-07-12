@@ -14,7 +14,7 @@ import application.interface_Graphique_Créateur.PanelPrincipal.PanelPrincipalCré
 public class ButtonSaveAndQuit extends JButton implements ActionListener {
 	
 	public ButtonSaveAndQuit(){
-		super("Sauv. la carte et Quitter");
+		super("Save and quit");
 		this.addActionListener(this);
 	}
 

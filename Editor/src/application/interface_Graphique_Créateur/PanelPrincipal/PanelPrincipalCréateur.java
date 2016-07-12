@@ -45,7 +45,7 @@ public class PanelPrincipalCréateur extends SousPanel implements MouseListener{
 	public void paintComponent(Graphics g) {
 		super.paintComponent(g);
 		if (this.levelContainer.getLevel() != null){
-			this.levelContainer.getLevel().afficherCarte(g);
+			this.levelContainer.getLevel().charger(g);
 			//quadrillage
 			g.setColor(Color.gray);
 			for ( int i = 0 ; i<this.getSize().getWidth() ; i += 50){
