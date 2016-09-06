@@ -1,4 +1,4 @@
-package personnage;
+package hero;
 
 public abstract class GameObject {
 	
@@ -7,8 +7,8 @@ public abstract class GameObject {
 	public boolean estAuSol;
 	public Sprite sprite;
 	
-	public GameObject(int x, int y, int hauteur, int largeur){
-		this.sprite = new Sprite(x,y,hauteur,largeur);
+	public GameObject(Coord2D coord, int hauteur, int largeur){
+		this.sprite = new Sprite(coord,hauteur,largeur);
 		this.vecteurY = 0.0F;
 		this.direction = Direction.DROITE;
 		this.estAuSol = false;

@@ -3,14 +3,12 @@ package network2.serveur;
 import java.io.IOException;
 import java.io.ObjectInputStream;
 import java.io.PrintWriter;
-import java.net.ServerSocket;
 import java.net.Socket;
 import java.util.HashMap;
 import java.util.Map;
 
 import network2.ConnectedClient;
 import network2.Player;
-import network2.client.SocketClient;
 
 public class Connexion implements Runnable {
 
@@ -54,7 +52,6 @@ public class Connexion implements Runnable {
 
 	private void registerPlayer(){
 		Socket socketPlayer = this.listenSocketServer();
-		System.out.println("ecouté");
 		this.welcomePlayer(socketPlayer);
 		this.register(socketPlayer);
 	}
@@ -88,7 +85,7 @@ public class Connexion implements Runnable {
 		out.flush();
 	}
 
-	private Socket listenSocketServer() {
+	private Socket listenSocketServer(){
 		try {
 			return Server.getInstance().getSocketServer().accept();
 		} catch (IOException e) {

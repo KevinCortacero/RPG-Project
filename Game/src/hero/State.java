@@ -1,6 +1,6 @@
-package personnage;
+package hero;
 
-public enum Etat {
+public enum State {
 	
 	MARCHE("Marche"),
 	SAUTE("Saute"),
@@ -13,7 +13,7 @@ public enum Etat {
 	
 	private String nom;
 
-	private Etat(String nom) {
+	private State(String nom) {
 		this.nom = nom;
 	}
 	

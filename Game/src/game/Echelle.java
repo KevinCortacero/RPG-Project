@@ -1,6 +1,6 @@
-package jeu;
+package game;
 
-import personnage.GameObject;
+import hero.GameObject;
 
 
 public class Echelle extends GameObject{

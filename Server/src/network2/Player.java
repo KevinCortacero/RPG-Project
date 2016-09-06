@@ -4,17 +4,16 @@ import java.io.Serializable;
 
 
 public class Player implements Serializable{
-
+	
 	private String pseudo;
 	private int positionX;
 	private int positionY;
 	
 	public Player(String pseudo){
 		this.pseudo = pseudo;
-		this.initialize();
 	}
 	
-	private void initialize(){
+	public void initialize(){
 		this.positionX = 100;
 		this.positionY = 100;
 		System.out.println("Création de " + this);

@@ -1,6 +1,6 @@
-package jeu;
+ package game;
 
-import personnage.Coordonnée;
+import hero.Coord;
 
 public class CarteFeu extends Carte{
 
@@ -13,9 +13,9 @@ public class CarteFeu extends Carte{
 		for (int i=0; i <= TAILLE_MAX_X-1; i++){
 			for (int j=0; j <= TAILLE_MAX_Y-1; j++){
 				if (i == j)
-					this.setCoordonnées(i, j, new Coordonnée(1));
+					this.setCoordonnées(i, j, new Coord(1));
 				else
-					this.setCoordonnées(i, j, new Coordonnée(0));
+					this.setCoordonnées(i, j, new Coord(0));
 			}
 		}
 	}

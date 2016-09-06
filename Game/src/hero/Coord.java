@@ -1,9 +1,9 @@
-package personnage;
+package hero;
 
-public class Coordonnée {
+public class Coord {
 	private int composante;
 	
-	public Coordonnée(int composante){
+	public Coord(int composante){
 		this.setComposante(composante);
 	}
 

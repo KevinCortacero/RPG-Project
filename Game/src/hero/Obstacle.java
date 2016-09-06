@@ -1,4 +1,4 @@
-package personnage;
+package hero;
 
 
 public class Obstacle extends GameObject {

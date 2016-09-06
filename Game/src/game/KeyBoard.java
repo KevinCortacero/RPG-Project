@@ -1,9 +1,9 @@
-package jeu;
+package game;
 
 import java.awt.event.KeyEvent;
 import java.awt.event.KeyListener;
 
-public class Clavier implements KeyListener {
+public class KeyBoard implements KeyListener {
 	
 	public boolean droite = false;
 	public boolean gauche = false;

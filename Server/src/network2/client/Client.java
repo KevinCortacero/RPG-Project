@@ -23,6 +23,7 @@ public class Client{
 		try {
 			this.socket = new SocketClient("localhost",26964);
 			this.player = new Player(pseudo);
+			this.player.initialize();
 			this.writter = new ObjectOutputStream(this.socket.getOutputStream());
 			this.reader = new BufferedReader(new InputStreamReader(this.socket.getInputStream()));
 			this.frame = new ClientFrame(pseudo);
@@ -92,19 +93,31 @@ public class Client{
 
 			@Override
 			public void keyPressed(KeyEvent e) {
-				int keyCode = e.getKeyCode();
-				switch(keyCode){
-				case 90 : Client.this.player.setPositionY(Client.this.player.getPositionY()-1);
+				
+				boolean moved = true;
+				
+				switch(e.getKeyCode()){
+				case 90 : 
+					Client.this.player.setPositionY(Client.this.player.getPositionY()-1);
+					System.out.println("UP");
 				break;
-				case 68 : Client.this.player.setPositionX(Client.this.player.getPositionX()+1);;
+				case 68 : 
+					Client.this.player.setPositionX(Client.this.player.getPositionX()+1);
 				break;
-				case 83 : Client.this.player.setPositionY(Client.this.player.getPositionY()+1);;
+				case 83 : 
+					Client.this.player.setPositionY(Client.this.player.getPositionY()+1);
 				break;
-				case 81 : Client.this.player.setPositionX(Client.this.player.getPositionX()-1);;
+				case 81 : 
+					Client.this.player.setPositionX(Client.this.player.getPositionX()-1);
 				break;
+				default :
+					moved = false;
 				}
-				System.out.println("mis a jour : " + Client.this.player.getPositionY());
-				Client.this.sendPersonnage();
+				
+				if (moved){
+					System.out.println("mis a jour : " + Client.this.player);
+					Client.this.sendPersonnage();
+				}
 			}
 		});
 	}

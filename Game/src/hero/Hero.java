@@ -1,35 +1,35 @@
 
-package personnage;
+package hero;
 
 import java.awt.event.KeyListener;
 import java.util.ArrayList;
 import java.util.List;
 
-import jeu.Clavier;
+import game.KeyBoard;
 
 
-public class Héros extends GameObject {
+public class Hero extends GameObject {
 
 	protected Element élément;
-	protected Etat état;
+	protected State état;
 	protected int  nbFireBalls;
 	public List<FireBall> fireBalls;
 	protected int nbAquaBalls;
 	protected int nbSautsActuels;
 	protected int nbSautsMax;
 	protected boolean peutGrimper;
-	protected Clavier clavier;
+	protected KeyBoard clavier;
 
-	public Héros(int x, int y, int hauteur, int largeur, int nbFireBalls, int nbAquaballs){
-		super(x,y, hauteur, largeur);
+	public Hero(Coord2D spawnHeroe, int hauteur, int largeur, int nbFireBalls, int nbAquaballs){
+		super(spawnHeroe, hauteur, largeur);
 		this.élément = Element.FONDAMENTAL;
-		this.état = Etat.IMMOBILE;
+		this.état = State.IMMOBILE;
 		this.nbSautsMax = 0;
 		this.nbSautsActuels = 0;
 		this.nbFireBalls = nbFireBalls;
 		this.nbAquaBalls = nbAquaballs;
 		this.peutGrimper = false;
-		this.clavier = new Clavier();
+		this.clavier = new KeyBoard();
 		this.fireBalls = new ArrayList<FireBall>();
 	}
 
@@ -58,15 +58,15 @@ public class Héros extends GameObject {
 	}
 
 	public void updateElément(){
-		if (this.clavier.a && this.état != Etat.TOMBE){
+		if (this.clavier.a && this.état != State.TOMBE){
 			this.élément = Element.BLIZZ;
 			this.nbSautsMax = 1;
 		}
-		if (this.clavier.z && this.état != Etat.TOMBE){
+		if (this.clavier.z && this.état != State.TOMBE){
 			this.élément = Element.IGNIS;
 			this.nbSautsMax = 1;
 		}
-		if (this.clavier.e && this.état != Etat.TOMBE){
+		if (this.clavier.e && this.état != State.TOMBE){
 			this.élément = Element.ZEPHYR;
 			this.nbSautsMax = 2;
 		}
@@ -78,19 +78,19 @@ public class Héros extends GameObject {
 
 	public void updateÉtat(){
 		if (this.clavier.bas && this.élément == Element.SISMA)
-			this.état = Etat.BOUCLIER;
+			this.état = State.BOUCLIER;
 		if (!this.estAuSol && this.élément != Element.SISMA && this.élément != Element.FONDAMENTAL && this.nbSautsActuels == 0)
 			this.tomber();
 		if (!this.estAuSol && this.élément == Element.SISMA)
-			this.état = Etat.ENCLUME;
+			this.état = State.ENCLUME;
 	}
 
 	public void updateDéplacement(){
 
-		if (this.clavier.droite && !this.clavier.gauche && this.état != Etat.ENCLUME)
+		if (this.clavier.droite && !this.clavier.gauche && this.état != State.ENCLUME)
 			this.déplacerDroite(3);
 
-		if (this.clavier.gauche && !this.clavier.droite && this.état != Etat.ENCLUME)
+		if (this.clavier.gauche && !this.clavier.droite && this.état != State.ENCLUME)
 			this.déplacerGauche(3);
 
 		if (this.clavier.haut && this.élément != Element.SISMA && this.élément != Element.FONDAMENTAL && this.getPeutGrimper())
@@ -102,7 +102,7 @@ public class Héros extends GameObject {
 		if (this.aucuneTouche() && this.estAuSol)
 			this.nePasBouger();
 
-		if (this.état == Etat.ENCLUME)
+		if (this.état == State.ENCLUME)
 			this.activerEnclume(2);
 
 		if (this.clavier.saut)
@@ -137,36 +137,36 @@ public class Héros extends GameObject {
 				!this.clavier.haut   && !this.clavier.bas);
 	}
 	public void nePasBouger(){
-		this.état = Etat.IMMOBILE;
+		this.état = State.IMMOBILE;
 		//this.direction = this.direction.getSauvegarde();
 	}
 	public void déplacerDroite(int vitesse){
 		this.sprite.coordonnée2D.setX(this.sprite.coordonnée2D.getX().getComposante()+vitesse);
 		this.direction = Direction.DROITE;
-		this.état = Etat.MARCHE;
+		this.état = State.MARCHE;
 	}
 	public void tomber(){
-		this.état = Etat.TOMBE;
+		this.état = State.TOMBE;
 		this.direction = Direction.BAS;
 	}
 
 	public void déplacerGauche(int vitesse){
 		this.sprite.coordonnée2D.setX(this.sprite.coordonnée2D.getX().getComposante()-vitesse);
 		this.direction = Direction.GAUCHE;
-		this.état = Etat.MARCHE;
+		this.état = State.MARCHE;
 	}
 
 	public void déplacerHaut(int vitesse){
 		this.sprite.coordonnée2D.setY(this.sprite.coordonnée2D.getY().getComposante()-vitesse);
 		this.direction = Direction.HAUT;
-		this.état = Etat.GRIMPE;
+		this.état = State.GRIMPE;
 	}
 
 	public void déplacerBas(int vitesse){
 		if (!this.estAuSol){
 			this.sprite.coordonnée2D.setY(this.sprite.coordonnée2D.getY().getComposante()+vitesse);
 			this.direction = Direction.BAS;
-			this.état = Etat.GRIMPE;
+			this.état = State.GRIMPE;
 		}	
 	}
 
@@ -181,7 +181,7 @@ public class Héros extends GameObject {
 	}
 
 	public void updateSprite(){
-		this.sprite.setSprite("images/"/*+ this.élément + this.état + this.direction + ".png*/+"oiseau.gif");
+		this.sprite.setSprite("images/" + this.élément + this.état + this.direction + ".png");
 	}
 
 	public int getNbFireBalls() {
@@ -241,7 +241,7 @@ public class Héros extends GameObject {
 		return this.élément;
 	}
 	
-	public Etat getEtat() {
+	public State getEtat() {
 		return this.état;
 	}
 

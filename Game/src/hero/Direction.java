@@ -1,4 +1,4 @@
-package personnage;
+package hero;
 
 public enum Direction {
 	

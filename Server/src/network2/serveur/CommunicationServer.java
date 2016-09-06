@@ -1,19 +1,14 @@
 package network2.serveur;
 
-import ihm.Console;
-
 import java.io.IOException;
 import java.io.ObjectInputStream;
 
 import network2.Player;
-import network2.client.SocketClient;
 
 public class CommunicationServer implements Runnable {
 
 	private Player player;
 	private ObjectInputStream in;
-	private Thread read;
-	private Thread write;
 
 	public CommunicationServer(Player player, ObjectInputStream in) {
 		this.in = in;
@@ -22,24 +17,18 @@ public class CommunicationServer implements Runnable {
 
 	@Override
 	public void run() {
-		
-		read = new Thread(){
-			public void run() {
-				while(true){
-					try {
-						Player p = (Player)in.readObject();
-						//Connexion.updatePlayer(p);
-						Server.print(p.toString());
-					} catch (IOException | ClassNotFoundException e1) {}
-					
-					try {
-						Thread.sleep(2);
-					} catch (InterruptedException e) {
-						e.printStackTrace();
-					}
-				}
+		while(true){
+			try {
+				CommunicationServer.this.player = (Player) CommunicationServer.this.in.readObject();
+				Server.print(Integer.toString(CommunicationServer.this.player.getPositionY()));
+				//Connexion.updatePlayer(p);
+			} catch (IOException | ClassNotFoundException e1) {}
+
+			try {
+				Thread.sleep(200);
+			} catch (InterruptedException e) {
+				e.printStackTrace();
 			}
-		};
-		read.start();
+		}
 	}
 }
