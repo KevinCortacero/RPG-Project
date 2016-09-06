@@ -2,7 +2,7 @@ package hero;
 
 public enum State {
 	
-	MARCHE("Marche"),
+	WALK("Marche"),
 	SAUTE("Saute"),
 	TOMBE("Tombe"),
 	ENCLUME("Enclume"),

@@ -13,4 +13,12 @@ public abstract class GameObject {
 		this.direction = Direction.DROITE;
 		this.estAuSol = false;
 	}
+	
+	public int getX(){
+		return this.sprite.coordonnée2D.getX();
+	}
+	
+	public int getY(){
+		return this.sprite.coordonnée2D.getY();
+	}
 }

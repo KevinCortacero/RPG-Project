@@ -111,9 +111,9 @@ public class Hero extends GameObject {
 
 	public void updateGravité(){
 		if (!this.getPeutGrimper()){
-			if (this.sprite.coordonnée2D.getY().getComposante() < 450){
+			if (this.getY() < 450){
 				this.vecteurY += 0.25F;
-				this.sprite.coordonnée2D.setY(this.sprite.coordonnée2D.getY().getComposante()+(int)this.vecteurY);
+				this.sprite.coordonnée2D.setY(this.getY()+(int)this.vecteurY);
 				this.setEstAuSolFalse();
 			}
 			else {
@@ -127,7 +127,7 @@ public class Hero extends GameObject {
 		if (this.nbSautsActuels < this.nbSautsMax)
 		{
 			this.vecteurY = -10.0F;
-			this.sprite.coordonnée2D.setY(this.sprite.coordonnée2D.getY().getComposante()+(int)this.vecteurY);
+			this.sprite.coordonnée2D.setY(this.getY()+(int)this.vecteurY);
 			this.nbSautsActuels ++ ;
 		}
 		this.clavier.setSautFalse();
@@ -141,9 +141,9 @@ public class Hero extends GameObject {
 		//this.direction = this.direction.getSauvegarde();
 	}
 	public void déplacerDroite(int vitesse){
-		this.sprite.coordonnée2D.setX(this.sprite.coordonnée2D.getX().getComposante()+vitesse);
+		this.sprite.coordonnée2D.setX(this.getX()+vitesse);
 		this.direction = Direction.DROITE;
-		this.état = State.MARCHE;
+		this.état = State.WALK;
 	}
 	public void tomber(){
 		this.état = State.TOMBE;
@@ -151,27 +151,27 @@ public class Hero extends GameObject {
 	}
 
 	public void déplacerGauche(int vitesse){
-		this.sprite.coordonnée2D.setX(this.sprite.coordonnée2D.getX().getComposante()-vitesse);
+		this.sprite.coordonnée2D.setX(this.getX()-vitesse);
 		this.direction = Direction.GAUCHE;
-		this.état = State.MARCHE;
+		this.état = State.WALK;
 	}
 
 	public void déplacerHaut(int vitesse){
-		this.sprite.coordonnée2D.setY(this.sprite.coordonnée2D.getY().getComposante()-vitesse);
+		this.sprite.coordonnée2D.setY(this.getY()-vitesse);
 		this.direction = Direction.HAUT;
 		this.état = State.GRIMPE;
 	}
 
 	public void déplacerBas(int vitesse){
 		if (!this.estAuSol){
-			this.sprite.coordonnée2D.setY(this.sprite.coordonnée2D.getY().getComposante()+vitesse);
+			this.sprite.coordonnée2D.setY(this.getY()+vitesse);
 			this.direction = Direction.BAS;
 			this.état = State.GRIMPE;
 		}	
 	}
 
 	public void activerEnclume(int vitesse){
-		this.sprite.coordonnée2D.setY(this.sprite.coordonnée2D.getY().getComposante()+vitesse);
+		this.sprite.coordonnée2D.setY(this.getY()+vitesse);
 		this.direction = Direction.BAS;
 	}
 

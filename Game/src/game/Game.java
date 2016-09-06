@@ -26,10 +26,10 @@ public class Game extends JPanel {
 		
 		this.carte = Carte.CARTE_BASE;
 		this.hero = new Hero(this.spawnHeroe(),50,50,3,3);
-		this.sol = new Obstacle(0, 500, 100, this.getWidth());
-		this.murGauche = new Obstacle(0, 0, 100, 500);
-		this.murDroit = new Obstacle(1100, 0, 100, 500);
-		this.échelle = new Echelle(1050, 200, 50, 300);
+		this.sol = new Obstacle(new Coord2D(0, 500), 100, this.getWidth());
+		this.murGauche = new Obstacle(new Coord2D(0, 0), 100, 500);
+		this.murDroit = new Obstacle(new Coord2D(1100, 0), 100, 500);
+		this.échelle = new Echelle(new Coord2D(1250, 300), 50, 300);
 	}
 	
 	public void testCollisionSol(){
@@ -40,10 +40,10 @@ public class Game extends JPanel {
 	}
 
 	public void testPeutGrimper(Hero hero, Echelle échelle){
-		if (hero.sprite.coordonnée2D.getX() > échelle.sprite.coordonnée2D.getX()
-		 && hero.sprite.coordonnée2D.getX() < échelle.sprite.coordonnée2D.getX() + échelle.sprite.hitbox.width
-		 && hero.sprite.coordonnée2D.getY() + 20 > échelle.sprite.coordonnée2D.getY()
-		 && hero.sprite.coordonnée2D.getY() + hero.sprite.hitbox.height-1 < échelle.sprite.coordonnée2D.getY() + échelle.sprite.hitbox.height
+		if (hero.getX() > échelle.getX()
+		 && hero.getX() < échelle.getX() + échelle.sprite.hitbox.width
+		 && hero.getY() + 20 > échelle.getY()
+		 && hero.getY() + hero.sprite.hitbox.height-1 < échelle.getY() + échelle.sprite.hitbox.height
 		 && this.getHéros().estAuSol)
 			this.getHéros().setPeutGrimper(true);
 		else
@@ -89,21 +89,21 @@ public class Game extends JPanel {
 		g.drawString("au sol ? : " + this.getHéros().estAuSol, 100, 260);
 		g.drawString("vecteur Y : " + this.getHéros().vecteurY, 100, 280);
 		g.drawString("peut grimper ? : " + ((Hero)this.getHéros()).getPeutGrimper(), 100, 300);
-		g.drawString("x : " + this.getHéros().sprite.coordonnée2D.getX(), 100, 320);
-		g.drawString("y : " + this.getHéros().sprite.coordonnée2D.getY(), 100, 340);
+		g.drawString("x : " + this.getHéros().getX(), 100, 320);
+		g.drawString("y : " + this.getHéros().getY(), 100, 340);
 		g.drawString("nb fire : " + ((Hero)this.getHéros()).fireBalls.size(), 100, 360);
 
-		g.fillRect(this.getSol().sprite.coordonnée2D.getX(),this.getSol().sprite.coordonnée2D.getY(),this.getWidth(),this.getSol().sprite.hitbox.height);
+		g.fillRect(this.getSol().getX(),this.getSol().getY(),this.getWidth(),this.getSol().sprite.hitbox.height);
 		g.setColor(new Color(255,0,0));
-		g.fillRect(this.getMurGauche().sprite.coordonnée2D.getX(), this.getMurGauche().sprite.coordonnée2D.getY(), this.getMurGauche().sprite.hitbox.width, this.getMurGauche().sprite.hitbox.height);
-		g.fillRect(1100, this.getMurDroit().sprite.coordonnée2D.getY(), this.getMurDroit().sprite.hitbox.width, this.getMurDroit().sprite.hitbox.height);
+		g.fillRect(this.getMurGauche().getX(), this.getMurGauche().getY(), this.getMurGauche().sprite.hitbox.width, this.getMurGauche().sprite.hitbox.height);
+		g.fillRect(1100, this.getMurDroit().getY(), this.getMurDroit().sprite.hitbox.width, this.getMurDroit().sprite.hitbox.height);
 		g.setColor(new Color(0,255,0));
-		g.fillRect(1050, this.getEchelle().sprite.coordonnée2D.getY(), this.getEchelle().sprite.hitbox.width, this.getEchelle().sprite.hitbox.height);
-		g.drawImage(this.getHéros().sprite.image, (int)this.getHéros().sprite.coordonnée2D.getX(), (int)this.getHéros().sprite.coordonnée2D.getY(), this);
+		g.fillRect(1050, this.getEchelle().getY(), this.getEchelle().sprite.hitbox.width, this.getEchelle().sprite.hitbox.height);
+		g.drawImage(this.getHéros().sprite.image, this.getHéros().getX(), this.getHéros().getY(), this);
 		g.setColor(new Color(0,0,255));
-		g.drawRect(this.getHéros().sprite.coordonnée2D.getX(), this.getHéros().sprite.coordonnée2D.getY(), 50, 50);
+		g.drawRect(this.getHéros().getX(), this.getHéros().getY(), 50, 50);
 		for (FireBall f : ((Hero)this.getHéros()).fireBalls){
-			g.drawImage(f.sprite.image, f.sprite.coordonnée2D.getX().getComposante(), f.sprite.coordonnée2D.getY().getComposante(), this);
+			g.drawImage(f.sprite.image, f.getX(), f.getY(), this);
 		}
 		this.afficherCarte(g);
 	}
