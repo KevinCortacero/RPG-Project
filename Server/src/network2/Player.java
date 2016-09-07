@@ -11,6 +11,11 @@ public class Player implements Serializable{
 	
 	public Player(String pseudo){
 		this.pseudo = pseudo;
+		this.initialize();
+	}
+	
+	public void setPseudo(String pseudo){
+		this.pseudo = pseudo;
 	}
 	
 	public void initialize(){

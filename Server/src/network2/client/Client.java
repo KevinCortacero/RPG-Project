@@ -37,9 +37,16 @@ public class Client{
 
 	public void sendPersonnage(){
 		try {
-			System.out.println(this.player);
-			this.writter.writeObject(this.player);
+			Player p = new Player("TWARZ");
+			System.out.println("Client : " + p);
+			this.writter.writeObject(p);
 			this.writter.flush();
+			
+			p.setPseudo("KOREUC");
+			System.out.println("Client : " + p);
+			this.writter.writeObject(p);
+			this.writter.flush();
+			
 		} catch (IOException e) {
 			e.printStackTrace();
 		}
