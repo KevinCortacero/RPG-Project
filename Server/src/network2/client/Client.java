@@ -37,7 +37,6 @@ public class Client{
 
 	public void sendPersonnage(){
 		try {
-			 
 			System.out.println(this.player);
 			this.writter.writeObject(this.player);
 			this.writter.flush();
