@@ -5,6 +5,7 @@ import java.io.BufferedReader;
 import java.io.IOException;
 import java.io.InputStreamReader;
 import java.io.ObjectOutputStream;
+import java.net.InetAddress;
 import java.net.Socket;
 import java.net.UnknownHostException;
 
@@ -21,7 +22,7 @@ public class Client{
 
 	public Client(String pseudo) {
 		try {
-			this.socket = new SocketClient("0.0.0.0",26964);
+			this.socket = new Socket(InetAddress.getByName("192.168.1.25"),26964);
 			this.player = new Player(pseudo);
 			this.player.initialize();
 			this.reader = new BufferedReader(new InputStreamReader(this.socket.getInputStream()));
@@ -37,8 +38,6 @@ public class Client{
 
 	public void sendPersonnage(){
 		try {
-			 
-			System.out.println(this.player);
 			this.writter.writeObject(this.player);
 			this.writter.flush();
 			this.writter.reset();
