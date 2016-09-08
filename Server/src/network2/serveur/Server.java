@@ -3,6 +3,7 @@ package network2.serveur;
 import ihm.Console;
 
 import java.io.IOException;
+import java.net.InetAddress;
 import java.net.ServerSocket;
 
 
@@ -30,9 +31,10 @@ public class Server{
 	
 	private void initialiser(){
 		try {
-			this.socketServer = new ServerSocket(26964);
+			this.socketServer = new ServerSocket(26964, 100, InetAddress.getByName("192.168.1.25"));
 			this.out = new Console();
 			this.out.print(" [SERVEUR] Initialisation sur le port " + this.socketServer.getLocalPort());
+			this.out.print(this.socketServer.getInetAddress().getCanonicalHostName().toString());
 			this.t = new Thread(new Connexion());
 		} catch (IOException e) {
 			this.out.sysoutErreur(" [SERVEUR] Le port " + this.socketServer.getLocalPort() + " est déjà utilisé !");
