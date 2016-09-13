@@ -3,11 +3,7 @@ package game;
 import java.awt.Color;
 import java.awt.Dimension;
 import java.awt.Graphics;
-import java.awt.image.BufferedImage;
-import java.io.File;
-import java.io.IOException;
 
-import javax.imageio.ImageIO;
 import javax.swing.JPanel;
 
 import hero.Coord2D;
@@ -27,7 +23,6 @@ public class Game extends JPanel {
 	public Game(Dimension dim){
 		super();
 		this.setPreferredSize(new Dimension((int)dim.getWidth()-50, (int)dim.getHeight() - 200));
-		
 		this.carte = Carte.CARTE_BASE;
 		this.hero = new Hero(this.spawnHeroe(),50,50,3,3);
 		this.sol = new Obstacle(new Coord2D(0, 500), 100, this.getWidth());
@@ -82,6 +77,7 @@ public class Game extends JPanel {
 		return this.carte.getSpawn();
 	}
 	
+	@Override
 	public void paintComponent(Graphics g){
 		g.setColor(new Color(255,255,255));
 		g.fillRect(0, 0, this.getWidth(), this.getHeight());
@@ -103,8 +99,7 @@ public class Game extends JPanel {
 		g.fillRect(1100, this.getMurDroit().getY(), this.getMurDroit().sprite.hitbox.width, this.getMurDroit().sprite.hitbox.height);
 		g.setColor(new Color(0,255,0));
 		g.fillRect(1050, this.getEchelle().getY(), this.getEchelle().sprite.hitbox.width, this.getEchelle().sprite.hitbox.height);
-		
-		g.drawImage(this.getHéros().sprite.image, this.getHéros().getX(), this.getHéros().getY(), this);
+		g.drawImage(this.getHéros().sprite.getImage(), this.getHéros().getX(), this.getHéros().getY(), this);
 		g.setColor(new Color(0,0,255));
 		g.drawRect(this.getHéros().getX(), this.getHéros().getY(), 50, 50);
 		for (FireBall f : ((Hero)this.getHéros()).fireBalls){
