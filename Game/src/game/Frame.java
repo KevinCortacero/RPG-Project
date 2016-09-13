@@ -26,7 +26,7 @@ public class Frame extends JFrame {
 		this.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 		this.setLocationRelativeTo(null);
 		JPanel pane = new JPanel();
-		pane.setBackground(Color.gray);
+		pane.setBackground(new Color(3,3,3));
 		pane.add(this.game);
 		pane.add(new JButton("HEY"));
 		pane.add(new JButton("HEY"));
@@ -45,7 +45,6 @@ public class Frame extends JFrame {
 			} 
 			catch (InterruptedException e) {}
 			this.game.testPeutGrimper((Hero)this.game.getHéros(),this.game.getEchelle());
-			((Hero)this.game.getHéros()).updateHéros();
 			this.game.repaint();
 		}
 	}
