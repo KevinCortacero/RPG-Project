@@ -31,7 +31,7 @@ public class Server{
 	
 	private void initialiser(){
 		try {
-			this.socketServer = new ServerSocket(26964, 100, InetAddress.getByName("192.168.1.25"));
+			this.socketServer = new ServerSocket(26964, 100, InetAddress.getByName("0.0.0.0"));
 			this.out = new Console();
 			this.out.print(" [SERVEUR] Initialisation sur le port " + this.socketServer.getLocalPort());
 			this.out.print(this.socketServer.getInetAddress().getCanonicalHostName().toString());

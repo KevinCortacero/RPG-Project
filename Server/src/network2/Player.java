@@ -11,17 +11,13 @@ public class Player implements Serializable{
 	
 	public Player(String pseudo){
 		this.pseudo = pseudo;
-		this.initialize();
+		this.positionX = 100;
+		this.positionY = 100;
+		System.out.println("Création de " + this);
 	}
 	
 	public void setPseudo(String pseudo){
 		this.pseudo = pseudo;
-	}
-	
-	public void initialize(){
-		this.positionX = 100;
-		this.positionY = 100;
-		System.out.println("Création de " + this);
 	}
 
 	public void drawPlayer(Graphics g){
