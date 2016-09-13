@@ -15,18 +15,18 @@ public class Client{
 
 	private Socket socket;
 	private BufferedReader reader;
-	private ObjectOutputStream writter;
 	private Player player;
 	private ClientFrame frame;
+	private ObjectOutputStream writter;
 
 	public Client(String pseudo) {
 		try {
-			this.socket = new SocketClient("localhost",26964);
+			this.socket = new SocketClient("0.0.0.0",26964);
 			this.player = new Player(pseudo);
 			this.player.initialize();
-			this.writter = new ObjectOutputStream(this.socket.getOutputStream());
 			this.reader = new BufferedReader(new InputStreamReader(this.socket.getInputStream()));
 			this.frame = new ClientFrame(pseudo);
+			this.writter = new ObjectOutputStream(this.socket.getOutputStream());
 			this.addListener();
 		} catch (UnknownHostException e) {
 			e.printStackTrace();
@@ -37,16 +37,10 @@ public class Client{
 
 	public void sendPersonnage(){
 		try {
-			Player p = new Player("TWARZ");
-			System.out.println("Client : " + p);
-			this.writter.writeObject(p);
+			System.out.println(this.player);
+			this.writter.writeObject(this.player);
 			this.writter.flush();
-			
-			p.setPositionX(90);
-		    this.writter.putFields();
-		    this.writter.writeFields();
-			this.writter.flush();
-			
+			this.writter.reset();
 		} catch (IOException e) {
 			e.printStackTrace();
 		}

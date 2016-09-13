@@ -110,6 +110,8 @@ public class Game extends JPanel {
 		for (FireBall f : ((Hero)this.getHéros()).fireBalls){
 			g.drawImage(f.sprite.image, f.getX(), f.getY(), this);
 		}
+		g.setColor(new Color(0,0,0));
+		g.drawLine(this.getHéros().getX()+25, this.getHéros().getY()+25, this.getHéros().getX()+25 , this.getHéros().getY()+25 + (int) this.getHéros().vecteurY * 15);
 		this.afficherCarte(g);
 	}
 

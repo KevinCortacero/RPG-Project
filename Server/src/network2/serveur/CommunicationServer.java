@@ -19,18 +19,11 @@ public class CommunicationServer implements Runnable {
 	public void run() {
 		while(true){
 			try {
-				// CommunicationServer.this.player = (Player) CommunicationServer.this.in.readObject();
-				Integer test = (Integer) CommunicationServer.this.in.readObject();
-				Server.print(Integer.toString(CommunicationServer.this.player.getPositionY()));
-				Server.print(Integer.toString(CommunicationServer.this.player.getPositionX()));
+				CommunicationServer.this.player = (Player) CommunicationServer.this.in.readObject();
+				Server.print(CommunicationServer.this.player.toString());
 				//Connexion.updatePlayer(p);
 			} catch (IOException | ClassNotFoundException e1) {}
 
-			try {
-				Thread.sleep(200);
-			} catch (InterruptedException e) {
-				e.printStackTrace();
-			}
 		}
 	}
 }

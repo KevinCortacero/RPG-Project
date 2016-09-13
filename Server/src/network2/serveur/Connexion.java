@@ -68,17 +68,15 @@ public class Connexion implements Runnable {
 	private void register(Socket socketPlayer){
 		try {
 			ObjectInputStream in = new ObjectInputStream(socketPlayer.getInputStream());
-			System.out.println((Player)in.readObject());
-			System.out.println((Player)in.readObject());
-			/*Player player= (Player)in.readObject();
-				Server.print(" [SERVEUR] --> " + player + " vient de se connecter au serveur");
-				Connexion.addClient(player.getPseudo(), new ConnectedClient(socketPlayer,player));
-				Thread t1 = new Thread(new CommunicationServer(player, in ));
-				t1.start();
-			*/
+			Player player= (Player)in.readObject();
+			Server.print(" [SERVEUR] --> " + player + " vient de se connecter au serveur");
+			Connexion.addClient(player.getPseudo(), new ConnectedClient(socketPlayer,player));
+			Thread t1 = new Thread(new CommunicationServer(player, in ));
+			t1.start();
 		} catch (IOException e) {
 			e.printStackTrace();
 		} catch (ClassNotFoundException e) {
+			// TODO Auto-generated catch block
 			e.printStackTrace();
 		}
 	}
