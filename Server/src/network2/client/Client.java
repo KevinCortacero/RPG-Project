@@ -42,9 +42,9 @@ public class Client{
 			this.writter.writeObject(p);
 			this.writter.flush();
 			
-			p.setPseudo("KOREUC");
-			System.out.println("Client : " + p);
-			this.writter.writeObject(p);
+			p.setPositionX(90);
+		    this.writter.putFields();
+		    this.writter.writeFields();
 			this.writter.flush();
 			
 		} catch (IOException e) {

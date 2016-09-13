@@ -8,7 +8,7 @@ import java.util.List;
 import game.KeyBoard;
 
 
-public class Hero extends GameObject {
+public class Hero extends GameObject implements Alive{
 
 	protected Element élément;
 	protected State état;
@@ -31,8 +31,29 @@ public class Hero extends GameObject {
 		this.peutGrimper = false;
 		this.clavier = new KeyBoard();
 		this.fireBalls = new ArrayList<FireBall>();
+		this.updateHéros();
+		this.live();
+		this.sprite.animate();
 	}
 
+	@Override
+	public void live() {
+		Thread live = new Thread(){
+			public void run() {
+				while(true){
+					try {
+						Thread.sleep(8);
+					} catch (InterruptedException e) {
+						// TODO Auto-generated catch block
+						e.printStackTrace();
+					}
+					Hero.this.updateHéros();
+				}
+			}
+		};
+		live.start();
+	}
+	
 	public void updateHéros(){
 		this.updateElément();
 		this.updateAction();
