@@ -2,6 +2,7 @@ package hero;
 
 import java.awt.Image;
 import java.awt.Rectangle;
+import java.awt.image.BufferedImage;
 import java.io.File;
 import java.io.IOException;
 
@@ -22,20 +23,21 @@ public class Sprite {
 		Thread t = new Thread(){
 			public void run() {
 				while(true){
-					for (int i = 0; i <=5; i ++){
-						try {
-							Thread.sleep(100);
-						} catch (InterruptedException e1) {
-							// TODO Auto-generated catch block
-							e1.printStackTrace();
+					try {
+						for (int i = 0; i < 6; i ++){
+							try {
+								Thread.sleep(120);
+							} catch (InterruptedException e1) {
+								// TODO Auto-generated catch block
+								e1.printStackTrace();
+							}
+							Sprite.this.image = ImageIO.read(new File(Sprite.this.imagePath)).getSubimage(i*Sprite.this.hitbox.width, 0, Sprite.this.hitbox.width, Sprite.this.hitbox.height);
 						}
-						try {
-							Sprite.this.image = ImageIO.read(new File(Sprite.this.imagePath)).getSubimage(i*50, 0, 50, 50);
-						} catch (IOException e) {
-							// TODO Auto-generated catch block
-							e.printStackTrace();
-						}
+					} catch (IOException e2) {
+						// TODO Auto-generated catch block
+						e2.printStackTrace();
 					}
+					
 				}
 			}
 		};
