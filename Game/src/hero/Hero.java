@@ -31,9 +31,10 @@ public class Hero extends GameObject implements Alive{
 		this.peutGrimper = false;
 		this.clavier = new KeyBoard();
 		this.fireBalls = new ArrayList<FireBall>();
-		
 		this.live();
+		
 		this.updateSprite();
+		this.sprite.animate(largeur, hauteur);
 	}
 
 	@Override
@@ -203,7 +204,7 @@ public class Hero extends GameObject implements Alive{
 	}
 
 	public void updateSprite(){
-		this.sprite.changeAnimation("images/" + this.élément + this.état + this.direction + ".png", 50, 50);
+		this.sprite.setPath("images/" + this.élément + this.état + this.direction + ".png");
 	}
 
 	public int getNbFireBalls() {

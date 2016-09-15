@@ -34,7 +34,7 @@ public class Frame extends JFrame {
 		pane.add(new JButton("HEY"));
 		this.add(pane);
 		this.addKeyListener(((Hero)this.game.getHéros()).getClavier());
-		
+		this.validate();
 		trame();
 	}
 	

@@ -9,35 +9,25 @@ public class Sprite{
 	public Image image;
 	private Thread animation;
 	private Animation anim;
-	private String path;
+	public String path;
 
 	public Sprite (Coord2D coord, int hauteur, int largeur){
 		this.coordonnée2D = coord;
 		this.hitbox = new Rectangle(coord.getX(), coord.getY(),hauteur,largeur);
+		this.anim = new Animation(this, largeur, hauteur);
 	}
 
-	private void animate(String spritePath, int width, int height) {
-		this.anim = new Animation(spritePath, height, height);
+	public void animate(int width, int height) {
+		
 		this.animation = new Thread(this.anim);
 		this.animation.start();
 	}
 
-	public void changeAnimation(String spritePath, int width, int height) {
-		if (this.path != null){
-			if (!this.path.equals(spritePath)){
-				if (this.animation != null)
-					this.animation = null;
-				this.animate(spritePath, width, height);
-			}
-		}
-		else{
-			this.animate(spritePath, width, height);
-		}
-		this.path = spritePath;
-	}
-
-
 	public Image getImage(){
 		return this.anim.getCurrentTile();
+	}
+	
+	public void setPath(String path){
+		this.anim.setPath(path);
 	}
 }
