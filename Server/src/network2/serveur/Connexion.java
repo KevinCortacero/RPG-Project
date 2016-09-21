@@ -74,7 +74,7 @@ public class Connexion implements Runnable {
 			Connexion.addClient(player.getPseudo(), new ConnectedClient(socketPlayer,player));
 			Thread t1 = new Thread(new CommunicationServer(player, in ));
 			t1.start();
-			
+
 		} catch (IOException e) {
 			e.printStackTrace();
 		} catch (ClassNotFoundException e) {

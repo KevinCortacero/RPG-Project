@@ -22,9 +22,8 @@ public class Client{
 
 	public Client(String pseudo) {
 		try {
-			this.socket = new Socket(InetAddress.getByName("192.168.1.25"),26964);
+			this.socket = new Socket(InetAddress.getByName("86.199.87.65"),26964);
 			this.player = new Player(pseudo);
-			this.player.initialize();
 			this.reader = new BufferedReader(new InputStreamReader(this.socket.getInputStream()));
 			this.frame = new ClientFrame(pseudo);
 			this.writter = new ObjectOutputStream(this.socket.getOutputStream());
@@ -32,13 +31,13 @@ public class Client{
 		} catch (UnknownHostException e) {
 			e.printStackTrace();
 		} catch (IOException e) {
-			e.printStackTrace();
+			System.out.println("Impossible de se connecter au serveur !");
 		}
 	}
 
 	public void sendPersonnage(){
-
 		try {
+			System.out.println(this.player);
 			this.writter.writeObject(this.player);
 			this.writter.flush();
 			this.writter.reset();
@@ -69,6 +68,7 @@ public class Client{
 			koreuc = new Client("Koreuc");
 			koreuc.sendPersonnage();
 			String message = koreuc.reader.readLine();
+			System.out.println(message);
 			System.out.println(message);
 
 		} catch (UnknownHostException e) {
