@@ -1,5 +1,8 @@
 package hero;
 
+import java.awt.Graphics;
+import java.awt.Graphics2D;
+
 import javax.swing.ImageIcon;
 
 public class FireBall extends GameObject{
@@ -39,5 +42,10 @@ public class FireBall extends GameObject{
 		this.sprite.coordonnée2D.setX( this.getX() + (int)this.vecteurX );
 		this.sprite.coordonnée2D.setY( this.getY() + (int)this.vecteurY );
 		this.vecteurY += 0.15F;
+	}
+
+	@Override
+	public void draw(Graphics g) {
+		g.drawImage(this.sprite.image, this.getX(), this.getY(), null);
 	}
 }

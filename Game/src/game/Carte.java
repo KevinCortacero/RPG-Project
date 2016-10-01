@@ -2,8 +2,9 @@ package game;
 
 import hero.Coord;
 import hero.Coord2D;
+import hero.Drawable;
 
-public abstract class Carte {
+public abstract class Carte implements Drawable{
 	
 	public static final Carte CARTE_BASE = new CarteBase();
 	public static final Carte CARTE_FEU = new CarteFeu();

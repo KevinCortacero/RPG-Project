@@ -1,6 +1,8 @@
 
 package hero;
 
+import java.awt.Color;
+import java.awt.Graphics;
 import java.awt.event.KeyListener;
 import java.util.ArrayList;
 import java.util.List;
@@ -10,8 +12,8 @@ import game.KeyBoard;
 
 public class Hero extends GameObject implements Alive{
 
-	protected Element élément;
-	protected State état;
+	protected Element element;
+	protected State state;
 	protected int  nbFireBalls;
 	public List<FireBall> fireBalls;
 	protected int nbAquaBalls;
@@ -22,8 +24,8 @@ public class Hero extends GameObject implements Alive{
 
 	public Hero(Coord2D spawnHeroe, int hauteur, int largeur, int nbFireBalls, int nbAquaballs){
 		super(spawnHeroe, hauteur, largeur);
-		this.élément = Element.FONDAMENTAL;
-		this.état = State.IMMOBILE;
+		this.element = Element.FONDAMENTAL;
+		this.state = State.IMMOBILE;
 		this.nbSautsMax = 0;
 		this.nbSautsActuels = 0;
 		this.nbFireBalls = nbFireBalls;
@@ -56,7 +58,7 @@ public class Hero extends GameObject implements Alive{
 	}
 	
 	public void updateHéros(){
-		this.updateElément();
+		this.updateElement();
 		this.updateAction();
 		this.updateÉtat();
 		this.updateGravité();
@@ -75,57 +77,57 @@ public class Hero extends GameObject implements Alive{
 	}
 
 	private void tirer() {
-		this.fireBalls.add(new FireBall(this.vecteurY, this.sprite.coordonnée2D,this.direction, this.élément));
+		this.fireBalls.add(new FireBall(this.vecteurY, this.sprite.coordonnée2D,this.direction, this.element));
 		this.clavier.tir = false;
 	}
 
-	public void updateElément(){
-		if (this.clavier.a && this.état != State.TOMBE){
-			this.élément = Element.BLIZZ;
+	public void updateElement(){
+		if (this.clavier.a && this.state != State.TOMBE && this.element != Element.BLIZZ){
+			this.element = Element.BLIZZ;
 			this.nbSautsMax = 1;
 		}
-		if (this.clavier.z && this.état != State.TOMBE){
-			this.élément = Element.IGNIS;
+		if (this.clavier.z && this.state != State.TOMBE){
+			this.element = Element.IGNIS;
 			this.nbSautsMax = 1;
 		}
-		if (this.clavier.e && this.état != State.TOMBE){
-			this.élément = Element.ZEPHYR;
+		if (this.clavier.e && this.state != State.TOMBE){
+			this.element = Element.ZEPHYR;
 			this.nbSautsMax = 2;
 		}
 		if (this.clavier.r){
-			this.élément = Element.SISMA;
+			this.element = Element.SISMA;
 			this.nbSautsMax = 0;
 		}
 		
 	}
 
 	public void updateÉtat(){
-		if (this.clavier.bas && this.élément == Element.SISMA)
-			this.état = State.BOUCLIER;
-		if (!this.estAuSol && this.élément != Element.SISMA && this.élément != Element.FONDAMENTAL && this.nbSautsActuels == 0)
+		if (this.clavier.bas && this.element == Element.SISMA)
+			this.state = State.BOUCLIER;
+		if (!this.estAuSol && this.element != Element.SISMA && this.element != Element.FONDAMENTAL && this.nbSautsActuels == 0)
 			this.tomber();
-		if (!this.estAuSol && this.élément == Element.SISMA)
-			this.état = State.ENCLUME;
+		if (!this.estAuSol && this.element == Element.SISMA)
+			this.state = State.ENCLUME;
 	}
 
 	public void updateDéplacement(){
 
-		if (this.clavier.droite && !this.clavier.gauche && this.état != State.ENCLUME)
-			this.déplacerDroite(3);
+		if (this.clavier.droite && !this.clavier.gauche && this.state != State.ENCLUME)
+			this.déplacerDroite(2);
 
-		if (this.clavier.gauche && !this.clavier.droite && this.état != State.ENCLUME)
-			this.déplacerGauche(3);
+		if (this.clavier.gauche && !this.clavier.droite && this.state != State.ENCLUME)
+			this.déplacerGauche(2);
 
-		if (this.clavier.haut && this.élément != Element.SISMA && this.élément != Element.FONDAMENTAL && this.getPeutGrimper())
+		if (this.clavier.haut && this.element != Element.SISMA && this.element != Element.FONDAMENTAL && this.getPeutGrimper())
 			this.déplacerHaut(1);
 
-		if (this.clavier.bas && this.élément != Element.SISMA && this.élément != Element.FONDAMENTAL && this.getPeutGrimper())
+		if (this.clavier.bas && this.element != Element.SISMA && this.element != Element.FONDAMENTAL && this.getPeutGrimper())
 			this.déplacerBas(2);
 
 		if (this.aucuneTouche() && this.estAuSol)
 			this.nePasBouger();
 
-		if (this.état == State.ENCLUME)
+		if (this.state == State.ENCLUME)
 			this.activerEnclume(2);
 
 		if (this.clavier.saut)
@@ -135,7 +137,7 @@ public class Hero extends GameObject implements Alive{
 	public void updateGravité(){
 		if (!this.getPeutGrimper()){
 			if (this.getY() < 450){
-				this.vecteurY += 0.25F;
+				this.vecteurY += 0.15F * 2;
 				this.sprite.coordonnée2D.setY(this.getY()+(int)this.vecteurY);
 				this.setEstAuSolFalse();
 			}
@@ -160,36 +162,36 @@ public class Hero extends GameObject implements Alive{
 				!this.clavier.haut   && !this.clavier.bas);
 	}
 	public void nePasBouger(){
-		this.état = State.IMMOBILE;
+		this.state = State.IMMOBILE;
 		//this.direction = this.direction.getSauvegarde();
 	}
 	public void déplacerDroite(int vitesse){
 		this.sprite.coordonnée2D.setX(this.getX()+vitesse);
 		this.direction = Direction.DROITE;
-		this.état = State.WALK;
+		this.state = State.WALK;
 	}
 	public void tomber(){
-		this.état = State.TOMBE;
+		this.state = State.TOMBE;
 		this.direction = Direction.BAS;
 	}
 
 	public void déplacerGauche(int vitesse){
 		this.sprite.coordonnée2D.setX(this.getX()-vitesse);
 		this.direction = Direction.GAUCHE;
-		this.état = State.WALK;
+		this.state = State.WALK;
 	}
 
 	public void déplacerHaut(int vitesse){
 		this.sprite.coordonnée2D.setY(this.getY()-vitesse);
 		this.direction = Direction.HAUT;
-		this.état = State.GRIMPE;
+		this.state = State.GRIMPE;
 	}
 
 	public void déplacerBas(int vitesse){
 		if (!this.estAuSol){
 			this.sprite.coordonnée2D.setY(this.getY()+vitesse);
 			this.direction = Direction.BAS;
-			this.état = State.GRIMPE;
+			this.state = State.GRIMPE;
 		}	
 	}
 
@@ -204,7 +206,7 @@ public class Hero extends GameObject implements Alive{
 	}
 
 	public void updateSprite(){
-		this.sprite.setPath("images/" + this.élément + this.état + this.direction + ".png");
+		this.sprite.setPath("images/" + this.element + this.state + this.direction + ".png");
 	}
 
 	public int getNbFireBalls() {
@@ -261,14 +263,28 @@ public class Hero extends GameObject implements Alive{
 	}
 
 	public Element getElement() {
-		return this.élément;
+		return this.element;
 	}
 	
 	public State getEtat() {
-		return this.état;
+		return this.state;
 	}
 
 	public KeyListener getClavier() {
 		return this.clavier;
+	}
+
+	@Override
+	public void draw(Graphics g) {
+		// Draw image
+		g.drawImage(this.sprite.getImage(), this.getX(), this.getY(), null);
+		
+		// Draw hitbox as a blue rectangle
+		g.setColor(new Color(0,0,255));
+		g.drawRect(this.getX(), this.getY(), 50, 50);
+		
+		// Draw vector as a black line
+		g.setColor(new Color(0,0,0));
+		g.drawLine(this.getX()+25, this.getY()+25, this.getX()+25 , this.getY()+25 + (int) this.vecteurY * 15);
 	}
 }

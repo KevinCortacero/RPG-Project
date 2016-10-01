@@ -3,6 +3,7 @@ package application.interface_Graphique_Créateur.PanelPrincipal;
 import java.awt.Graphics;
 import java.awt.Image;
 import java.awt.Toolkit;
+import java.awt.image.BufferedImage;
 import java.io.BufferedReader;
 import java.io.File;
 import java.io.FileInputStream;
@@ -14,6 +15,7 @@ import java.io.InputStreamReader;
 import java.util.ArrayList;
 import java.util.List;
 
+import javax.imageio.ImageTypeSpecifier;
 import javax.swing.ImageIcon;
 
 import application.fonction.Origine;
@@ -45,11 +47,11 @@ public class Level {
 	public void setCurrentFile(File currentFile) {
 		this.file = currentFile;
 	}
-	
+
 	public List<Tile> getMap() {
 		return map;
 	}
-	
+
 	public int getBackgroundNum() {
 		return backgroundNum;
 	}
@@ -118,14 +120,14 @@ public class Level {
 					}
 					if (y == 0){
 						this.matrice[xMatrice+1][y] = Integer.parseInt(String.valueOf(ligne.charAt(ligne.length()-1)));
-					if (this.matrice[xMatrice+1][y] != 0)
-					this.setBackgroundNum(this.matrice[xMatrice+1][y]);
-					else
-						this.setBackgroundNum(0);
+						if (this.matrice[xMatrice+1][y] != 0)
+							this.setBackgroundNum(this.matrice[xMatrice+1][y]);
+						else
+							this.setBackgroundNum(0);
 					}
 
 					y ++;
-					this.tileSize = new Tile(1,1,new ImageIcon("images\\1.utilitaires\\angleMax.jpg"), 1);
+					this.tileSize = new Tile(1,1,new ImageIcon("images\\1.utilitaires\\angleMax.jpg").getImage(), 1);
 					this.tileSize.setX(xMatrice);
 				}
 
@@ -142,9 +144,10 @@ public class Level {
 		for(int y = 0; y < this.tileSize.getY() ; y ++){
 			for(int x = 0; x < this.tileSize.getX(); x ++){
 				if (this.matrice[x][y] != 0)
-					this.map.add(new Tile(x,y,this.getTileMatrice(this.matrice[x][y]), this.matrice[x][y]));
+					this.map.add(new Tile(x,y,this.getTileMatrice(this.matrice[x][y]).getImage().getScaledInstance(ObjetIcone.tailleImageJeu, ObjetIcone.tailleImageJeu, Image.SCALE_SMOOTH), this.matrice[x][y]));
 			}
 		}
+		PanelPrincipalCréateur.getPanel().repaint();
 	}
 
 	public Tile getTile(int x, int y){
@@ -159,44 +162,47 @@ public class Level {
 	}
 
 	public ImageIcon getTileMatrice(int numéro){
-		return new ImageIcon(PanelChoixObjetsCréateur.getPanel().getListeImageNuméro().get(numéro).getImage().getScaledInstance(ObjetIcone.tailleImageJeu,ObjetIcone.tailleImageJeu, Image.SCALE_SMOOTH));
+		return new ImageIcon(PanelChoixObjetsCréateur.getPanel().getListeImageNuméro().get(numéro).getImage()/*.getScaledInstance(ObjetIcone.tailleImageJeu,ObjetIcone.tailleImageJeu, Image.SCALE_SMOOTH)*/);
 	}
-	
+
 	public void afficherCarte(Graphics g){
 
 		// affichage du background en premier
 		if (this.getBackgroundNum() != 0)
-			g.drawImage(this.getTileMatrice(this.backgroundNum).getImage(), 0, 0,Toolkit.getDefaultToolkit().getScreenSize().width, Toolkit.getDefaultToolkit().getScreenSize().height,  null);
+			g.drawImage(this.getTileMatrice(this.backgroundNum).getImage(), Origine.getX(), Origine.getY(), null);
 
 		// affichage des Tiles
 		if (!this.getMap().isEmpty()){
 			for (Tile tile : this.getMap()){
 				if (tile.getNuméro() > 1)
-			g.drawImage(tile.getImageIcon().getImage(),Origine.getX()+tile.getX()*ObjetIcone.tailleImageJeu,Origine.getY()+tile.getY()*ObjetIcone.tailleImageJeu,null);
-
+					g.drawImage(tile.getImageIcon(),Origine.getX()+tile.getX()*ObjetIcone.tailleImageJeu,Origine.getY()+tile.getY()*ObjetIcone.tailleImageJeu, null);
 			}
 		}
-
+		
+		Image hBorder = new ImageIcon("imagesSpeciales\\bordureH.jpg").getImage();
+		hBorder = new ImageIcon(hBorder.getScaledInstance(ObjetIcone.tailleImageJeu, ObjetIcone.tailleImageJeu,Image.SCALE_DEFAULT)).getImage();
+		Image vBorder = new ImageIcon("imagesSpeciales\\bordureV.jpg").getImage();
+		vBorder = new ImageIcon(vBorder.getScaledInstance(ObjetIcone.tailleImageJeu, ObjetIcone.tailleImageJeu,Image.SCALE_DEFAULT)).getImage();
 		// affichage des bordures
 		for(int y = 0; y <= this.getTileSize().getY() ; y ++){
 			for(int x = 0; x <= this.getTileSize().getX() ; x ++){
 				if (y == this.getTileSize().getY() && x != this.getTileSize().getX() )
-					g.drawImage(new ImageIcon("imagesSpeciales\\bordureV.jpg").getImage(),Origine.getX()+x*ObjetIcone.tailleImageJeu,Origine.getY()+y*ObjetIcone.tailleImageJeu, null);
+					g.drawImage(vBorder,Origine.getX()+x*ObjetIcone.tailleImageJeu,Origine.getY()+y*ObjetIcone.tailleImageJeu, null);
 
 				if (x == this.getTileSize().getX() && y != this.getTileSize().getY() )
-					g.drawImage(new ImageIcon("imagesSpeciales\\bordureH.jpg").getImage(),Origine.getX()+x*ObjetIcone.tailleImageJeu,Origine.getY()+y*ObjetIcone.tailleImageJeu, null);
+					g.drawImage(hBorder,Origine.getX()+x*ObjetIcone.tailleImageJeu,Origine.getY()+y*ObjetIcone.tailleImageJeu, null);
 			}
 		}
-		
-		g.drawImage(this.getMap().get(0).getImageIcon().getImage(),Origine.getX()+this.getMap().get(0).getX()*ObjetIcone.tailleImageJeu,Origine.getY()+this.getMap().get(0).getY()*ObjetIcone.tailleImageJeu,null);
+
+		g.drawImage(new ImageIcon(this.getMap().get(0).getImageIcon().getScaledInstance(ObjetIcone.tailleImageJeu, ObjetIcone.tailleImageJeu, Image.SCALE_SMOOTH)).getImage(),Origine.getX()+this.getMap().get(0).getX()*ObjetIcone.tailleImageJeu,Origine.getY()+this.getMap().get(0).getY()*ObjetIcone.tailleImageJeu,null);
 	}
-	
+
 	public void gestionClicGauche(int x, int y, ObjetCourant objetCourant){
 
 		// on remplace la Tile
 		if (objetCourant.getNuméro() != this.getTileSize().getNuméro() && this.getTile(x, y).getNuméro() != this.getTileSize().getNuméro()){
 			this.getMap().remove(this.getTile(x, y));
-			this.getMap().add(new Tile(x, y, objetCourant.getImageIcon(), objetCourant.getNuméro()));
+			this.getMap().add(new Tile(x, y, objetCourant.getImage(), objetCourant.getNuméro()));
 		}
 
 		// on replace la bordure s'il s'agit de la Tile de gestion de la taille de la map

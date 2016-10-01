@@ -1,15 +1,15 @@
 package application.interface_Graphique_Créateur.PanelPrincipal;
 
-import javax.swing.ImageIcon;
+import java.awt.Image;
 
 public class Tile {
 
 	private int x;
 	private int y;
-	private ImageIcon image;
+	private Image image;
 	private int numéro;
 	
-	public Tile(int x, int y, ImageIcon image, int numéro){
+	public Tile(int x, int y, Image image, int numéro){
 		this.x = x;
 		this.y = y;
 		this.image = image;
@@ -20,7 +20,7 @@ public class Tile {
 		this(0,0,null,numéro);
 	}
 	
-	public ImageIcon getImageIcon(){
+	public Image getImageIcon(){
 		return this.image;
 	}
 	

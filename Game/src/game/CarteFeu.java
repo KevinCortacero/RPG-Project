@@ -1,5 +1,8 @@
  package game;
 
+import java.awt.Color;
+import java.awt.Graphics;
+
 import hero.Coord;
 
 public class CarteFeu extends Carte{
@@ -28,5 +31,16 @@ public class CarteFeu extends Carte{
 	@Override
 	public int getTailleMaxY() {
 		return CarteFeu.TAILLE_MAX_Y;
+	}
+	
+	@Override
+	public void draw(Graphics g) {
+		g.setColor(new Color(120,120,120));
+		for (int i=0; i <= this.getTailleMaxX()-1; i++){
+			for (int j=0; j <= this.getTailleMaxY()-1; j++){
+				if (this.getMap()[i][j].getComposante() == 1)
+					g.fillRect(20*i, 20*j, 20, 20);
+			}
+		}
 	}
 }

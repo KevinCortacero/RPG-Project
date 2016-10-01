@@ -1,23 +1,20 @@
 package game;
 
-import hero.Coord;
+import java.awt.Graphics;
+import java.awt.Image;
+
+import javax.swing.ImageIcon;
 
 public class CarteBase extends Carte {
 	
 	private static final int TAILLE_MAX_X = 5;
 	private static final int TAILLE_MAX_Y = 5;
 	
+	private Image background;
+	
 	public CarteBase(){
 		super("base",CarteBase.TAILLE_MAX_X, CarteBase.TAILLE_MAX_Y, 100, 400);
-		
-		for (int i=0; i <= TAILLE_MAX_X-1; i++){
-			for (int j=0; j <= TAILLE_MAX_Y-1; j++){
-				if (i == j)
-					this.setCoordonnées(i, j, new Coord(1));
-				else
-					this.setCoordonnées(i, j, new Coord(0));
-			}
-		}
+		this.background = new ImageIcon("images/bg.png").getImage();
 	}
 	
 	public int getTailleMaxX(){
@@ -26,5 +23,10 @@ public class CarteBase extends Carte {
 	
 	public int getTailleMaxY(){
 		return CarteBase.TAILLE_MAX_Y;
+	}
+
+	@Override
+	public void draw(Graphics g) {
+		g.drawImage(this.background ,-1500 , -460, null);
 	}
 }

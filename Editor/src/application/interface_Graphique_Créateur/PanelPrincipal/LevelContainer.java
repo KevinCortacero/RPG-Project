@@ -4,7 +4,6 @@ import java.util.HashMap;
 import java.util.Map;
 
 import application.fonction.Origine;
-import application.interface_Graphique_Créateur.FrameCréateur;
 
 public class LevelContainer{
 
@@ -29,8 +28,7 @@ public class LevelContainer{
 
 	public void changerLevel(String clé){
 		Origine.reset();
-		System.out.println("On change de Level dans le Container");
 		this.level = this.listeLevel.get(clé);
-		System.out.println(FrameCréateur.getFrame().getKeyListeners()[0]);
+		PanelPrincipalCréateur.getPanel().repaint();
 	}
 }
