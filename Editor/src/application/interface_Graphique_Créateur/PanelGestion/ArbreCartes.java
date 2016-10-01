@@ -15,7 +15,6 @@ import javax.swing.tree.DefaultMutableTreeNode;
 import javax.swing.tree.DefaultTreeModel;
 
 import application.interface_Graphique_Créateur.FrameCréateur;
-import application.interface_Graphique_Créateur.KeyBoard;
 import application.interface_Graphique_Créateur.PanelPrincipal.Level;
 import application.interface_Graphique_Créateur.PanelPrincipal.PanelPrincipalCréateur;
 

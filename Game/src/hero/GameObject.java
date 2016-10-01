@@ -1,6 +1,6 @@
 package hero;
 
-public abstract class GameObject {
+public abstract class GameObject implements Drawable{
 	
 	public float vecteurY;
 	public Direction direction;

@@ -3,6 +3,6 @@ package game;
 public class Main {
 
 	public static void main(String[] args){
-		Frame f = new Frame();
+		Frame f = new Frame();	
 	}
 }

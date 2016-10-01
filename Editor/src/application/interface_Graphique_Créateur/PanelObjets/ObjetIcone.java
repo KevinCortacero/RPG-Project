@@ -8,7 +8,6 @@ import java.awt.event.ActionListener;
 import javax.swing.ImageIcon;
 import javax.swing.JButton;
 
-import application.interface_Graphique_Créateur.PanelPrincipal.LevelContainer;
 import application.interface_Graphique_Créateur.PanelPrincipal.PanelPrincipalCréateur;
 import application.jeu.ObjetCourant;
 
@@ -20,8 +19,8 @@ public class ObjetIcone extends JButton implements ActionListener {
 	private PanelPrincipalCréateur panel;
 	private int numéro;
 
-	public static final int tailleImageJeu = 50;
-	public static final int tailleImageIcone = 46;
+	public static final int tailleImageJeu = 10;
+	public static final int tailleImageIcone = 30;
 
 	public ObjetIcone(Image imageTailleRéelle,  int numéro) {
 		this.setPreferredSize(new Dimension(ObjetIcone.tailleImageIcone,ObjetIcone.tailleImageIcone));

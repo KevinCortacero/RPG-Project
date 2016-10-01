@@ -17,21 +17,21 @@ public class Frame extends JFrame {
 	
 	public Frame() {
 		super("ELEMENS 1.0");
-		
-		this.setVisible(true);
+	
 		this.setResizable(false);
 		Dimension dim = Toolkit.getDefaultToolkit().getScreenSize();
-		this.setSize(dim);
 		this.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
-		this.setLocationRelativeTo(null);
+		this.setExtendedState(JFrame.MAXIMIZED_BOTH); 
+		this.setUndecorated(true);
+		this.setVisible(true);
 		JPanel pane = new JPanel();
-		pane.setBackground(new Color(3,3,3));
+		pane.setBackground(new Color(40,40,40));
 		this.game = new Game(dim);
 		pane.add(this.game);
-		pane.add(new JButton("HEY"));
-		pane.add(new JButton("HEY"));
-		pane.add(new JButton("HEY"));
-		pane.add(new JButton("HEY"));
+		pane.add(new JButton("STATISTIQUES"));
+		pane.add(new JButton("STUFF"));
+		pane.add(new JButton("MAP"));
+		pane.add(new JButton("WORLD"));
 		this.add(pane);
 		this.addKeyListener(((Hero)this.game.getHéros()).getClavier());
 		this.validate();
@@ -44,7 +44,7 @@ public class Frame extends JFrame {
 			
 			try 
 			{
-				Thread.sleep(8);
+				Thread.sleep(1000 / 60);
 				//this.game.testPeutGrimper((Hero)this.game.getHéros(),this.game.getEchelle());
 				
 			} 
