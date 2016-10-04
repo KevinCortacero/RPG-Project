@@ -26,7 +26,8 @@ public class Frame extends JFrame {
 		this.setVisible(true);
 		JPanel pane = new JPanel();
 		pane.setBackground(new Color(40,40,40));
-		this.game = new Game(dim);
+		this.game = Game.createGame(dim);
+		this.game.initHero();
 		pane.add(this.game);
 		pane.add(new JButton("STATISTIQUES"));
 		pane.add(new JButton("STUFF"));

@@ -1,20 +1,18 @@
 package game;
 
-import hero.Coord;
 import hero.Coord2D;
 import hero.Drawable;
 
 public abstract class Carte implements Drawable{
 	
 	public static final Carte CARTE_BASE = new CarteBase();
-	public static final Carte CARTE_FEU = new CarteFeu();
 	private String nom;
-	private Coord[][] map;
+	private int[][] map;
 	private Coord2D spawn;
 	
 	public Carte(String nom, int maxX, int maxY, int spawnX, int spawnY){
 		this.setNom(nom);
-		this.map = new Coord[maxX][maxY];
+		this.map = new int[maxX][maxY];
 		this.setSpawn(new Coord2D(spawnX, spawnY));
 	}
 
@@ -26,11 +24,11 @@ public abstract class Carte implements Drawable{
 		this.nom = nom;
 	}
 
-	public Coord[][] getMap() {
+	public int[][] getMap() {
 		return this.map;
 	}
 
-	public void setCoordonnées(int x, int y, Coord valeur) {
+	public void setCoordonnées(int x, int y, int valeur) {
 		this.map[x][y] = valeur;
 	}
 
@@ -42,7 +40,13 @@ public abstract class Carte implements Drawable{
 		this.spawn = spawn;
 	}
 	
+	public int getMapValue(int x, int y){
+		return this.map[x][y];
+	}
+	
 	public abstract int getTailleMaxX();
 	
 	public abstract int getTailleMaxY();
+	
+	public abstract void load(String mapFile);
 }

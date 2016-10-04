@@ -7,6 +7,7 @@ import java.awt.event.KeyListener;
 import java.util.ArrayList;
 import java.util.List;
 
+import game.Game;
 import game.KeyBoard;
 
 
@@ -34,7 +35,7 @@ public class Hero extends GameObject implements Alive{
 		this.clavier = new KeyBoard();
 		this.fireBalls = new ArrayList<FireBall>();
 		this.live();
-		
+
 		this.updateSprite();
 		this.sprite.animate(largeur, hauteur);
 	}
@@ -56,7 +57,7 @@ public class Hero extends GameObject implements Alive{
 		};
 		live.start();
 	}
-	
+
 	public void updateHéros(){
 		this.updateElement();
 		this.updateAction();
@@ -98,7 +99,7 @@ public class Hero extends GameObject implements Alive{
 			this.element = Element.SISMA;
 			this.nbSautsMax = 0;
 		}
-		
+
 	}
 
 	public void updateÉtat(){
@@ -116,13 +117,13 @@ public class Hero extends GameObject implements Alive{
 			this.déplacerDroite(2);
 
 		if (this.clavier.gauche && !this.clavier.droite && this.state != State.ENCLUME)
-			this.déplacerGauche(2);
+			this.moveLeft(2);
 
 		if (this.clavier.haut && this.element != Element.SISMA && this.element != Element.FONDAMENTAL && this.getPeutGrimper())
-			this.déplacerHaut(1);
+			this.moveUp(1);
 
 		if (this.clavier.bas && this.element != Element.SISMA && this.element != Element.FONDAMENTAL && this.getPeutGrimper())
-			this.déplacerBas(2);
+			this.moveDown(2);
 
 		if (this.aucuneTouche() && this.estAuSol)
 			this.nePasBouger();
@@ -136,17 +137,18 @@ public class Hero extends GameObject implements Alive{
 
 	public void updateGravité(){
 		if (!this.getPeutGrimper()){
-			if (this.getY() < 450){
+			if ( ! Game.collideV(this.getX() / 10,  (this.getY() + 50 + (int)this.vecteurY) / 10)){
 				this.vecteurY += 0.15F * 2;
 				this.sprite.coordonnée2D.setY(this.getY()+(int)this.vecteurY);
 				this.setEstAuSolFalse();
 			}
 			else {
-				this.sprite.coordonnée2D.setY(450);
+				//this.sprite.coordonnée2D.setY(450);
 				this.setEstAuSolTrue();
 			}	
-		}			
-	}
+} 
+	}		
+
 
 	public void sauter(){
 		if (this.nbSautsActuels < this.nbSautsMax)
@@ -166,7 +168,10 @@ public class Hero extends GameObject implements Alive{
 		//this.direction = this.direction.getSauvegarde();
 	}
 	public void déplacerDroite(int vitesse){
-		this.sprite.coordonnée2D.setX(this.getX()+vitesse);
+
+		if (! Game.collideH((this.getX() + 50 + vitesse) / 10, this.getY() / 10)){
+			this.sprite.coordonnée2D.setX(this.getX()+vitesse);
+		}
 		this.direction = Direction.DROITE;
 		this.state = State.WALK;
 	}
@@ -175,24 +180,26 @@ public class Hero extends GameObject implements Alive{
 		this.direction = Direction.BAS;
 	}
 
-	public void déplacerGauche(int vitesse){
-		this.sprite.coordonnée2D.setX(this.getX()-vitesse);
+	public void moveLeft(int vitesse){
+		if (this.getX() - vitesse > 0 && ! Game.collideH((this.getX() - vitesse) / 10, this.getY() / 10)){
+			this.sprite.coordonnée2D.setX(this.getX()-vitesse);
+		}
 		this.direction = Direction.GAUCHE;
 		this.state = State.WALK;
 	}
 
-	public void déplacerHaut(int vitesse){
-		this.sprite.coordonnée2D.setY(this.getY()-vitesse);
+	public void moveUp(int vitesse){
+		this.sprite.coordonnée2D.setY(this.getY()+vitesse);
 		this.direction = Direction.HAUT;
-		this.state = State.GRIMPE;
 	}
 
-	public void déplacerBas(int vitesse){
-		if (!this.estAuSol){
+	public void moveDown(int vitesse){
+		if (!Game.collideV(this.getX() / 10, (this.getY() + 50 + vitesse) / 10)){
 			this.sprite.coordonnée2D.setY(this.getY()+vitesse);
-			this.direction = Direction.BAS;
-			this.state = State.GRIMPE;
+			this.setEstAuSolFalse();
 		}	
+		else
+			this.setEstAuSolTrue();
 	}
 
 	public void activerEnclume(int vitesse){
@@ -265,7 +272,7 @@ public class Hero extends GameObject implements Alive{
 	public Element getElement() {
 		return this.element;
 	}
-	
+
 	public State getEtat() {
 		return this.state;
 	}
@@ -278,11 +285,11 @@ public class Hero extends GameObject implements Alive{
 	public void draw(Graphics g) {
 		// Draw image
 		g.drawImage(this.sprite.getImage(), this.getX(), this.getY(), null);
-		
+
 		// Draw hitbox as a blue rectangle
-		g.setColor(new Color(0,0,255));
-		g.drawRect(this.getX(), this.getY(), 50, 50);
-		
+		//g.setColor(new Color(0,0,255));
+		//g.drawRect(this.getX(), this.getY(), 50, 50);
+
 		// Draw vector as a black line
 		g.setColor(new Color(0,0,0));
 		g.drawLine(this.getX()+25, this.getY()+25, this.getX()+25 , this.getY()+25 + (int) this.vecteurY * 15);
