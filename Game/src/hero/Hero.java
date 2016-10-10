@@ -114,7 +114,7 @@ public class Hero extends GameObject implements Alive{
 	public void updateDéplacement(){
 
 		if (this.clavier.droite && !this.clavier.gauche && this.state != State.ENCLUME)
-			this.déplacerDroite(2);
+			this.moveRight(2);
 
 		if (this.clavier.gauche && !this.clavier.droite && this.state != State.ENCLUME)
 			this.moveLeft(2);
@@ -167,7 +167,7 @@ public class Hero extends GameObject implements Alive{
 		this.state = State.IMMOBILE;
 		//this.direction = this.direction.getSauvegarde();
 	}
-	public void déplacerDroite(int vitesse){
+	public void moveRight(int vitesse){
 
 		if (! Game.collideH((this.getX() + 50 + vitesse) / 10, this.getY() / 10)){
 			this.sprite.coordonnée2D.setX(this.getX()+vitesse);
