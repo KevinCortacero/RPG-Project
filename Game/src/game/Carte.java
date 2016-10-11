@@ -41,7 +41,9 @@ public abstract class Carte implements Drawable{
 	}
 	
 	public int getMapValue(int x, int y){
-		return this.map[x][y];
+		if (y > 0 && y < 1000 && x > 0 && x < 1000)
+			return this.map[x][y];
+		return 0;
 	}
 	
 	public abstract int getTailleMaxX();

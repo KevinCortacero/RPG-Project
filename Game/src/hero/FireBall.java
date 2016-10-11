@@ -1,34 +1,31 @@
 package hero;
 
 import java.awt.Graphics;
-import java.awt.Graphics2D;
 
 import javax.swing.ImageIcon;
 
 public class FireBall extends GameObject{
 
-	private float vecteurX;
-
 	private FireBall(Coord2D coord, int hauteur, int largeur, float vecteur, Direction d, Element e) {
 		super(coord, hauteur, largeur);
-		this.vecteurY = -5.0F;
+		this.applyForceY(-5.0F);
 		if (e == Element.BLIZZ){
 			if (d == Direction.DROITE){
-				this.vecteurX = 5.0F;
+				this.applyForceX(+5.0F);
 				this.sprite.image = new ImageIcon("images/aquaball.png").getImage();
 			}
 			else if (d == Direction.GAUCHE){
-				this.vecteurX = -5.0F;
+				this.applyForceX(-5.0F);
 				this.sprite.image = new ImageIcon("images/aquaball2.png").getImage();
 			}
 		}
 		else if (e == Element.IGNIS){
 			if (d == Direction.DROITE){
-				this.vecteurX = 5.0F;
+				this.applyForceX(+5.0F);
 				this.sprite.image = new ImageIcon("images/fireball.png").getImage();
 			}
 			else if (d == Direction.GAUCHE){
-				this.vecteurX = -5.0F;
+				this.applyForceX(-5.0F);
 				this.sprite.image = new ImageIcon("images/fireball2.png").getImage();
 			}
 		}
@@ -39,9 +36,9 @@ public class FireBall extends GameObject{
 	}
 
 	public void update() {
-		this.sprite.coordonnée2D.setX( this.getX() + (int)this.vecteurX );
-		this.sprite.coordonnée2D.setY( this.getY() + (int)this.vecteurY );
-		this.vecteurY += 0.15F;
+		this.sprite.coordonnée2D.setX( this.getX() + (int)this.getVelocityX());
+		this.sprite.coordonnée2D.setY( this.getY() + (int)this.getVelocityY());
+		this.applyGravity();
 	}
 
 	@Override

@@ -1,96 +1,52 @@
 package game;
 
+import java.awt.event.KeyAdapter;
 import java.awt.event.KeyEvent;
-import java.awt.event.KeyListener;
 
-public class KeyBoard implements KeyListener {
+import hero.Element;
+import hero.Hero;
+
+public class KeyBoard extends KeyAdapter {
 	
-	public boolean droite = false;
-	public boolean gauche = false;
-	public boolean haut = false;
-	public boolean bas = false;
-	public boolean a = false;
-	public boolean z = false;
-	public boolean e = false;
-	public boolean r = false;
-	public boolean saut = false;
-	public boolean tir = false;
+	private Hero hero;
 
+	public KeyBoard(Hero hero) {
+		this.hero = hero;
+	}
+	
 	@Override
 	public void keyPressed(KeyEvent e) {
 		
 		if (e.getKeyCode() == KeyEvent.VK_SPACE)
-			this.saut = true;
+			this.hero.sauter();
 		
 		if (e.getKeyCode() == KeyEvent.VK_RIGHT)
-			this.droite = true;
+			this.hero.moveRight(3);
 		
 		if (e.getKeyCode() == KeyEvent.VK_LEFT)
-			this.gauche = true;
+			this.hero.moveLeft(3);
 		
-		if (e.getKeyCode() == KeyEvent.VK_UP)
-			this.haut = true;
+		if (e.getKeyCode() == KeyEvent.VK_A){
+			this.hero.setElement(Element.BLIZZ);
+			this.hero.setNbSautsMax(1);
+		}
 		
-		if (e.getKeyCode() == KeyEvent.VK_DOWN)
-			this.bas = true;
+		if (e.getKeyCode() == KeyEvent.VK_Z){
+			this.hero.setElement(Element.IGNIS);
+			this.hero.setNbSautsMax(1);
+		}
 		
-		if (e.getKeyCode() == KeyEvent.VK_A)
-			this.a = true;
+		if (e.getKeyCode() == KeyEvent.VK_E){
+			this.hero.setElement(Element.ZEPHYR);
+			this.hero.setNbSautsMax(2);
+		}
 		
-		if (e.getKeyCode() == KeyEvent.VK_Z)
-			this.z = true;
-		
-		if (e.getKeyCode() == KeyEvent.VK_E)
-			this.e = true;
-		
-		if (e.getKeyCode() == KeyEvent.VK_R)
-			this.r = true;
+		if (e.getKeyCode() == KeyEvent.VK_R){
+			this.hero.setElement(Element.SISMA);
+			this.hero.setNbSautsMax(0);
+		}
+			
 		if (e.getKeyCode() == KeyEvent.VK_V)
-			this.tir = true;
+			this.hero.tirer();
 	}
-
-	@Override
-	public void keyReleased(KeyEvent e) {
-		
-		if (e.getKeyCode() == KeyEvent.VK_SPACE)
-			this.setSautFalse();
-		
-		if (e.getKeyCode() == KeyEvent.VK_RIGHT)
-			this.droite = false;
-		
-		if (e.getKeyCode() == KeyEvent.VK_LEFT)
-			this.gauche = false;
-		
-		if (e.getKeyCode() == KeyEvent.VK_UP)
-			this.haut = false;
-		
-		if (e.getKeyCode() == KeyEvent.VK_DOWN)
-			this.bas = false;
-		
-		if (e.getKeyCode() == KeyEvent.VK_A)
-			this.a = false;
-		
-		if (e.getKeyCode() == KeyEvent.VK_Z)
-			this.z = false;
-		
-		if (e.getKeyCode() == KeyEvent.VK_E)
-			this.e = false;
-		
-		if (e.getKeyCode() == KeyEvent.VK_R)
-			this.r = false;
-		
-		if (e.getKeyCode() == KeyEvent.VK_V)
-			this.tir = false;
-	}
-
-	@Override
-	public void keyTyped(KeyEvent e) {
-		// TODO Auto-generated method stub
-		
-	}
-	
-	public void setSautFalse(){
-		this.saut = false;
-	}
-
 }

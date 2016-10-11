@@ -34,7 +34,8 @@ public class Frame extends JFrame {
 		pane.add(new JButton("MAP"));
 		pane.add(new JButton("WORLD"));
 		this.add(pane);
-		this.addKeyListener(((Hero)this.game.getHéros()).getClavier());
+		KeyBoard kb = new KeyBoard(this.game.getHéros());
+		this.addKeyListener(kb);
 		this.validate();
 		trame();
 	}
