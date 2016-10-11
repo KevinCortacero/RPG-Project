@@ -9,10 +9,10 @@ import javax.swing.JButton;
 import javax.swing.JFrame;
 import javax.swing.JPanel;
 
-import hero.Hero;
-
 public class Frame extends JFrame {
 
+	private static int FRAPS_PER_SECOND = 60;
+	private static int DELTA_TIME = 1000 / FRAPS_PER_SECOND;
 	private Game game;
 	
 	public Frame() {
@@ -41,18 +41,9 @@ public class Frame extends JFrame {
 	}
 	
 	public void trame(){
-		
 		while(true){
-			
-			try 
-			{
-				Thread.sleep(1000 / 60);
-				//this.game.testPeutGrimper((Hero)this.game.getHéros(),this.game.getEchelle());
-				
-			} 
-			catch (InterruptedException e) {
-				System.out.println("ERR");
-			}	
+			try {Thread.sleep(DELTA_TIME);} 
+			catch (InterruptedException e){System.out.println("ERR");}	
 			this.game.repaint();
 		}
 	}

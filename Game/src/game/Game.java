@@ -85,10 +85,11 @@ public class Game extends JPanel {
 		g.drawString("DIRECTION : " + this.getHéros().direction, 100, 250);
 		g.drawString("ON GROUNG : " + this.getHéros().estAuSol, 100, 275);
 		g.drawString("Y VECTOR  : " + this.getHéros().getVelocityY(), 100, 300);
-		g.drawString("CAN CLIMB : " + ((Hero)this.getHéros()).getPeutGrimper(), 100, 325);
-		g.drawString("X         : " + this.getHéros().getX(), 100, 350);
-		g.drawString("Y         : " + this.getHéros().getY(), 100, 375);
-		g.drawString("NB BALLS  : " + ((Hero)this.getHéros()).fireBalls.size(), 100, 400);
+		g.drawString("X VECTOR  : " + this.getHéros().getVelocityX(), 100, 325);
+		g.drawString("CAN CLIMB : " + ((Hero)this.getHéros()).getPeutGrimper(), 100, 350);
+		g.drawString("X         : " + this.getHéros().getX(), 100, 375);
+		g.drawString("Y         : " + this.getHéros().getY(), 100, 400);
+		g.drawString("NB BALLS  : " + ((Hero)this.getHéros()).fireBalls.size(), 100, 425);
 		
 		for (FireBall f : ((Hero)this.getHéros()).fireBalls){
 			f.draw(g);
