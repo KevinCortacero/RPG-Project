@@ -3,10 +3,11 @@ package hero;
 
 import java.awt.Color;
 import java.awt.Graphics;
-import java.awt.event.KeyListener;
 import java.util.ArrayList;
+import java.util.Iterator;
 import java.util.List;
 
+import game.Frame;
 import game.Game;
 import game.KeyBoard;
 
@@ -15,29 +16,23 @@ public class Hero extends GameObject implements Alive{
 
 	protected Element element;
 	protected State state;
-	protected int  nbFireBalls;
 	public List<FireBall> fireBalls;
-	protected int nbAquaBalls;
-	protected int nbSautsActuels;
-	protected int nbSautsMax;
-	protected boolean peutGrimper;
+	protected int nbJumpCurrent;
+	public KeyBoard kb;
 
-	public Hero(Coord2D spawnHeroe, int hauteur, int largeur, int nbFireBalls, int nbAquaballs){
-		super(spawnHeroe, hauteur, largeur);
+	public Hero(float x, float y, int width, int height){
+		super(x, y, width, height);
 		this.element = Element.FONDAMENTAL;
 		this.state = State.IMMOBILE;
-		this.nbSautsMax = 0;
-		this.nbSautsActuels = 0;
-		this.nbFireBalls = nbFireBalls;
-		this.nbAquaBalls = nbAquaballs;
-		this.peutGrimper = false;
+		this.nbJumpCurrent = 0;
 		this.fireBalls = new ArrayList<FireBall>();
+		this.kb = new KeyBoard();
 		this.live();
 
 		this.updateSprite();
-		this.sprite.animate(largeur, hauteur);
+		this.sprite.animate(width, height);
 	}
-	
+
 	public void setElement(Element e){
 		this.element = e;
 	}
@@ -47,157 +42,180 @@ public class Hero extends GameObject implements Alive{
 			public void run() {
 				while(true){
 					try {
-						Thread.sleep(8);
+						Thread.sleep((int) (1000 * Frame.DELTA_TIME));
 					} catch (InterruptedException e) {
-						// TODO Auto-generated catch block
 						e.printStackTrace();
 					}
-					Hero.this.updateHéros();
+					Hero.this.update();
 				}
 			}
 		};
 		live.start();
 	}
 
-	public void updateHéros(){
-		this.updateAction();
-		this.updateÉtat();
-		this.updateGravité();
-		this.updateDéplacement();
+	public void update(){
+
+		this.updateInput();
+		this.updateGravity();
+		//update coords
+		this.updatePosition();
+
+		this.updateSavedDirection();
+
+		this.updateState();
+		this.updateFireballs();
+
 		this.updateSprite();
-		this.updateSauvegardeDirection();
 	}
 
-	private void updateAction() {
-		for (FireBall f : this.fireBalls){
-			f.update();
+	private void updateInput(){
+		if (this.kb.a){
+			this.setElement(Element.BLIZZ);
+		}
+		else if (this.kb.z){
+			this.setElement(Element.IGNIS);
+		}
+		else if (this.kb.e){
+			this.setElement(Element.ZEPHYR);
+		}
+		else if (this.kb.r){
+			this.setElement(Element.SISMA);
+		}
+
+		if (this.kb.droite){
+			this.moveRight(3);
+		}
+		else if (this.kb.gauche){
+			this.moveLeft(3);
+		}
+		else
+			this.resetForceX();
+
+		if (this.kb.tir){
+			this.fire();
+		}
+		if (this.kb.saut){
+			this.jump();
+		}
+	}
+	private void updateFireballs() {
+		for (Iterator<FireBall> iter = this.fireBalls.listIterator(); iter.hasNext(); ) {
+			FireBall f = iter.next();
+			if (f.getX() < -50 || f.getX() > 1000){
+				iter.remove();
+			}
+			else
+				f.update();
 		}
 	}
 
-	public void tirer() {
-		if (this.element == Element.BLIZZ || this.element == Element.IGNIS){
-			this.fireBalls.add(new FireBall(this.getVelocityY(), this.sprite.coordonnée2D,this.direction, this.element));
+	public void fire() {
+		if (this.element == Element.BLIZZ){
+			//TODO: Aquaball
+		}
+
+		else if (this.element == Element.IGNIS){
+			this.fireBalls.add(new FireBall(this.getX(), this.getY(),this.direction));
 		}
 	}
 
-	public void updateÉtat(){
-		//if (this.clavier.bas && this.element == Element.SISMA)
-		//	this.state = State.BOUCLIER;
-		if (!this.estAuSol && this.element != Element.SISMA && this.element != Element.FONDAMENTAL && this.nbSautsActuels == 0)
-			this.fall();
-		if (!this.estAuSol && this.element == Element.SISMA)
-			this.state = State.ENCLUME;
-	}
-
-	public void updateDéplacement(){
-
-		if (this.isIdle())
+	public void updateState(){
+		//TODO:
+		if (this.isIdle()){
 			this.state = State.IMMOBILE;
-
-		if (this.state == State.ENCLUME)
-			this.activerEnclume(2);
+		}
 	}
 
-	public void updateGravité(){
-		if (!Game.collideV(this.getX() / 10,  (this.getY() + 50 + (int)this.getVelocityY()) / 10)){
-			this.applyGravity();
-			this.sprite.coordonnée2D.setY(this.getY()+(int)this.getVelocityY());
-			this.setEstAuSolFalse();
+	public void updatePosition(){
+
+		// update position
+		this.addX(this.getVelocityX());
+		this.addY(this.getVelocityY());
+
+		// update velocity
+		if (this.estAuSol){
+			this.velocity.resetY();
 		}
-		else {
-			this.setEstAuSolTrue();
-		}	
+		else
+			this.velocity.applyForce(0.0F, 0.5F);
+	}
+
+	public void updateGravity(){
+		// move down
+		if (this.getVelocityY() >= 0.0F){
+			if (Game.collideV(this.getX() / 10, (this.getY() + 50 + this.getVelocityY()) / 10)){
+				this.setEstAuSolTrue();
+				System.out.println("ON GROUND, " + (580 - this.getY() - 50));
+				this.addY(580 - this.getY() - 50);
+				
+				
+				
+			}
+			else {
+				this.setEstAuSolFalse();
+				System.out.println(this.getVelocityY());
+			}	
+		}
+		// move up
+		else if (this.getVelocityY() < 0.0F){
+			if (Game.collideV(this.getX() / 10,  (int) ((this.getY() + (int)(this.getVelocityY())) / 10))){
+				System.out.println("STOP");
+				this.resetForceY();
+			}
+		}
+
 	} 
 
 
 
-	public void sauter(){
-		if (this.nbSautsActuels < this.nbSautsMax)
+	public void jump(){
+		if (this.nbJumpCurrent < this.element.nbJumpMax)
 		{
-			this.applyForceY(-10.0F);
-			this.sprite.coordonnée2D.setY(this.getY()+(int)this.getVelocityY());
-			this.nbSautsActuels ++ ;
+			this.applyForce(0.0F, -10.0F);
+			this.nbJumpCurrent ++ ;
+			this.kb.setSautFalse();
 		}
 	}
 
 	public void moveRight(int vitesse){
-
-		if (! Game.collideH((this.getX() + 50 + vitesse) / 10, this.getY() / 10)){
-			this.sprite.coordonnée2D.setX(this.getX()+vitesse);
+		if (Game.collideH(((int) (this.getX() + 50 + vitesse)) / 10, (int) (this.getY() / 10))){
+			this.resetForceX();
+		}
+		else{
+			this.setForceX(vitesse);
 		}
 		this.direction = Direction.DROITE;
 		this.state = State.WALK;
 	}
-	public void fall(){
-		this.state = State.TOMBE;
-		this.direction = Direction.BAS;
-	}
 
 	public void moveLeft(int vitesse){
-		if (this.getX() - vitesse > 0 && ! Game.collideH((this.getX() - vitesse) / 10, this.getY() / 10)){
-			this.sprite.coordonnée2D.setX(this.getX()-vitesse);
+
+		if (this.getX() - this.getVelocityX() > 0 && Game.collideH((int)(this.getX() - this.getVelocityX()) / 10, (int)(this.getY() / 10))){
+			this.resetForceX();
+		}
+		else{
+			this.setForceX(-vitesse);
 		}
 		this.direction = Direction.GAUCHE;
 		this.state = State.WALK;
 	}
 
-	public void moveUp(int vitesse){
-		this.sprite.coordonnée2D.setY(this.getY()+vitesse);
-		this.direction = Direction.HAUT;
-	}
 
-	public void moveDown(int vitesse){
-		if (!Game.collideV(this.getX() / 10, (this.getY() + 50 + vitesse) / 10)){
-			this.sprite.coordonnée2D.setY(this.getY()+vitesse);
-			this.setEstAuSolFalse();
-		}	
-		else
-			this.setEstAuSolTrue();
-	}
-
-	public void activerEnclume(int vitesse){
-		this.sprite.coordonnée2D.setY(this.getY()+vitesse);
-		this.direction = Direction.BAS;
-	}
-
-	public void updateSauvegardeDirection(){
+	public void updateSavedDirection(){
 		if (this.direction == Direction.DROITE || this.direction == Direction.GAUCHE)
 			this.direction.sauvegarde(this.direction);
 	}
 
 	public void updateSprite(){
-		this.sprite.setPath("images/" + this.element + this.state + this.direction + ".png");
+		this.sprite.setPath("images/" + this.element.name + this.state + this.direction + ".png");
 	}
 
-	public int getNbFireBalls() {
-		return this.nbFireBalls;
-	}
-
-	public void setNbFireBalls(int nbFireBalls) {
-		this.nbFireBalls = nbFireBalls;
-	}
-
-	public int getNbAquaBalls() {
-		return this.nbAquaBalls;
-	}
-
-	public void setNbAquaBalls(int nbAquaBalls) {
-		this.nbAquaBalls = nbAquaBalls;
-	}
 	public int getNbSautsActuels() {
-		return this.nbSautsActuels;
+		return this.nbJumpCurrent;
 	}
 
 	public void setNbSautsActuels(int nbSautsActuels) {
-		this.nbSautsActuels = nbSautsActuels;
-	}
-
-	public int getNbSautsMax() {
-		return this.nbSautsMax;
-	}
-
-	public void setNbSautsMax(int nbSautsMax) {
-		this.nbSautsMax = nbSautsMax;
+		this.nbJumpCurrent = nbSautsActuels;
 	}
 
 	public void setEstAuSolTrue() {
@@ -214,16 +232,8 @@ public class Hero extends GameObject implements Alive{
 			this.estAuSol = false;	
 	}
 
-	public boolean getPeutGrimper() {
-		return this.peutGrimper;
-	}
-
-	public void setPeutGrimper(boolean peutGrimper) {
-		this.peutGrimper = peutGrimper;
-	}
-
-	public Element getElement() {
-		return this.element;
+	public String getElement() {
+		return this.element.name;
 	}
 
 	public State getEtat() {
@@ -233,7 +243,7 @@ public class Hero extends GameObject implements Alive{
 	@Override
 	public void draw(Graphics g) {
 		// Draw image
-		g.drawImage(this.sprite.getImage(), this.getX(), this.getY(), null);
+		g.drawImage(this.sprite.getImage(), (int) this.getX(), (int) this.getY(), null);
 
 		// Draw hitbox as a blue rectangle
 		//g.setColor(new Color(0,0,255));
@@ -241,6 +251,7 @@ public class Hero extends GameObject implements Alive{
 
 		// Draw vector as a black line
 		g.setColor(new Color(0,0,0));
-		g.drawLine(this.getX()+25, this.getY()+25, this.getX()+25 , this.getY()+25 + (int) this.getVelocityY() * 15);
+		g.drawLine((int)this.getX()+25, (int)this.getY()+25, (int)this.getX()+25 , (int)this.getY()+25 + (int) this.getVelocityY());
 	}
+
 }

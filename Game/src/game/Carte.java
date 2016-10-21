@@ -1,6 +1,5 @@
 package game;
 
-import hero.Coord2D;
 import hero.Drawable;
 
 public abstract class Carte implements Drawable{
@@ -8,12 +7,13 @@ public abstract class Carte implements Drawable{
 	public static final Carte CARTE_BASE = new CarteBase();
 	private String nom;
 	private int[][] map;
-	private Coord2D spawn;
+	private float spawnX;
+	private float spawnY;
 	
 	public Carte(String nom, int maxX, int maxY, int spawnX, int spawnY){
 		this.setNom(nom);
 		this.map = new int[maxX][maxY];
-		this.setSpawn(new Coord2D(spawnX, spawnY));
+		this.setSpawn(spawnX, spawnY);
 	}
 
 	public String getNom() {
@@ -32,12 +32,17 @@ public abstract class Carte implements Drawable{
 		this.map[x][y] = valeur;
 	}
 
-	public Coord2D getSpawn() {
-		return this.spawn;
+	public float getSpawnX() {
+		return this.spawnX;
+	}
+	
+	public float getSpawnY() {
+		return this.spawnY;
 	}
 
-	public void setSpawn(Coord2D spawn) {
-		this.spawn = spawn;
+	public void setSpawn(float x, float y) {
+		this.spawnX = x;
+		this.spawnY = y;
 	}
 	
 	public int getMapValue(int x, int y){

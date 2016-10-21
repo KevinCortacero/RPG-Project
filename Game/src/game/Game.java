@@ -6,7 +6,6 @@ import java.awt.Graphics;
 
 import javax.swing.JPanel;
 
-import hero.Coord2D;
 import hero.FireBall;
 import hero.Hero;
 
@@ -31,9 +30,9 @@ public class Game extends JPanel {
 		return false;
 	}
 
-	public static boolean collideV(int x, int y){
-		for (int i = 0; i < 5; i++){
-			if (instance.carte.getMapValue(x + i, y) != 0){
+	public static boolean collideV(float x, float y){
+		for (int i = 1; i < 4; i++){
+			if (instance.carte.getMapValue((int)(x + i), (int) y) != 0){
 				return true;
 			}
 		}
@@ -47,18 +46,7 @@ public class Game extends JPanel {
 	}
 	
 	public void initHero(){
-		this.hero = new Hero(this.spawnHeroe(),50,50,3,3);
-	}
-
-	public void testPeutGrimper(Hero hero, Echelle échelle){
-		if (hero.getX() > échelle.getX()
-				&& hero.getX() < échelle.getX() + échelle.sprite.hitbox.width
-				&& hero.getY() + 20 > échelle.getY()
-				&& hero.getY() + hero.sprite.hitbox.height-1 < échelle.getY() + échelle.sprite.hitbox.height
-				&& this.getHéros().estAuSol)
-			this.getHéros().setPeutGrimper(true);
-		else
-			this.getHéros().setPeutGrimper(false);				
+		this.hero = new Hero(this.carte.getSpawnX(), this.carte.getSpawnY(),50,50);
 	}
 
 	public Hero getHéros(){
@@ -68,10 +56,6 @@ public class Game extends JPanel {
 	public Carte getCarte() {
 		return this.carte;
 	}	
-
-	public Coord2D spawnHeroe(){
-		return this.carte.getSpawn();
-	}
 
 	@Override
 	public void paintComponent(Graphics g){
@@ -86,7 +70,6 @@ public class Game extends JPanel {
 		g.drawString("ON GROUNG : " + this.getHéros().estAuSol, 100, 275);
 		g.drawString("Y VECTOR  : " + this.getHéros().getVelocityY(), 100, 300);
 		g.drawString("X VECTOR  : " + this.getHéros().getVelocityX(), 100, 325);
-		g.drawString("CAN CLIMB : " + ((Hero)this.getHéros()).getPeutGrimper(), 100, 350);
 		g.drawString("X         : " + this.getHéros().getX(), 100, 375);
 		g.drawString("Y         : " + this.getHéros().getY(), 100, 400);
 		g.drawString("NB BALLS  : " + ((Hero)this.getHéros()).fireBalls.size(), 100, 425);

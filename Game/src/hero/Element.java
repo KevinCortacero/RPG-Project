@@ -1,20 +1,18 @@
 package hero;
 
-public enum Element {
+public class Element {
 	
-   FONDAMENTAL("neutre"),
-   BLIZZ("blizz"),
-   IGNIS("ignis"),
-   ZEPHYR("zéphyr"),
-   SISMA("sisma");
+	public final static Element FONDAMENTAL = new Element("Neutre", 0);
+	public final static Element BLIZZ = new Element("Blizz", 1);
+	public final static Element IGNIS = new Element("Ignis", 1);
+	public final static Element ZEPHYR = new Element("Zephyr", 2);
+	public final static Element SISMA = new Element("Sisma", 0);
 	
-	private String nom;
+	public int nbJumpMax;
+	public String name;
 
-	private Element(String nom) {
-		this.nom = nom;
-	}
-	
-	public String toString(){
-		return this.nom;
+	private Element(String name, int nbJumpMax){
+		this.name = name;
+		this.nbJumpMax = nbJumpMax;
 	}
 }

@@ -47,6 +47,7 @@ public class CarteBase extends Carte {
 			}
 		}
 		*/
+		
 	}
 
 	@Override

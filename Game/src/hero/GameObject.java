@@ -5,21 +5,29 @@ public abstract class GameObject implements Drawable{
 	public Direction direction;
 	public boolean estAuSol;
 	public Sprite sprite;
-	private Velocity velocity;
+	protected Velocity velocity;
 	
-	public GameObject(Coord2D coord, int hauteur, int largeur){
+	public GameObject(float x, float y, int width, int height){
 		this.velocity = new Velocity(0.0F, 0.0F);
-		this.sprite = new Sprite(coord,hauteur,largeur);
+		this.sprite = new Sprite(x, y, width, height);
 		this.direction = Direction.DROITE;
 		this.estAuSol = false;
 	}
 	
-	public int getX(){
-		return this.sprite.coordonnée2D.getX();
+	public float getX(){
+		return this.sprite.getX();
 	}
 	
-	public int getY(){
-		return this.sprite.coordonnée2D.getY();
+	public float getY(){
+		return this.sprite.getY();
+	}
+	
+	public void addX(float x){
+		this.sprite.addX(x);
+	}
+	
+	public void addY(float y){
+		this.sprite.addY(y);
 	}
 	
 	public float getVelocityX() {
@@ -38,12 +46,16 @@ public abstract class GameObject implements Drawable{
 		this.velocity.resetY();
 	}
 	
-	public void applyForceY(float forceY){
-		this.velocity.applyForceY(forceY);
+	public void resetForceX() {
+		this.velocity.resetX();
+	}
+
+	public void setForceX(float forceX){
+		this.velocity.setForceX(forceX);
 	}
 	
-	public void applyForceX(float forceX){
-		this.velocity.applyForceX(forceX);
+	public void applyForce(float forceX, float forceY){
+		this.velocity.applyForce(forceX, forceY);
 	}
 	
 	public boolean isIdle(){

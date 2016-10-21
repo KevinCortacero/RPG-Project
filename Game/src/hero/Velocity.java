@@ -10,16 +10,13 @@ public class Velocity {
 		this.y = y;
 	}
 	
-	public void applyForceX(float forceX){
+	public void applyForce(float forceX, float forceY){
 		this.x += forceX;
-	}
-	
-	public void applyForceY(float forceY){
 		this.y += forceY;
 	}
 	
 	public void applyGravity(){
-		this.applyForceY(+0.30F);
+		this.applyForce(0.0F, +0.5F);
 	}
 
 	public float getVelocityX() {
@@ -36,5 +33,13 @@ public class Velocity {
 	
 	public boolean isIdle(){
 		return (this.x == 0.0F && this.y == 0.0F);
+	}
+
+	public void resetX(){
+		this.x = 0.0F; 
+	}
+
+	public void setForceX(float forceX) {
+		this.x = forceX;
 	}
 }

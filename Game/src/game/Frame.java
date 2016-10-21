@@ -11,8 +11,8 @@ import javax.swing.JPanel;
 
 public class Frame extends JFrame {
 
-	private static int FRAPS_PER_SECOND = 60;
-	private static int DELTA_TIME = 1000 / FRAPS_PER_SECOND;
+	public static float FRAPS_PER_SECOND = 60.0F;
+	public static float DELTA_TIME = (int)(1000.0F / FRAPS_PER_SECOND) / 1000.0F;
 	private Game game;
 	
 	public Frame() {
@@ -34,15 +34,14 @@ public class Frame extends JFrame {
 		pane.add(new JButton("MAP"));
 		pane.add(new JButton("WORLD"));
 		this.add(pane);
-		KeyBoard kb = new KeyBoard(this.game.getHéros());
-		this.addKeyListener(kb);
+		this.addKeyListener(this.game.getHéros().kb);
 		this.validate();
 		trame();
 	}
 	
 	public void trame(){
 		while(true){
-			try {Thread.sleep(DELTA_TIME);} 
+			try {Thread.sleep((int)(1000 * DELTA_TIME));}
 			catch (InterruptedException e){System.out.println("ERR");}	
 			this.game.repaint();
 		}

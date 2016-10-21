@@ -50,7 +50,7 @@ public class Animation implements Runnable {
 		try {
 			this.sprite = ImageIO.read(new File(path));
 		} catch (IOException e) {
-			System.out.println("ERROR : image not loaded : " + path);
+			//System.out.println("ERROR : image not loaded : " + path);
 		}
 	}
 
