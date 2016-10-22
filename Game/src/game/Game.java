@@ -3,6 +3,7 @@ package game;
 import java.awt.Color;
 import java.awt.Dimension;
 import java.awt.Graphics;
+import java.util.List;
 
 import javax.swing.JPanel;
 
@@ -72,9 +73,10 @@ public class Game extends JPanel {
 		g.drawString("X VECTOR  : " + this.getHéros().getVelocityX(), 100, 325);
 		g.drawString("X         : " + this.getHéros().getX(), 100, 375);
 		g.drawString("Y         : " + this.getHéros().getY(), 100, 400);
-		g.drawString("NB BALLS  : " + ((Hero)this.getHéros()).fireBalls.size(), 100, 425);
+		g.drawString("NB BALLS  : " + this.getHéros().fireBalls.size(), 100, 425);
 		
-		for (FireBall f : ((Hero)this.getHéros()).fireBalls){
+		List<FireBall>fireballsCopy =  this.getHéros().fireBalls.subList(0, this.getHéros().fireBalls.size());
+		for (FireBall f : fireballsCopy){
 			f.draw(g);
 		}
 

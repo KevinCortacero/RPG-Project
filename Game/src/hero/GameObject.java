@@ -54,6 +54,10 @@ public abstract class GameObject implements Drawable{
 		this.velocity.setForceX(forceX);
 	}
 	
+	public void setForceY(float forceY){
+		this.velocity.setForceY(forceY);
+	}
+	
 	public void applyForce(float forceX, float forceY){
 		this.velocity.applyForce(forceX, forceY);
 	}

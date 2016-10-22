@@ -101,7 +101,7 @@ public class Hero extends GameObject implements Alive{
 	private void updateFireballs() {
 		for (Iterator<FireBall> iter = this.fireBalls.listIterator(); iter.hasNext(); ) {
 			FireBall f = iter.next();
-			if (f.getX() < -50 || f.getX() > 1000){
+			if (f.getX() < -50 || f.getX() > 2000){
 				iter.remove();
 			}
 			else
@@ -117,6 +117,7 @@ public class Hero extends GameObject implements Alive{
 		else if (this.element == Element.IGNIS){
 			this.fireBalls.add(new FireBall(this.getX(), this.getY(),this.direction));
 		}
+		this.kb.tir = false;
 	}
 
 	public void updateState(){
@@ -142,28 +143,23 @@ public class Hero extends GameObject implements Alive{
 
 	public void updateGravity(){
 		// move down
-		if (this.getVelocityY() >= 0.0F){
+		if (this.getVelocityY() > 0.0F){
 			if (Game.collideV(this.getX() / 10, (this.getY() + 50 + this.getVelocityY()) / 10)){
 				this.setEstAuSolTrue();
-				System.out.println("ON GROUND, " + (580 - this.getY() - 50));
-				this.addY(580 - this.getY() - 50);
-				
-				
-				
+				// place the Hero on the ground
+				this.addY(Math.round((this.getY() + 6) / 10) * 10 - this.getY());
+
 			}
 			else {
 				this.setEstAuSolFalse();
-				System.out.println(this.getVelocityY());
 			}	
 		}
 		// move up
 		else if (this.getVelocityY() < 0.0F){
 			if (Game.collideV(this.getX() / 10,  (int) ((this.getY() + (int)(this.getVelocityY())) / 10))){
-				System.out.println("STOP");
 				this.resetForceY();
 			}
 		}
-
 	} 
 
 
@@ -171,9 +167,10 @@ public class Hero extends GameObject implements Alive{
 	public void jump(){
 		if (this.nbJumpCurrent < this.element.nbJumpMax)
 		{
-			this.applyForce(0.0F, -10.0F);
+			this.setForceY(-10.0F);
 			this.nbJumpCurrent ++ ;
 			this.kb.setSautFalse();
+			this.setEstAuSolFalse();
 		}
 	}
 
@@ -184,6 +181,8 @@ public class Hero extends GameObject implements Alive{
 		else{
 			this.setForceX(vitesse);
 		}
+		if (!Game.collideV(this.getX() / 10, (this.getY() + 50 + this.getVelocityY()) / 10))
+			this.setEstAuSolFalse();
 		this.direction = Direction.DROITE;
 		this.state = State.WALK;
 	}
@@ -196,6 +195,8 @@ public class Hero extends GameObject implements Alive{
 		else{
 			this.setForceX(-vitesse);
 		}
+		if (!Game.collideV(this.getX() / 10, (this.getY() + 50 + this.getVelocityY()) / 10))
+			this.setEstAuSolFalse();
 		this.direction = Direction.GAUCHE;
 		this.state = State.WALK;
 	}

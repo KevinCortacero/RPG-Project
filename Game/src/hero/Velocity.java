@@ -42,4 +42,8 @@ public class Velocity {
 	public void setForceX(float forceX) {
 		this.x = forceX;
 	}
+	
+	public void setForceY(float forceY) {
+		this.y = forceY;
+	}
 }
