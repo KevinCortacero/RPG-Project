@@ -9,48 +9,40 @@ import javax.swing.JButton;
 import javax.swing.JFrame;
 import javax.swing.JPanel;
 
-import hero.Hero;
-
 public class Frame extends JFrame {
 
+	public static float FRAPS_PER_SECOND = 60.0F;
+	public static float DELTA_TIME = (int)(1000.0F / FRAPS_PER_SECOND) / 1000.0F;
 	private Game game;
 	
 	public Frame() {
 		super("ELEMENS 1.0");
-		
-		this.setVisible(true);
+	
 		this.setResizable(false);
 		Dimension dim = Toolkit.getDefaultToolkit().getScreenSize();
-		this.setSize(dim);
 		this.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
-		this.setLocationRelativeTo(null);
+		this.setExtendedState(JFrame.MAXIMIZED_BOTH); 
+		this.setUndecorated(true);
+		this.setVisible(true);
 		JPanel pane = new JPanel();
-		pane.setBackground(new Color(3,3,3));
-		this.game = new Game(dim);
+		pane.setBackground(new Color(40,40,40));
+		this.game = Game.createGame(dim);
+		this.game.initHero();
 		pane.add(this.game);
-		pane.add(new JButton("HEY"));
-		pane.add(new JButton("HEY"));
-		pane.add(new JButton("HEY"));
-		pane.add(new JButton("HEY"));
+		pane.add(new JButton("STATISTIQUES"));
+		pane.add(new JButton("STUFF"));
+		pane.add(new JButton("MAP"));
+		pane.add(new JButton("WORLD"));
 		this.add(pane);
-		this.addKeyListener(((Hero)this.game.getHéros()).getClavier());
-		
+		this.addKeyListener(this.game.getHéros().kb);
+		this.validate();
 		trame();
 	}
 	
 	public void trame(){
-		
 		while(true){
-			
-			try 
-			{
-				Thread.sleep(8);
-				//this.game.testPeutGrimper((Hero)this.game.getHéros(),this.game.getEchelle());
-				
-			} 
-			catch (InterruptedException e) {
-				System.out.println("ERR");
-			}	
+			try {Thread.sleep((int)(1000 * DELTA_TIME));}
+			catch (InterruptedException e){System.out.println("ERR");}	
 			this.game.repaint();
 		}
 	}

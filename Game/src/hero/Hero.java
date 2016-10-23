@@ -1,240 +1,222 @@
 
 package hero;
 
-import java.awt.event.KeyListener;
+import java.awt.Color;
+import java.awt.Graphics;
 import java.util.ArrayList;
+import java.util.Iterator;
 import java.util.List;
 
+import game.Frame;
+import game.Game;
 import game.KeyBoard;
 
 
 public class Hero extends GameObject implements Alive{
 
-	protected Element élément;
-	protected State état;
-	protected int  nbFireBalls;
+	protected Element element;
+	protected State state;
 	public List<FireBall> fireBalls;
-	protected int nbAquaBalls;
-	protected int nbSautsActuels;
-	protected int nbSautsMax;
-	protected boolean peutGrimper;
-	protected KeyBoard clavier;
+	protected int nbJumpCurrent;
+	public KeyBoard kb;
 
-	public Hero(Coord2D spawnHeroe, int hauteur, int largeur, int nbFireBalls, int nbAquaballs){
-		super(spawnHeroe, hauteur, largeur);
-		this.élément = Element.FONDAMENTAL;
-		this.état = State.IMMOBILE;
-		this.nbSautsMax = 0;
-		this.nbSautsActuels = 0;
-		this.nbFireBalls = nbFireBalls;
-		this.nbAquaBalls = nbAquaballs;
-		this.peutGrimper = false;
-		this.clavier = new KeyBoard();
+	public Hero(float x, float y, int width, int height){
+		super(x, y, width, height);
+		this.element = Element.FONDAMENTAL;
+		this.state = State.IMMOBILE;
+		this.nbJumpCurrent = 0;
 		this.fireBalls = new ArrayList<FireBall>();
-		
+		this.kb = new KeyBoard();
 		this.live();
+
 		this.updateSprite();
+		this.sprite.animate(width, height);
 	}
 
+	public void setElement(Element e){
+		this.element = e;
+	}
 	@Override
 	public void live() {
 		Thread live = new Thread(){
 			public void run() {
 				while(true){
 					try {
-						Thread.sleep(8);
+						Thread.sleep((int) (1000 * Frame.DELTA_TIME));
 					} catch (InterruptedException e) {
-						// TODO Auto-generated catch block
 						e.printStackTrace();
 					}
-					Hero.this.updateHéros();
+					Hero.this.update();
 				}
 			}
 		};
 		live.start();
 	}
-	
-	public void updateHéros(){
-		this.updateElément();
-		this.updateAction();
-		this.updateÉtat();
-		this.updateGravité();
-		this.updateDéplacement();
+
+	public void update(){
+
+		this.updateInput();
+		this.updateGravity();
+		//update coords
+		this.updatePosition();
+
+		this.updateSavedDirection();
+
+		this.updateState();
+		this.updateFireballs();
+
 		this.updateSprite();
-		this.updateSauvegardeDirection();
 	}
 
-	private void updateAction() {
-		if (this.clavier.tir && (this.getElement() == Element.BLIZZ || this.getElement() == Element.IGNIS)){
-			this.tirer();
+	private void updateInput(){
+		if (this.kb.a){
+			this.setElement(Element.BLIZZ);
 		}
-		for (FireBall f : this.fireBalls){
-			f.update();
+		else if (this.kb.z){
+			this.setElement(Element.IGNIS);
+		}
+		else if (this.kb.e){
+			this.setElement(Element.ZEPHYR);
+		}
+		else if (this.kb.r){
+			this.setElement(Element.SISMA);
+		}
+
+		if (this.kb.droite){
+			this.moveRight(3);
+		}
+		else if (this.kb.gauche){
+			this.moveLeft(3);
+		}
+		else
+			this.resetForceX();
+
+		if (this.kb.tir){
+			this.fire();
+		}
+		if (this.kb.saut){
+			this.jump();
+		}
+	}
+	private void updateFireballs() {
+		for (Iterator<FireBall> iter = this.fireBalls.listIterator(); iter.hasNext(); ) {
+			FireBall f = iter.next();
+			if (f.getX() < -50 || f.getX() > 2000){
+				iter.remove();
+			}
+			else
+				f.update();
 		}
 	}
 
-	private void tirer() {
-		this.fireBalls.add(new FireBall(this.vecteurY, this.sprite.coordonnée2D,this.direction, this.élément));
-		this.clavier.tir = false;
+	public void fire() {
+		if (this.element == Element.BLIZZ){
+			//TODO: Aquaball
+		}
+
+		else if (this.element == Element.IGNIS){
+			this.fireBalls.add(new FireBall(this.getX(), this.getY(),this.direction));
+		}
+		this.kb.tir = false;
 	}
 
-	public void updateElément(){
-		if (this.clavier.a && this.état != State.TOMBE){
-			this.élément = Element.BLIZZ;
-			this.nbSautsMax = 1;
+	public void updateState(){
+		//TODO:
+		if (this.isIdle()){
+			this.state = State.IMMOBILE;
 		}
-		if (this.clavier.z && this.état != State.TOMBE){
-			this.élément = Element.IGNIS;
-			this.nbSautsMax = 1;
-		}
-		if (this.clavier.e && this.état != State.TOMBE){
-			this.élément = Element.ZEPHYR;
-			this.nbSautsMax = 2;
-		}
-		if (this.clavier.r){
-			this.élément = Element.SISMA;
-			this.nbSautsMax = 0;
-		}
-		
 	}
 
-	public void updateÉtat(){
-		if (this.clavier.bas && this.élément == Element.SISMA)
-			this.état = State.BOUCLIER;
-		if (!this.estAuSol && this.élément != Element.SISMA && this.élément != Element.FONDAMENTAL && this.nbSautsActuels == 0)
-			this.tomber();
-		if (!this.estAuSol && this.élément == Element.SISMA)
-			this.état = State.ENCLUME;
+	public void updatePosition(){
+
+		// update position
+		this.addX(this.getVelocityX());
+		this.addY(this.getVelocityY());
+
+		// update velocity
+		if (this.estAuSol){
+			this.velocity.resetY();
+		}
+		else
+			this.velocity.applyForce(0.0F, 0.5F);
 	}
 
-	public void updateDéplacement(){
+	public void updateGravity(){
+		// move down
+		if (this.getVelocityY() > 0.0F){
+			if (Game.collideV(this.getX() / 10, (this.getY() + 50 + this.getVelocityY()) / 10)){
+				this.setEstAuSolTrue();
+				// place the Hero on the ground
+				this.addY(Math.round((this.getY() + 6) / 10) * 10 - this.getY());
 
-		if (this.clavier.droite && !this.clavier.gauche && this.état != State.ENCLUME)
-			this.déplacerDroite(3);
-
-		if (this.clavier.gauche && !this.clavier.droite && this.état != State.ENCLUME)
-			this.déplacerGauche(3);
-
-		if (this.clavier.haut && this.élément != Element.SISMA && this.élément != Element.FONDAMENTAL && this.getPeutGrimper())
-			this.déplacerHaut(1);
-
-		if (this.clavier.bas && this.élément != Element.SISMA && this.élément != Element.FONDAMENTAL && this.getPeutGrimper())
-			this.déplacerBas(2);
-
-		if (this.aucuneTouche() && this.estAuSol)
-			this.nePasBouger();
-
-		if (this.état == State.ENCLUME)
-			this.activerEnclume(2);
-
-		if (this.clavier.saut)
-			this.sauter();
-	}
-
-	public void updateGravité(){
-		if (!this.getPeutGrimper()){
-			if (this.getY() < 450){
-				this.vecteurY += 0.25F;
-				this.sprite.coordonnée2D.setY(this.getY()+(int)this.vecteurY);
-				this.setEstAuSolFalse();
 			}
 			else {
-				this.sprite.coordonnée2D.setY(450);
-				this.setEstAuSolTrue();
+				this.setEstAuSolFalse();
 			}	
-		}			
-	}
-
-	public void sauter(){
-		if (this.nbSautsActuels < this.nbSautsMax)
-		{
-			this.vecteurY = -10.0F;
-			this.sprite.coordonnée2D.setY(this.getY()+(int)this.vecteurY);
-			this.nbSautsActuels ++ ;
 		}
-		this.clavier.setSautFalse();
+		// move up
+		else if (this.getVelocityY() < 0.0F){
+			if (Game.collideV(this.getX() / 10,  (int) ((this.getY() + (int)(this.getVelocityY())) / 10))){
+				this.resetForceY();
+			}
+		}
+	} 
+
+
+
+	public void jump(){
+		if (this.nbJumpCurrent < this.element.nbJumpMax)
+		{
+			this.setForceY(-10.0F);
+			this.nbJumpCurrent ++ ;
+			this.kb.setSautFalse();
+			this.setEstAuSolFalse();
+		}
 	}
-	public boolean aucuneTouche(){
-		return (!this.clavier.droite && !this.clavier.gauche &&
-				!this.clavier.haut   && !this.clavier.bas);
-	}
-	public void nePasBouger(){
-		this.état = State.IMMOBILE;
-		//this.direction = this.direction.getSauvegarde();
-	}
-	public void déplacerDroite(int vitesse){
-		this.sprite.coordonnée2D.setX(this.getX()+vitesse);
+
+	public void moveRight(int vitesse){
+		if (Game.collideH(((int) (this.getX() + 50 + vitesse)) / 10, (int) (this.getY() / 10))){
+			this.resetForceX();
+		}
+		else{
+			this.setForceX(vitesse);
+		}
+		if (!Game.collideV(this.getX() / 10, (this.getY() + 50 + this.getVelocityY()) / 10))
+			this.setEstAuSolFalse();
 		this.direction = Direction.DROITE;
-		this.état = State.WALK;
-	}
-	public void tomber(){
-		this.état = State.TOMBE;
-		this.direction = Direction.BAS;
+		this.state = State.WALK;
 	}
 
-	public void déplacerGauche(int vitesse){
-		this.sprite.coordonnée2D.setX(this.getX()-vitesse);
+	public void moveLeft(int vitesse){
+
+		if (this.getX() - this.getVelocityX() > 0 && Game.collideH((int)(this.getX() - this.getVelocityX()) / 10, (int)(this.getY() / 10))){
+			this.resetForceX();
+		}
+		else{
+			this.setForceX(-vitesse);
+		}
+		if (!Game.collideV(this.getX() / 10, (this.getY() + 50 + this.getVelocityY()) / 10))
+			this.setEstAuSolFalse();
 		this.direction = Direction.GAUCHE;
-		this.état = State.WALK;
+		this.state = State.WALK;
 	}
 
-	public void déplacerHaut(int vitesse){
-		this.sprite.coordonnée2D.setY(this.getY()-vitesse);
-		this.direction = Direction.HAUT;
-		this.état = State.GRIMPE;
-	}
 
-	public void déplacerBas(int vitesse){
-		if (!this.estAuSol){
-			this.sprite.coordonnée2D.setY(this.getY()+vitesse);
-			this.direction = Direction.BAS;
-			this.état = State.GRIMPE;
-		}	
-	}
-
-	public void activerEnclume(int vitesse){
-		this.sprite.coordonnée2D.setY(this.getY()+vitesse);
-		this.direction = Direction.BAS;
-	}
-
-	public void updateSauvegardeDirection(){
+	public void updateSavedDirection(){
 		if (this.direction == Direction.DROITE || this.direction == Direction.GAUCHE)
 			this.direction.sauvegarde(this.direction);
 	}
 
 	public void updateSprite(){
-		this.sprite.changeAnimation("images/" + this.élément + this.état + this.direction + ".png", 50, 50);
+		this.sprite.setPath("images/" + this.element.name + this.state + this.direction + ".png");
 	}
 
-	public int getNbFireBalls() {
-		return this.nbFireBalls;
-	}
-
-	public void setNbFireBalls(int nbFireBalls) {
-		this.nbFireBalls = nbFireBalls;
-	}
-
-	public int getNbAquaBalls() {
-		return this.nbAquaBalls;
-	}
-
-	public void setNbAquaBalls(int nbAquaBalls) {
-		this.nbAquaBalls = nbAquaBalls;
-	}
 	public int getNbSautsActuels() {
-		return this.nbSautsActuels;
+		return this.nbJumpCurrent;
 	}
 
 	public void setNbSautsActuels(int nbSautsActuels) {
-		this.nbSautsActuels = nbSautsActuels;
-	}
-
-	public int getNbSautsMax() {
-		return this.nbSautsMax;
-	}
-
-	public void setNbSautsMax(int nbSautsMax) {
-		this.nbSautsMax = nbSautsMax;
+		this.nbJumpCurrent = nbSautsActuels;
 	}
 
 	public void setEstAuSolTrue() {
@@ -242,7 +224,7 @@ public class Hero extends GameObject implements Alive{
 		{
 			this.estAuSol = true;	
 			this.setNbSautsActuels(0);
-			this.vecteurY = 0.0F;
+			this.resetForceY();
 		}
 	}
 
@@ -251,23 +233,26 @@ public class Hero extends GameObject implements Alive{
 			this.estAuSol = false;	
 	}
 
-	public boolean getPeutGrimper() {
-		return this.peutGrimper;
+	public String getElement() {
+		return this.element.name;
 	}
 
-	public void setPeutGrimper(boolean peutGrimper) {
-		this.peutGrimper = peutGrimper;
-	}
-
-	public Element getElement() {
-		return this.élément;
-	}
-	
 	public State getEtat() {
-		return this.état;
+		return this.state;
 	}
 
-	public KeyListener getClavier() {
-		return this.clavier;
+	@Override
+	public void draw(Graphics g) {
+		// Draw image
+		g.drawImage(this.sprite.getImage(), (int) this.getX(), (int) this.getY(), null);
+
+		// Draw hitbox as a blue rectangle
+		//g.setColor(new Color(0,0,255));
+		//g.drawRect(this.getX(), this.getY(), 50, 50);
+
+		// Draw vector as a black line
+		g.setColor(new Color(0,0,0));
+		g.drawLine((int)this.getX()+25, (int)this.getY()+25, (int)this.getX()+25 , (int)this.getY()+25 + (int) this.getVelocityY());
 	}
+
 }

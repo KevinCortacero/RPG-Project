@@ -14,11 +14,11 @@ public class ObjetCourant {
 		this.numéro = numéro;	
 	}
 	
-	public ImageIcon getImageIcon(){
-		return this.image;
-	}
-	
 	public int getNuméro(){
 		return this.numéro;
+	}
+
+	public Image getImage() {
+		return this.image.getImage();
 	}
 }

@@ -7,8 +7,6 @@ public class KeyBoard implements KeyListener {
 	
 	public boolean droite = false;
 	public boolean gauche = false;
-	public boolean haut = false;
-	public boolean bas = false;
 	public boolean a = false;
 	public boolean z = false;
 	public boolean e = false;
@@ -19,20 +17,15 @@ public class KeyBoard implements KeyListener {
 	@Override
 	public void keyPressed(KeyEvent e) {
 		
-		if (e.getKeyCode() == KeyEvent.VK_SPACE)
+		if (e.getKeyCode() == KeyEvent.VK_SPACE){
 			this.saut = true;
+		}
 		
 		if (e.getKeyCode() == KeyEvent.VK_RIGHT)
 			this.droite = true;
 		
 		if (e.getKeyCode() == KeyEvent.VK_LEFT)
 			this.gauche = true;
-		
-		if (e.getKeyCode() == KeyEvent.VK_UP)
-			this.haut = true;
-		
-		if (e.getKeyCode() == KeyEvent.VK_DOWN)
-			this.bas = true;
 		
 		if (e.getKeyCode() == KeyEvent.VK_A)
 			this.a = true;
@@ -60,12 +53,6 @@ public class KeyBoard implements KeyListener {
 		
 		if (e.getKeyCode() == KeyEvent.VK_LEFT)
 			this.gauche = false;
-		
-		if (e.getKeyCode() == KeyEvent.VK_UP)
-			this.haut = false;
-		
-		if (e.getKeyCode() == KeyEvent.VK_DOWN)
-			this.bas = false;
 		
 		if (e.getKeyCode() == KeyEvent.VK_A)
 			this.a = false;
