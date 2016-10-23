@@ -22,7 +22,7 @@ public class Client{
 
 	public Client(String pseudo) {
 		try {
-			this.socket = new Socket(InetAddress.getByName("86.199.87.65"),26964);
+			this.socket = new Socket(InetAddress.getByName("0.0.0.0"),26964);
 			this.player = new Player(pseudo);
 			this.reader = new BufferedReader(new InputStreamReader(this.socket.getInputStream()));
 			this.frame = new ClientFrame(pseudo);
