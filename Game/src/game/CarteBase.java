@@ -37,7 +37,7 @@ public class CarteBase extends Carte {
 	@Override
 	public void draw(Graphics g) {
 		g.drawImage(this.background ,0 , 0, null);
-		/*
+		
 		g.setColor(new Color(0,160,230));
 		for (int i = 0; i < CarteBase.TAILLE_MAX_X; i ++){
 			for (int j = 0; j < CarteBase.TAILLE_MAX_Y; j ++){
@@ -46,7 +46,7 @@ public class CarteBase extends Carte {
 					g.fillRect(i * 10, j *10, 10, 10);
 			}
 		}
-		*/
+		
 		
 	}
 

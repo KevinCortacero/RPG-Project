@@ -60,7 +60,7 @@ public class Hero extends GameObject implements Alive{
 		//update coords
 		this.updatePosition();
 
-		this.updateSavedDirection();
+		//this.updateSavedDirection();
 
 		this.updateState();
 		this.updateFireballs();
@@ -140,22 +140,28 @@ public class Hero extends GameObject implements Alive{
 		else
 			this.velocity.applyForce(0.0F, 0.5F);
 	}
-
+	
+	public boolean isMovingDown(){
+		return (this.getVelocityY() > 0.0F);
+	}
+	public boolean isMovingUp(){
+		return (this.getVelocityY() < 0.0F);
+	}
+	public boolean isCollidingDown(){
+		return (Game.collideV(this.getX() / 10, (this.getY() + 50 + this.getVelocityY()) / 10));
+	}
 	public void updateGravity(){
 		// move down
-		if (this.getVelocityY() > 0.0F){
-			if (Game.collideV(this.getX() / 10, (this.getY() + 50 + this.getVelocityY()) / 10)){
-				this.setEstAuSolTrue();
-				// place the Hero on the ground
-				this.addY(Math.round((this.getY() + 6) / 10) * 10 - this.getY());
-
+		if (this.isMovingDown()){
+			if (this.isCollidingDown()){
+				this.putOnGround();
 			}
 			else {
 				this.setEstAuSolFalse();
 			}	
 		}
 		// move up
-		else if (this.getVelocityY() < 0.0F){
+		else if (this.isMovingUp()){
 			if (Game.collideV(this.getX() / 10,  (int) ((this.getY() + (int)(this.getVelocityY())) / 10))){
 				this.resetForceY();
 			}
@@ -219,7 +225,8 @@ public class Hero extends GameObject implements Alive{
 		this.nbJumpCurrent = nbSautsActuels;
 	}
 
-	public void setEstAuSolTrue() {
+	public void putOnGround() {
+		this.addY(Math.round((this.getY() + 6) / 10) * 10 - this.getY());
 		if (!this.estAuSol)
 		{
 			this.estAuSol = true;	
