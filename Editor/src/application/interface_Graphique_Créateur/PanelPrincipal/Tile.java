@@ -7,17 +7,13 @@ public class Tile {
 	private int x;
 	private int y;
 	private Image image;
-	private int numéro;
+	private String id;
 	
-	public Tile(int x, int y, Image image, int numéro){
+	public Tile(int x, int y, String id){
 		this.x = x;
 		this.y = y;
-		this.image = image;
-		this.numéro = numéro;
-	}
-	
-	public Tile(int numéro){
-		this(0,0,null,numéro);
+		this.image = ;
+		this.id = id;
 	}
 	
 	public Image getImageIcon(){
@@ -32,8 +28,8 @@ public class Tile {
 		return this.y;
 	}
 	
-	public int getNuméro(){
-		return this.numéro;
+	public String getNuméro(){
+		return this.id;
 	}
 
 	public void setX(int x) {

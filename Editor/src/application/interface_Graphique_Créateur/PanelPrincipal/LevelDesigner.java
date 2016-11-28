@@ -17,15 +17,15 @@ import application.interface_Graphique_Créateur.SousPanel;
 import application.jeu.ObjetCourant;
 
 @SuppressWarnings("serial")
-public class PanelPrincipalCréateur extends SousPanel implements MouseListener, MouseMotionListener{
+public class LevelDesigner extends SousPanel implements MouseListener, MouseMotionListener{
 
-	private static PanelPrincipalCréateur instance;
+	private static LevelDesigner instance;
 	private ObjetCourant objetCourant;
 	private LevelContainer levelContainer;
 
-	public static PanelPrincipalCréateur getPanel(){
+	public static LevelDesigner getPanel(){
 		if (instance == null){
-			instance = new PanelPrincipalCréateur();
+			instance = new LevelDesigner();
 			instance.setBounds(200, 200, FrameCréateur.getFrame().getWidth() - 230, FrameCréateur.getFrame().getHeight() - 270);
 		}
 		return instance;
@@ -35,7 +35,7 @@ public class PanelPrincipalCréateur extends SousPanel implements MouseListener, 
 		return this.levelContainer;
 	}
 
-	private PanelPrincipalCréateur(){
+	private LevelDesigner(){
 		super();
 		this.levelContainer = new LevelContainer();
 		this.setBorder(new BorderGray());
@@ -49,7 +49,7 @@ public class PanelPrincipalCréateur extends SousPanel implements MouseListener, 
 	public void paintComponent(Graphics g) {
 		super.paintComponent(g);
 		if (this.levelContainer.getLevel() != null){
-			this.levelContainer.getLevel().afficherCarte(g);
+			this.levelContainer.getLevel().draw(g);
 			//quadrillage 
 			/*
 			g.setColor(Color.white);
@@ -101,9 +101,9 @@ public class PanelPrincipalCréateur extends SousPanel implements MouseListener, 
 			else if (e.getButton() == MouseEvent.BUTTON1 && this.objetCourant == null){
 				this.levelContainer.getLevel().getMap().remove(this.levelContainer.getLevel().getTile(x, y));
 			}
-			else if (e.getButton() == MouseEvent.BUTTON3 && this.levelContainer.getLevel().getTile(x, y).getNuméro() != 0)
+			else if (e.getButton() == MouseEvent.BUTTON3 && this.levelContainer.getLevel().getTile(x, y).getNuméro() != "0")
 				this.setObjetCourant(new ObjetCourant(this.levelContainer.getLevel().getTile(x, y).getImageIcon(), this.levelContainer.getLevel().getTile(x, y).getNuméro()));
-			else if (this.levelContainer.getLevel().getTile(x, y).getNuméro() == 0)
+			else if (this.levelContainer.getLevel().getTile(x, y).getNuméro() == "0")
 				this.setObjetCourant(null);
 			this.repaint();
 		}

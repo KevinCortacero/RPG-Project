@@ -29,6 +29,6 @@ public class LevelContainer{
 	public void changerLevel(String clé){
 		Origine.reset();
 		this.level = this.listeLevel.get(clé);
-		PanelPrincipalCréateur.getPanel().repaint();
+		LevelDesigner.getPanel().repaint();
 	}
 }

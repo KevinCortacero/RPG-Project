@@ -138,19 +138,24 @@ public class Hero extends GameObject implements Alive{
 			this.velocity.resetY();
 		}
 		else
-			this.velocity.applyForce(0.0F, 0.5F);
+			this.velocity.applyForce(0.0F, Game.GRAVITY);
+
 	}
-	
-	public boolean isMovingDown(){
+
+	private boolean isMovingDown(){
 		return (this.getVelocityY() > 0.0F);
 	}
-	public boolean isMovingUp(){
+	private boolean isMovingUp(){
 		return (this.getVelocityY() < 0.0F);
 	}
-	public boolean isCollidingDown(){
+	private boolean isCollidingDown(){
 		return (Game.collideV(this.getX() / 10, (this.getY() + 50 + this.getVelocityY()) / 10));
 	}
+	private boolean isCollidingUp(){
+		return (Game.collideV(this.getX() / 10,  (int) ((this.getY() + (int)(this.getVelocityY())) / 10)));
+	}
 	public void updateGravity(){
+
 		// move down
 		if (this.isMovingDown()){
 			if (this.isCollidingDown()){
@@ -162,7 +167,7 @@ public class Hero extends GameObject implements Alive{
 		}
 		// move up
 		else if (this.isMovingUp()){
-			if (Game.collideV(this.getX() / 10,  (int) ((this.getY() + (int)(this.getVelocityY())) / 10))){
+			if (this.isCollidingUp()){
 				this.resetForceY();
 			}
 		}
@@ -180,28 +185,35 @@ public class Hero extends GameObject implements Alive{
 		}
 	}
 
+	private boolean isCollidingRight(int vitesse){
+		return (Game.collideH(((int) (this.getX() + 50 + vitesse -10)) / 10, (int) (this.getY() / 10)));
+	}
 	public void moveRight(int vitesse){
-		if (Game.collideH(((int) (this.getX() + 50 + vitesse)) / 10, (int) (this.getY() / 10))){
+
+		if (this.isCollidingRight(vitesse)){
 			this.resetForceX();
 		}
 		else{
 			this.setForceX(vitesse);
 		}
-		if (!Game.collideV(this.getX() / 10, (this.getY() + 50 + this.getVelocityY()) / 10))
+		if (!this.isCollidingDown())
 			this.setEstAuSolFalse();
 		this.direction = Direction.DROITE;
 		this.state = State.WALK;
 	}
 
+	private boolean isCollidingLeft(int vitesse){
+		return (Game.collideH((int)(this.getX() - vitesse +10) / 10, (int)(this.getY() / 10)));
+	}
 	public void moveLeft(int vitesse){
 
-		if (this.getX() - this.getVelocityX() > 0 && Game.collideH((int)(this.getX() - this.getVelocityX()) / 10, (int)(this.getY() / 10))){
+		if (isCollidingLeft(vitesse)){
 			this.resetForceX();
 		}
 		else{
 			this.setForceX(-vitesse);
 		}
-		if (!Game.collideV(this.getX() / 10, (this.getY() + 50 + this.getVelocityY()) / 10))
+		if (!this.isCollidingDown())
 			this.setEstAuSolFalse();
 		this.direction = Direction.GAUCHE;
 		this.state = State.WALK;
@@ -259,7 +271,7 @@ public class Hero extends GameObject implements Alive{
 
 		// Draw vector as a black line
 		g.setColor(new Color(0,0,0));
-		g.drawLine((int)this.getX()+25, (int)this.getY()+25, (int)this.getX()+25 , (int)this.getY()+25 + (int) this.getVelocityY());
+		g.drawString("TWARZ",(int) this.getX() +10 , (int) this.getY() -10);
 	}
 
 }

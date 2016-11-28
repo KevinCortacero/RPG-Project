@@ -6,7 +6,7 @@ import java.io.IOException;
 
 import javax.swing.JButton;
 
-import application.interface_Graphique_Créateur.PanelPrincipal.PanelPrincipalCréateur;
+import application.interface_Graphique_Créateur.PanelPrincipal.LevelDesigner;
 
 @SuppressWarnings("serial")
 public class ButtonEnregistrer extends JButton implements ActionListener {
@@ -19,7 +19,7 @@ public class ButtonEnregistrer extends JButton implements ActionListener {
 	@Override
 	public void actionPerformed(ActionEvent e) {
 		try {
-			PanelPrincipalCréateur.getPanel().getLevelContainer().getLevel().sauvegarder();
+			LevelDesigner.getPanel().getLevelContainer().getLevel().sauvegarder();
 		} catch (IOException e1) {
 			// TODO Auto-generated catch block
 			e1.printStackTrace();

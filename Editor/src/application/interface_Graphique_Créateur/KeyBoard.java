@@ -5,7 +5,7 @@ import java.awt.event.KeyEvent;
 
 import application.fonction.Origine;
 import application.fonction.Parametres;
-import application.interface_Graphique_Créateur.PanelPrincipal.PanelPrincipalCréateur;
+import application.interface_Graphique_Créateur.PanelPrincipal.LevelDesigner;
 
 public class KeyBoard extends KeyAdapter{
 
@@ -20,6 +20,6 @@ public class KeyBoard extends KeyAdapter{
 		if (e.getKeyCode() == KeyEvent.VK_Z)
 			Origine.setY(Origine.getY() + Parametres.VITESSE_DEPLACEMENT);
 		
-		PanelPrincipalCréateur.getPanel().repaint();
+		LevelDesigner.getPanel().repaint();
 	}
 }

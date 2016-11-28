@@ -16,7 +16,7 @@ import javax.swing.tree.DefaultTreeModel;
 
 import application.interface_Graphique_Créateur.FrameCréateur;
 import application.interface_Graphique_Créateur.PanelPrincipal.Level;
-import application.interface_Graphique_Créateur.PanelPrincipal.PanelPrincipalCréateur;
+import application.interface_Graphique_Créateur.PanelPrincipal.LevelDesigner;
 
 @SuppressWarnings("serial")
 public class ArbreCartes extends JTree implements TreeSelectionListener, MouseListener {
@@ -24,14 +24,14 @@ public class ArbreCartes extends JTree implements TreeSelectionListener, MouseLi
 	private ButtonsSynchronisation boutons;
 	protected ModelArbreCarte model;
 	private int[] tableauRow;
-	private PanelPrincipalCréateur panel;
+	private LevelDesigner panel;
 
 	public ArbreCartes(ButtonsSynchronisation boutons, ModelArbreCarte model){
 		super(model);
 		this.model = model;
 		this.boutons = boutons;
 		this.tableauRow = new int[40];
-		this.panel = PanelPrincipalCréateur.getPanel();
+		this.panel = LevelDesigner.getPanel();
 		this.sauvegarder();
 		this.expandAll();
 		this.addTreeSelectionListener(this);
@@ -117,15 +117,15 @@ public class ArbreCartes extends JTree implements TreeSelectionListener, MouseLi
 
 			if (!this.boutons.buttonAjoutCarte.isPeutCréerCarte() && !this.boutons.buttonAjoutDossier.isPeutCréerDossier() && !this.boutons.buttonSupprimer.isPeutSupprimer() && this.getLastSelectedPathComponent().toString() != "Liste des cartes"){
 				String path = this.fileName((DefaultMutableTreeNode) node.getParent(), node.toString());
-				if (!PanelPrincipalCréateur.getPanel().getLevelContainer().getListeLevel().containsKey(path)){
+				if (!LevelDesigner.getPanel().getLevelContainer().getListeLevel().containsKey(path)){
 					File fileCarte = new File(path);
 					if (fileCarte.isFile()){
-						PanelPrincipalCréateur.getPanel().getLevelContainer().ajouterLevel(path, new Level(path));
-						PanelPrincipalCréateur.getPanel().getLevelContainer().changerLevel(path);
+						LevelDesigner.getPanel().getLevelContainer().ajouterLevel(path, new Level(path));
+						LevelDesigner.getPanel().getLevelContainer().changerLevel(path);
 					}
 				}
 				else {
-					PanelPrincipalCréateur.getPanel().getLevelContainer().changerLevel(path);
+					LevelDesigner.getPanel().getLevelContainer().changerLevel(path);
 				}
 				this.panel.repaint();
 			}

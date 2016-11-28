@@ -2,12 +2,9 @@ package application.interface_Graphique_Créateur.PanelPrincipal;
 
 import java.awt.Graphics;
 import java.awt.Image;
-import java.awt.Toolkit;
-import java.awt.image.BufferedImage;
 import java.io.BufferedReader;
 import java.io.File;
 import java.io.FileInputStream;
-import java.io.FileNotFoundException;
 import java.io.FileWriter;
 import java.io.IOException;
 import java.io.InputStream;
@@ -15,7 +12,6 @@ import java.io.InputStreamReader;
 import java.util.ArrayList;
 import java.util.List;
 
-import javax.imageio.ImageTypeSpecifier;
 import javax.swing.ImageIcon;
 
 import application.fonction.Origine;
@@ -26,18 +22,18 @@ import application.jeu.ObjetCourant;
 public class Level {
 
 	private File file;
-	private int[][] matrice;
+	private String[][] matrice;
 	private List<Tile> map;
-	private int backgroundNum;
+	private Image background;
 	private Tile tileSize;
 	private FileWriter fileWriter;
 
 
-	public Level(String path){
+	public Level(String path) throws Exception{
 		this.map = new ArrayList<Tile>();
-		this.matrice = new int[1000][1000];
+		this.matrice = new String[1000][1000];
 		this.file = new File(path);
-		this.charger();
+		this.load();
 	}
 
 	public File getFile() {
@@ -52,12 +48,8 @@ public class Level {
 		return map;
 	}
 
-	public int getBackgroundNum() {
-		return backgroundNum;
-	}
-
-	public void setBackgroundNum(int backgroundNum) {
-		this.backgroundNum = backgroundNum;
+	public void setBackground(String  background) {
+		this.background = new ImageIcon(background).getImage();
 	}
 
 	public Tile getTileSize() {
@@ -69,13 +61,10 @@ public class Level {
 		this.fileWriter = new FileWriter(this.file);
 
 		// on retranscrie notre matrice
-		for(int y = 0; y < this.tileSize.getY() ; y ++){
+		for(int y = this.tileSize.getY() -1; y >= 0 ; y --){
 			for(int x = 0; x < this.tileSize.getX() ; x ++){
-				this.fileWriter.write(Integer.toString(this.matrice[x][y]) + "  ");
+				this.fileWriter.write(Integer.toString(this.matrice[x][y]) + ":");
 			}
-			// si on est sur la première ligne, on rajoute l'information du background
-			if (y == 0)
-				this.fileWriter.write(Integer.toString(this.backgroundNum));
 			this.fileWriter.write("\r\n");
 		}
 		this.fileWriter.close();
@@ -90,68 +79,50 @@ public class Level {
 		}
 	}
 
-	public void charger(){
+	public void load() throws Exception{
 		// on recrée la matrice avec les chiffres
-		try {
-			InputStream is = new FileInputStream(this.file);
-			InputStreamReader isr = new InputStreamReader(is);
-			BufferedReader br = new BufferedReader(isr);
+		InputStream is = new FileInputStream(this.file);
+		InputStreamReader isr = new InputStreamReader(is);
+		BufferedReader bfr = new BufferedReader(isr);
 
-			try {
-				String ligne;
-				int y = 0;
-				while ((ligne = br.readLine()) != null ){
+		String line = bfr.readLine();
+		int width = Integer.parseInt(line.substring(line.lastIndexOf("=") + 2, line.length()));
+		line = bfr.readLine();
+		int height = Integer.parseInt(line.substring(line.lastIndexOf("=") + 2, line.length()));
+		line = bfr.readLine();
+		this.setBackground("res/images/" + line.substring(line.lastIndexOf("=") + 2, line.length()));
+		line = bfr.readLine();
+		float gravity_x = Float.parseFloat(line.substring(line.lastIndexOf("=") + 2, line.length()));
+		line = bfr.readLine();
+		float gravity_y = Float.parseFloat(line.substring(line.lastIndexOf("=") + 2, line.length()));
 
-					int xMatrice = 0;
-					int x = 0;
+		String level_matrix[][] = new String[height][width];
 
-					while (x < ligne.length()-1){
-						String numéro = String.valueOf(ligne.charAt(x));
-						while (ligne.charAt(x+1) != ' '){
-							numéro += String.valueOf(ligne.charAt(x+1));	
-							x ++;
-						}
-						if (Integer.parseInt(numéro) <= PanelChoixObjetsCréateur.getPanel().getListeImageNuméro().size())
-							this.matrice[xMatrice][y] = Integer.parseInt(numéro);
-						else
-							this.matrice[xMatrice][y] = 0;
-						xMatrice ++;
-						x += 3;
-					}
-					if (y == 0){
-						this.matrice[xMatrice+1][y] = Integer.parseInt(String.valueOf(ligne.charAt(ligne.length()-1)));
-						if (this.matrice[xMatrice+1][y] != 0)
-							this.setBackgroundNum(this.matrice[xMatrice+1][y]);
-						else
-							this.setBackgroundNum(0);
-					}
-
-					y ++;
-					this.tileSize = new Tile(1,1,new ImageIcon("images\\1.utilitaires\\angleMax.jpg").getImage(), 1);
-					this.tileSize.setX(xMatrice);
-				}
-
-				this.tileSize.setY(y);
-				this.map.add(this.tileSize);
-
-			} catch (IOException e) {
-				e.printStackTrace();
-			}
-		} catch (FileNotFoundException e) {
-			e.printStackTrace();
+		for (int i = 0; i < height; i++){
+			line = bfr.readLine();
+			this.matrice[i] = line.split(":");
 		}
+		bfr.close();
+
+
+		this.tileSize = new Tile(1, 1, "1");
+		this.tileSize.setX(width);
+		this.tileSize.setY(height);
+		this.map.add(this.tileSize);
+
 
 		for(int y = 0; y < this.tileSize.getY() ; y ++){
 			for(int x = 0; x < this.tileSize.getX(); x ++){
-				if (this.matrice[x][y] != 0)
-					this.map.add(new Tile(x,y,this.getTileMatrice(this.matrice[x][y]).getImage().getScaledInstance(ObjetIcone.tailleImageJeu, ObjetIcone.tailleImageJeu, Image.SCALE_SMOOTH), this.matrice[x][y]));
+				if (this.matrice[x][y] != "0")
+					this.map.add(new Tile(x,y,this.matrice[x][y]));
 			}
 		}
-		PanelPrincipalCréateur.getPanel().repaint();
+		LevelDesigner.getPanel().repaint();
 	}
 
+
 	public Tile getTile(int x, int y){
-		Tile resultat = new Tile(0);
+		Tile resultat = new Tile(0, 0, "0");
 		if (this.map != null){
 			for (Tile tile : this.map){
 				if (tile.getX() == x && tile.getY() == y)
@@ -161,15 +132,15 @@ public class Level {
 		return resultat;
 	}
 
-	public ImageIcon getTileMatrice(int numéro){
-		return new ImageIcon(PanelChoixObjetsCréateur.getPanel().getListeImageNuméro().get(numéro).getImage()/*.getScaledInstance(ObjetIcone.tailleImageJeu,ObjetIcone.tailleImageJeu, Image.SCALE_SMOOTH)*/);
+	public ImageIcon getTileMatrice(String id){
+		return new ImageIcon(PanelChoixObjetsCréateur.getPanel().getListeImageNuméro().get(id).getImage());
 	}
 
-	public void afficherCarte(Graphics g){
+	public void draw(Graphics g){
 
 		// affichage du background en premier
-		if (this.getBackgroundNum() != 0)
-			g.drawImage(this.getTileMatrice(this.backgroundNum).getImage(), Origine.getX(), Origine.getY(), null);
+		if (this.background != null)
+			g.drawImage(this.background, Origine.getX(), Origine.getY(), null);
 
 		// affichage des Tiles
 		if (!this.getMap().isEmpty()){
@@ -178,7 +149,7 @@ public class Level {
 					g.drawImage(tile.getImageIcon(),Origine.getX()+tile.getX()*ObjetIcone.tailleImageJeu,Origine.getY()+tile.getY()*ObjetIcone.tailleImageJeu, null);
 			}
 		}
-		
+
 		Image hBorder = new ImageIcon("imagesSpeciales\\bordureH.jpg").getImage();
 		hBorder = new ImageIcon(hBorder.getScaledInstance(ObjetIcone.tailleImageJeu, ObjetIcone.tailleImageJeu,Image.SCALE_DEFAULT)).getImage();
 		Image vBorder = new ImageIcon("imagesSpeciales\\bordureV.jpg").getImage();

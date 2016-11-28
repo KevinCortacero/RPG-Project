@@ -12,6 +12,7 @@ import hero.Hero;
 
 public class Game extends JPanel {
 
+	public static final float GRAVITY = 0.5F;
 	private Hero hero;
 	private Carte carte;
 	private static Game instance;

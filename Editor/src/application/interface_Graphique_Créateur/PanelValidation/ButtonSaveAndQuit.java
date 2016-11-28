@@ -7,8 +7,7 @@ import java.io.IOException;
 import javax.swing.JButton;
 import javax.swing.JOptionPane;
 
-import application.interface_Graphique_Créateur.PanelPrincipal.LevelContainer;
-import application.interface_Graphique_Créateur.PanelPrincipal.PanelPrincipalCréateur;
+import application.interface_Graphique_Créateur.PanelPrincipal.LevelDesigner;
 
 @SuppressWarnings("serial")
 public class ButtonSaveAndQuit extends JButton implements ActionListener {
@@ -28,7 +27,7 @@ public class ButtonSaveAndQuit extends JButton implements ActionListener {
 	                JOptionPane.QUESTION_MESSAGE);
 			if (reponse ==  JOptionPane.YES_NO_OPTION ){
 				try {
-					PanelPrincipalCréateur.getPanel().getLevelContainer().getLevel().sauvegarder();
+					LevelDesigner.getPanel().getLevelContainer().getLevel().sauvegarder();
 				} catch (IOException e1) {
 					// TODO Auto-generated catch block
 					e1.printStackTrace();
