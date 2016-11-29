@@ -4,7 +4,7 @@ import java.io.IOException;
 
 import application.interface_Graphique_Créateur.FrameCréateur;
 
-public class CréerNiveau {
+public class LevelEditor {
 
 	public static void main(String[] args) throws IOException {
 		FrameCréateur f = FrameCréateur.getFrame();

@@ -77,7 +77,7 @@ public class LevelDesigner extends SousPanel implements MouseListener, MouseMoti
 				this.levelContainer.getLevel().gestionClicGauche(x, y, this.objetCourant);
 			}
 			else if (SwingUtilities.isLeftMouseButton(e) && this.objetCourant == null){
-				this.levelContainer.getLevel().getMap().remove(this.levelContainer.getLevel().getTile(x, y));
+				//this.levelContainer.getLevel().getMap().remove(this.levelContainer.getLevel().getTile(x, y));
 			}
 				
 			this.repaint();
@@ -91,6 +91,7 @@ public class LevelDesigner extends SousPanel implements MouseListener, MouseMoti
 
 	@Override
 	public void mouseClicked(MouseEvent e) {
+		/*
 		if (this.levelContainer.getLevel() != null){
 			int x = Util.getPixelToTileX(e.getX());
 			int y = Util.getPixelToTileY(e.getY());
@@ -107,6 +108,7 @@ public class LevelDesigner extends SousPanel implements MouseListener, MouseMoti
 				this.setObjetCourant(null);
 			this.repaint();
 		}
+		*/
 	}
 
 	@Override

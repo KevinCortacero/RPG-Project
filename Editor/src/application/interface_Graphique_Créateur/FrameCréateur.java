@@ -12,7 +12,7 @@ import javax.swing.JFrame;
 import javax.swing.JOptionPane;
 import javax.swing.JPanel;
 
-import application.interface_Graphique_Créateur.PanelGestion.PanelGestionCréateur;
+import application.interface_Graphique_Créateur.PanelGestion.LevelManager;
 import application.interface_Graphique_Créateur.PanelObjets.PanelChoixObjetsCréateur;
 import application.interface_Graphique_Créateur.PanelPrincipal.LevelDesigner;
 import application.interface_Graphique_Créateur.PanelValidation.PanelValidationCréateur;
@@ -45,7 +45,7 @@ public class FrameCréateur extends JFrame implements FocusListener{
 	private void ajouterComponents(){
 		this.liste.add(LevelDesigner.getPanel());
 		this.liste.add(PanelChoixObjetsCréateur.getPanel());
-		this.liste.add(PanelGestionCréateur.getPanel());
+		this.liste.add(LevelManager.getPanel());
 		this.liste.add(PanelValidationCréateur.getPanel());
 		for (JPanel panel : this.liste){
 			this.getContentPane().add(panel);
